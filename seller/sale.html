@@ -83,6 +83,7 @@
 
         </div>
     </nav>
+
     <!-- Example split danger button -->
     <!-- Example single danger button -->
 
@@ -163,30 +164,32 @@
                 <input type="file" class="form-control-file mb-2" id="exampleFormControlFile1">
                 <input type="file" class="form-control-file mb-2" id="exampleFormControlFile1">
                 <input type="file" class="form-control-file mb-2" id="exampleFormControlFile1">
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Giá khởi điểm:</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1"
-                        placeholder="Nhập giá khởi điểm">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Giá khởi điểm:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nhập giá khởi điểm">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Bước giá:</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nhập bước giá">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Giá mua ngay (nếu có):</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nhập giá mua ngay">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Mô tả sản phẩm</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-check" >
+                    <input type="checkbox" class="form-check-input" id="change-pass" onclick="abcf()">
+                    <label class="form-check-label" for="exampleCheck1">Tự động gia hạn</label>
                 </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Bước giá:</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nhập bước giá">
+                <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-danger mt-2 text-center"> <i class="fa fa-gavel mr-2"
+                            aria-hidden="true"> </i>Đăng tin</button>
                 </div>
-                <div class="form-group">
-                        <label for="exampleFormControlInput1">Giá mua ngay (nếu có):</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nhập giá mua ngay">
-                      </div>
-                      <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Mô tả sản phẩm</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                          </div>
         </form>
-        <div class="row mt-2">
-            <h6></h6>
-        </div>
-
-
     </div>
     <footer class="pt-5 pb-4 mt-4" id="contact">
         <div class="container">
@@ -273,6 +276,11 @@
             </div>
         </div>
     </section>
+
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -288,5 +296,6 @@
             });
         });
     </script>
+</body>
 
 </html>
