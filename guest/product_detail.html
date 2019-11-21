@@ -10,13 +10,13 @@
         href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <link rel="stylesheet" href="responsive.css">
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="../responsive.css">
+    <link rel="stylesheet" href="../footer.css">
 
-    <link rel="stylesheet" href="slick-1.8.1/slick/slick.css">
-    <link rel="stylesheet" href="slick-1.8.1/slick/slick-theme.css">
+    <link rel="stylesheet" href="../slick-1.8.1/slick/slick.css">
+    <link rel="stylesheet" href="../slick-1.8.1/slick/slick-theme.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <link rel="stylesheet" href="slideshow.css">
+    <link rel="stylesheet" href="../slideshow.css">
 
 
     <title>Chi tiết sản phẩm</title>
@@ -24,20 +24,17 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-        <a class="navbar-brand" href="#"> <img src="image/logoo.png" alt="logo"></a>
+        <a class="navbar-brand" href="#"> <img src="../image/logoo.png" alt="logo"></a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm sản phẩm, danh mục"
-                    aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Trang chủ<span class="sr-only">(current)</span></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Giỏ hàng</a>
                 </li>
@@ -51,30 +48,23 @@
                         Danh mục
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="laptop.html">Tất cả</a>
-                        <a class="dropdown-item" href="laptop.html">Điện tử</a>
-                        <a class="dropdown-item" href="laptop.html">Thú cưng</a>
-                        <a class="dropdown-item" href="laptop.html">Đồ gia dụng</a>
-                        <a class="dropdown-item" href="laptop.html">Nhạc cụ</a>
+                        <a class="dropdown-item" href="#">Tất cả</a>
+                        <a class="dropdown-item" href="#">Điện tử</a>
+                        <a class="dropdown-item" href="#">Thú cưng</a>
+                        <a class="dropdown-item" href="#">Đồ gia dụng</a>
+                        <a class="dropdown-item" href="#">Nhạc cụ</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="laptop.html">Các sản phẩm khác</a>
+                        <a class="dropdown-item" href="#">Các sản phẩm khác</a>
                     </div>
                 </li>
-               
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user" aria-hidden="true"></i> Chào longhofit
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Quản lí tài khoản</a>
-                        <a class="dropdown-item" href="#">Watch list</a>
-                        
-                     
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Đăng nhập</a>
                 </li>
             </ul>
-
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
     </nav>
     <div class="cata">
@@ -107,7 +97,7 @@
     <div class="container-fluid">
         <div class="mt-2">
             <ul class="list-inline">
-                <li class="list-inline-item"><a class="text-dark" href="index.html">Trang chủ</a></li>
+                <li class="list-inline-item"><a class="text-dark" href="../index.html">Trang chủ</a></li>
                 <li class="list-inline-item"> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
                 <li class="list-inline-item"><a class="text-dark" href="laptop.html"> Nhạc cụ</a></li>
                 <li class="list-inline-item"> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
@@ -117,21 +107,21 @@
         <div class="row m-2 border ">
             <div class="col-12 col-md-5  border-right">
                 <div class="row">
-                    <img class=" slide" src="image/bg1.jpg" alt="">
-                    <img class=" slide" src="image/bg2.jpg" alt="">
-                    <img class=" slide" src="image/bg3.jpg" alt="">
-                    <img class=" slide" src="image/bg4.jpg" alt="">
-                    <img class=" slide" src="image/bg5.jpg" alt="">
+                    <img class=" slide" src="../image/bg1.jpg" alt="">
+                    <img class=" slide" src="../image/bg2.jpg" alt="">
+                    <img class=" slide" src="../image/bg3.jpg" alt="">
+                    <img class=" slide" src="../image/bg4.jpg" alt="">
+                    <img class=" slide" src="../image/bg5.jpg" alt="">
 
                 </div>
                 <div class="row d-flex justify-content-center">
 
 
-                    <img onclick="shows(1)" class="border itemcard" src="image/sm1.jpg" alt="">
-                    <img onclick="shows(2)" class="border itemcard " src="image/sm2.jpg" alt="">
-                    <img onclick="shows(3)" class="border itemcard " src="image/sm3.jpg" alt="">
-                    <img onclick="shows(4)" class="border itemcard " src="image/sm4.jpg" alt="">
-                    <img onclick="shows(5)" class="border itemcard " src="image/sm5.jpg" alt="">
+                    <img onclick="shows(1)" class="border itemcard" src="../image/sm1.jpg" alt="">
+                    <img onclick="shows(2)" class="border itemcard " src="../image/sm2.jpg" alt="">
+                    <img onclick="shows(3)" class="border itemcard " src="../image/sm3.jpg" alt="">
+                    <img onclick="shows(4)" class="border itemcard " src="../image/sm4.jpg" alt="">
+                    <img onclick="shows(5)" class="border itemcard " src="../image/sm5.jpg" alt="">
 
 
                 </div>
@@ -190,8 +180,9 @@
 
                         <div class="form-group ml-3 mt-2">
                             <label for="cusbid">Ra giá của bạn:</label> <br>
-                            <input style="width:50%" type="text" id="cusbid" placeholder="1.200.000.000đ">
-                            <button type="submit" class="btn btn-danger"> <i class="fa fa-gavel mr-2"
+                            <input style="width:50%" type="text" id="cusbid" placeholder="1.200.000.000đ"> <br>
+                            <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Yêu thích</button>
+                            <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2"
                                     aria-hidden="true"> </i>Đấu giá</button>
                         </div>
 
@@ -252,11 +243,51 @@
 
             </div>
         </div>
-        
-        <div class="row m-2 mt-4 text-center ">
+        <div class="row m-2 mt-4  ">
+                <span class="text-uppercase mb-2">LỊCH SỬ ĐẤU GIÁ</span>
+                <div class="col-12 table-responsive">
+                    <table class="table table-bordered text-center ">
+    
+    
+    
+                        <tbody>
+                            <tr>
+                                <th class="color" scope="row">Người mua</th>
+                                <th class="color" scope="row">Giá</th>
+                                <th class="color" scope="row">Thời điểm</th>
+    
+                            </tr>
+                            <tr>
+                               
+                                <td > <i class="fa fa-trophy" aria-hidden="true"></i>
+                                     ****Khoa</td>
+                                <td >6,000,000</td>
+                                <td >1/11/2019 10:43</td>
+                            </tr>
+                            <tr>
+                                <td >****Quang</td>
+                                <td > 5,900,000</td>
+                                <td>1/11/2019 9:43</td>
+    
+                            </tr>
+                            <tr >
+                                <td>****Tuấn</td>
+                                <td>5,800,000</td>
+                                <td>1/11/2019 8:43</td>
+                            </tr>
+                            <tr>
+                                <td>****Minh</td>
+                                <td>5,700,000</td>
+                                <td>1/11/2019 7:43</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <div class="row m-2 mt-4  ">
             <span class="text-uppercase mb-2">CHI TIẾT SẢN PHẨM </span>
             <div class="col-12">
-                <table class="table table-bordered ">
+                <table class="table table-bordered text-center">
 
 
 
@@ -283,8 +314,27 @@
                 </table>
             </div>
         </div>
-        
-        
+        <div class="row m-2 mt-4  ">
+            <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span>
+            <div class="col-12">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Pedal Đa Năng
+                            Cho Đàn Organ Keyboard Cherub Sustain WTB-005 được sản xuất bằng chất liệu kim loại mạ crôm,
+                            vỏ nhựa chịu lực, bền và vững chắc với mặt dưới được trang bị lớp cao su có tác dụng chống
+                            trượt, giúp bạn an tâm và tập trung hơn cho buổi biểu diễn.</small></li>
+                    <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Sản phẩm
+                            thiết kế hướng đến tính khả dụng cao với dây dài 1.5m và phích cắm 1.4mm kết nối hỗ trợ bạn
+                            tối đa trong quá trình sử dụng.</small></li>
+                    <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Sử dụng đúng
+                            cách nó có khả năng tạo ra các âm thanh mượt mà, êm dịu làm rung động lòng người.</small>
+                    </li>
+                    <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Dùng được cho
+                            các loại đàn electric keyboards, organ, piano điện....</small></li>
+
+
+                </ul>
+            </div>
+        </div>
 
         <div class="ml-2 mt-1">
             <span class="text-uppercase mb-3 ">CÁC SẢN PHẨM LIÊN QUAN </span>
@@ -295,7 +345,7 @@
                         <div class="col-6 card card-body w-20">
                             <a class="" href="product_detail.html"
                                 style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                <img class="img-fluid" src="image/2.jpg" alt="">
+                                <img class="img-fluid" src="../image/2.jpg" alt="">
                                 <span class="text-dark ">Chuột Không Dây Logitech M330</span>
                                 <span class="imgTit cd text-danger"></span>
                                 <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
@@ -312,7 +362,7 @@
                         <div class="col-6 card card-body w-20">
                             <a class="" href="product_detail.html"
                                 style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                <img class="img-fluid" src="image/1.jpg" alt="">
+                                <img class="img-fluid" src="../image/1.jpg" alt="">
                                 <span class="text-dark ">Chuột Không Dây Logitech M330</span>
                                 <span class="imgTit cd text-danger"></span>
                                 <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
@@ -329,7 +379,7 @@
                         <div class="col-6 card card-body w-20">
                             <a class="" href="product_detail.html"
                                 style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                <img class="img-fluid" src="image/3.jpg" alt="">
+                                <img class="img-fluid" src="../image/3.jpg" alt="">
                                 <span class="text-dark ">Chuột Không Dây Logitech M330</span>
                                 <span class="imgTit cd text-danger"></span>
                                 <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
@@ -346,7 +396,7 @@
                         <div class="col-6 card card-body w-20">
                             <a class="" href="product_detail.html"
                                 style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                <img class="img-fluid" src="image/4.jpg" alt="">
+                                <img class="img-fluid" src="../image/4.jpg" alt="">
                                 <span class="text-dark ">Chuột Không Dây Logitech M330</span>
                                 <span class="imgTit cd text-danger"></span>
                                 <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
@@ -363,7 +413,7 @@
                         <div class="col-6 card card-body w-20">
                             <a class="" href="product_detail.html"
                                 style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-                                <img class="img-fluid" src="image/6.jpg" alt="">
+                                <img class="img-fluid" src="../image/6.jpg" alt="">
                                 <span class="text-dark ">Chuột Không Dây Logitech M330</span>
                                 <span class="imgTit cd text-danger"></span>
                                 <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
@@ -435,13 +485,13 @@
                             <h5 class="font-weight-bold">Thanh toán</h5>
                         </div>
                         <div class="row">
-                            <img class="m-1" src="image/visa.svg" alt="">
-                            <img class="m-1" src="image/mastercard.svg" alt="">
-                            <img class="m-1" src="image/jcb.svg" alt="">
+                            <img class="m-1" src="../image/visa.svg" alt="">
+                            <img class="m-1" src="../image/mastercard.svg" alt="">
+                            <img class="m-1" src="../image/jcb.svg" alt="">
                         </div>
                         <div class="row">
-                            <img class="m-1" src="image/cash.svg" alt="">
-                            <img class="m-1" src="image/internet-banking.svg" alt="">
+                            <img class="m-1" src="../image/cash.svg" alt="">
+                            <img class="m-1" src="../image/internet-banking.svg" alt="">
                         </div>
                     </div>
 
@@ -480,8 +530,8 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="slick-1.8.1/slick/slick.min.js"></script>
-    <script src="slideshow.js"> </script>
+    <script type="text/javascript" src="../slick-1.8.1/slick/slick.min.js"></script>
+    <script src="../slideshow.js"> </script>
     <script>
         $('.responsive').slick({
             dots: true,
