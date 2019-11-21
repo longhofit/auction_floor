@@ -312,3 +312,11 @@ body
 .slick-next:before {
   color: black !important;
 }
+.foot .container
+{
+  background-color:#222;
+}
+.copyright .container
+{
+  background-color: #111;
+}
