@@ -293,3 +293,22 @@ img{
       display: none;
   } 
 }
+body 
+{
+  background-color: #f0f0f0;
+}
+.container-fluid {
+  background-color: #ffffff;
+}
+.container {
+  background-color: #ffffff;
+}
+.cata{
+  background-color: #bfbfbf;
+}
+.slick-prev:before {
+  color:black !important;
+}
+.slick-next:before {
+  color: black !important;
+}

@@ -4,16 +4,16 @@
     footer {
         color: #fff;
         background-attachment: fixed;
-        background-color:#222;
+        background-color:#222 !important;
 background-image: url(https://s7.postimg.org/uyf0oioaz/footer-bg.png);
         background-size: cover;
         background-position: bottom;
     }
     footer p {
-        color: #ccc;				
+        color: #ccc  !important;				
     }
 footer a {
-        color: #ccc;				
+        color: #ccc  !important;				
     }
     .social-pet li {
         display: inline-block;
@@ -30,16 +30,16 @@ footer a {
         color: #fff;
     }
     .social-pet li:nth-child(2) a {
-        background-color: #57aced;
+        background-color: #57aced  !important;
     }
     .social-pet li:nth-child(3) a {
-        background-color: #dd4f43;
+        background-color: #dd4f43  !important;
     }
     .social-pet li:nth-child(4) a {
-        background-color: #6b27b2;
+        background-color: #6b27b2  !important;
     }
     .social-pet li a:hover {
-        background-color: #0141a2;
+        background-color: #0141a2  !important;
     }
     .social-pet li a:hover i {
         transform: rotate(360deg);
@@ -48,7 +48,7 @@ footer a {
     }
     .recent-post li {
         display: block;
-        color: #ccc;
+        color: #ccc ;
         margin-bottom: 25px;
     }
     .recent-post li label {
