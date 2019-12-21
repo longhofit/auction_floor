@@ -1,0 +1,80 @@
+<html>
+
+
+{{!-- Navigation bar --}}
+{{> navbar}}
+
+<!-- Login Form -->
+{{> login}}
+
+<!-- Sign up Form -->
+{{> sign-up}}
+
+{{!-- Catalog --}}
+{{> catalog}}
+
+<div class="mt-3 ml-5">
+    <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-dark" href="index.html">Trang chủ</a>
+        </li>
+        <li class="list-inline-item">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </li>
+        <li class="list-inline-item">
+            <a class="text-danger" href="laptop.html">Quản lí tài khoản</a>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-12 col-md-3 border-right">
+            <div class="row">
+                <span class="m-3 ">Tài khoản <code>Admin</code></span>
+            </div>
+            <ul class="list-group list-group-flush mt-3">
+                <li class="list-group-item">
+                    <a class="text-danger " href="adminrules.html">Danh sách xin nâng cấp seller</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="text-dark" href="#">Hạ cấp thành bidder</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-md-9 mt-3 ">
+            <div class="col-12 text-center">
+                <h6>Duyệt nâng cấp seller</h6>
+            </div>
+            <ul class="list-group list-group-flush mt-3">
+                <li class="list-group-item d-flex justify-content-between">
+                    <code>userabc1</code>
+                    <button type="submit" class="btn btn-danger mt-2">Duyệt</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <code>userxyz1</code>
+                    <button type="submit" class="btn btn-danger mt-2">Duyệt</button>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <code>useraaaa1</code>
+                    <button type="submit" class="btn btn-danger mt-2">Duyệt</button>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <code>userddd1</code>
+                    <button type="submit" class="btn btn-danger mt-2">Duyệt</button>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between">
+                    <code>user1cccc</code>
+                    <button type="submit" class="btn btn-danger mt-2">Duyệt</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{{!-- Footer --}}
+{{>footer}}
+
+</html>

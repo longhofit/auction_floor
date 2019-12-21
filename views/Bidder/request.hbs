@@ -1,0 +1,85 @@
+<html>
+
+
+{{!-- Navigation bar --}}
+{{> navbar}}
+
+<!-- Login Form -->
+{{> login}}
+
+<!-- Sign up Form -->
+{{> sign-up}}
+
+{{!-- Catalog --}}
+{{> catalog}}
+
+<div class="mt-3 ml-5">
+    <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="text-dark" href="index.html">Trang chủ</a>
+        </li>
+        <li class="list-inline-item">
+            <i class="fa fa-angle-right" aria-hidden="true"></i>
+        </li>
+        <li class="list-inline-item">
+            <a class="text-danger" href="laptop.html">Quản lí tài khoản</a>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-12 col-md-3 border-right">
+            <div class="row">
+                <span class="m-3 ">Tài khoản của <code>longhofit</code></span>
+            </div>
+            <ul class="list-group list-group-flush mt-3">
+                <li class="list-group-item">
+                    <a class="text-dark " href="account.html">Thông tin tài khoản</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="text-dark" href="feedback.html">Đánh giá dành cho bạn</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="text-dark" href="watchlist.html">Sản phẩm yêu thích</a>
+                </li>
+                <li class="list-group-item">
+                    <a class="text-dark" href="bidding.html">Sản phẩm bạn đang đấu giá
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a class="text-dark" href="winproduct.html">Sản phẩm đã thắng </a>
+                </li>
+                <li class="list-group-item">
+                    <a class="text-danger" href="request.html">Yêu cầu trở thành seller
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-md-9 mt-3">
+            <div class="col-12 text-center">
+                <h6>Yêu cầu trở thành seller</h6>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Lời nhắn đến quản trị viên:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nhập mật khẩu hiện tại:</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Mật khẩu hiện tại" />
+                </div>
+
+                <button type="submit" class="btn btn-danger mt-3">
+                    Gửi yêu cầu
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{!-- Footer --}}
+{{>footer}}
+
+</html>
