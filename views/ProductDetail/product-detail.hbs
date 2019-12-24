@@ -11,6 +11,7 @@
 {{!-- Catalog --}}
 {{> catalog}}
 
+
 <div class="mt-3 ml-5">
   <ul class="list-inline">
     <li class="list-inline-item">
@@ -50,15 +51,16 @@
       </div>
     </div>
 
+
     <div class="col-12 col-md-6 border-right border-bottom border-left">
       <div class="row    ">
         <div class="col-12 mt-4">
           <span class="font-weight-bold ">
-            Pedal Đa Năng Cho Đàn Organ Keyboard Cherub Sustain WTB-005 <br />
+            {{{productDetailData.productTitle}}} <br />
           </span>
           <span>
             <small>Thương hiệu:</small>
-            <span class="text-danger">Cherub</span>
+            <span class="text-danger">{{{productDetailData.brand}}} </span>
           </span>
         </div>
         <div class="col-12  d-flex justify-content-center  ">
@@ -69,20 +71,21 @@
           <div class="col-6 ">
             <span> Giá hiện tại:</span> <br />
 
-            <span class=" font-weight-bold imgTit  ">1.200.000.000đ</span>
+            <span class=" font-weight-bold imgTit  ">{{{productDetailData.currenPrice}}}</span>
             <br />
-            <span><small>Giá mua ngay: 2.000.000.000đ</small>
+            <span><small>Giá mua ngay: {{{productDetailData.productPrice}}} </small>
               <span class="font-weight-bold"> </span></span>
             <br />
           </div>
           <div class="col-6 ">
             <span> Người thắng hiện tại:</span> <br />
-            <span class=" font-weight-bold imgTit ">longhofit1234</span>
+            <span class=" font-weight-bold imgTit ">{{{productDetailData.currentWinner}}} </span>
             <br />
-            <span><small></small> <code>12</code> điểm (<i class="fa fa-thumbs-down" aria-hidden="true"></i>
-              <code class="mr-2">4</code>
+            <span><small></small> <code>{{{productDetailData.star}}} </code> điểm (<i class="fa fa-thumbs-down"
+                aria-hidden="true"></i>
+              <code class="mr-2">{{{productDetailData.dislike}}} </code>
               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-              <code>16</code> )
+              <code>{{{productDetailData.like}}}</code> )
             </span>
           </div>
         </div>
@@ -130,16 +133,17 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               <span><small>Người bán:</small></span>
-              <span><code>longhofit9999</code> | </span>
-              <span><small></small> <code>12</code> điểm (<i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                <code class="mr-2">4</code>
+              <span><code>{{{productDetailData.sellerName}}}</code> | </span>
+              <span><small></small> <code>{{{productDetailData.star}}}</code> điểm (<i class="fa fa-thumbs-down"
+                  aria-hidden="true"></i>
+                <code class="mr-2">{{{productDetailData.like}}}</code>
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                <code>16</code>)</span>
+                <code>{{{productDetailData.dislike}}}</code>)</span>
             </li>
             <li class="list-group-item">
               <span>
-                <small>Đăng lúc: <code>17:04:16</code>,
-                  <code> 09/09/1998</code></small>
+                <small>Đăng lúc: <code>{{{productDetailData.postTime}}}</code>,
+                  <code> {{{productDetailData.postDate}}}</code></small>
                 <span class="font-weight-bold"> </span>
               </span>
               <br />
@@ -147,8 +151,8 @@
 
             <li class="list-group-item">
               <span>
-                <small>Kết thúc vào: <code>17:04:16</code>,
-                  <code>29/09/2019</code></small>
+                <small>Kết thúc vào: <code>{{{productDetailData.closeTime}}}</code>,
+                  <code>{{{productDetailData.closeDate}}}</code></small>
                 <span class="font-weight-bold"> </span>
               </span>
             </li>
@@ -175,6 +179,7 @@
       </div>
     </div>
   </div>
+
   <div class="row m-2 mt-4  ">
     <span class="text-uppercase mb-2">LỊCH SỬ ĐẤU GIÁ</span>
     <div class="col-12 table-responsive">
@@ -209,6 +214,7 @@
       </table>
     </div>
   </div>
+
   <div class="row m-2 mt-4  ">
     <span class="text-uppercase mb-2">CHI TIẾT SẢN PHẨM </span>
     <div class="col-12">
@@ -234,6 +240,7 @@
       </table>
     </div>
   </div>
+
   <div class="row m-2 mt-4  ">
     <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span>
     <div class="col-12">

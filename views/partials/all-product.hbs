@@ -1,122 +1,31 @@
 <html>
+
 <div class="text-view-all">
     <h4>Tất cả sản phẩm</h4>
 </div>
+
 <div class=""><sub>Xem chi tiết</sub></div>
 
 <div class="row all-product">
-    <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-        <div class="center">
-            <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
-                <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
-                    <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
-                </div>
-            </div>
-        </div>
-    </div>
 
+    {{#each productData.allProductArr}}
     <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
         <div class="center">
             <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
+                <img src="{{this.imageSrc}}" alt="" />
                 <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
+                    <h2>{{this.productTitle}}</h2>
                     <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
+                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> {{this.productPrice}}</i></p>
+                    <p class="buy-now">Giá mua ngay: <code>{{this.currenPrice}}</code></p>
                 </div>
             </div>
         </div>
     </div>
+    {{/each}}
 
-    <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-        <div class="center">
-            <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
-                <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
-                    <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-        <div class="center">
-            <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
-                <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
-                    <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-        <div class="center">
-            <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
-                <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
-                    <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-        <div class="center">
-            <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
-                <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
-                    <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-        <div class="center">
-            <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
-                <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
-                    <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-        <div class="center">
-            <div class="card-container-2">
-                <img src="../assets/image/5.jpg" alt="" />
-                <div class="content">
-                    <h2>Chuột không dây Logitech M330</h2>
-                    <p class="imgTit cd"></p>
-                    <p class="price"><i class="fa fa-gavel" aria-hidden="true"> 20.000.000₫</i></p>
-                    <p class="buy-now">Giá mua ngay: <code>200.000.000.000₫</code></p>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
 <nav class="d-flex mr-2 justify-content-center">
     <ul class="pagination">
         <li class="page-item">

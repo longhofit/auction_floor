@@ -6,6 +6,14 @@ var morgan = require('morgan');
 
 var path = require('path');
 
+var productData = require('./public/js/homeData');
+
+var productByCategoryData = require('./public/js/categoryData');
+
+var productDetailData = require('./public/js/productDetailData');
+
+console.log(productDetailData);
+
 require('express-async-errors');
 
 // Bootstrap, Slick, Fontawesome path
@@ -60,7 +68,8 @@ app.get('/', (req, res) => {
     title: 'Home',
     customCss: ['style.css', 'footer.css', 'responsive.css'],
     css,
-    js
+    js,
+    productData
   });
 });
 
@@ -73,7 +82,8 @@ app.get('/category', (req, res) => {
     title: 'Category',
     customCss: ['style-laptop.css', 'footer.css', 'responsive.css'],
     css,
-    js
+    js,
+    productByCategoryData
   });
 });
 
@@ -87,7 +97,8 @@ app.get('/product-detail', (req, res) => {
       'slideshow.css'
     ],
     css,
-    js
+    js,
+    productDetailData
   });
 });
 

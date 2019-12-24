@@ -1,11 +1,11 @@
 $('.card').on('click', function() {
   // window.location.replace("product_detail.html");
-  window.open('product_detail.html', '_self');
+  window.open('product-detail', '_self');
 });
 
 $('.card-container-2').on('click', function() {
   // window.location.replace("product_detail.html");
-  window.open('product_detail.html', '_self');
+  window.open('product-detail', '_self');
 });
 
 $('.card').tilt({
