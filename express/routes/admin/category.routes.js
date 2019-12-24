@@ -22,8 +22,9 @@ router.get('/add', (req, res) => {
 });
 
 router.post('/add',async (req, res) => {
+    console.log(req.body);
+    const result= await categoryModel.add(req.body);
 
-    const result= await categoryModel.add(req.body); 
     res.render('vwCategories/add');
 
 });
