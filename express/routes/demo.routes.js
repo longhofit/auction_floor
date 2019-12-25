@@ -4,8 +4,8 @@ let fs = require('fs-extra');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     
-    console.log(req.headers);
-    let a = "c"
+    //console.log(req.headers);
+    //let a = "c"
     let path = `./public/imgs/`;
 
     //fs.mkdirsSync(path);
