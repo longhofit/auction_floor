@@ -10,6 +10,13 @@ module.exports={
         delete entity.CatID;
        // console.log(condition,entity);
        return db.patch('categories',entity,condition);
-    }
+    },
+    allWithDetails: _ =>  {
+        const sql =`
+        select c.CatID, c.CatName, count(p.ProID) as num_of_products
+        from categories c left join products p on c.CatID = p.CatID
+        group by c.CatID, c.CatName`;
+        return db.load(sql);
+    },
    
-}
+};
