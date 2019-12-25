@@ -8,7 +8,7 @@ module.exports={
         return rows[0].total;
     },
     pageByCat: (catId,offset) => db.load(`select * from products where CatID=${catId} limit ${config.paginate.limit} offset ${offset}`),
-    single: id => db.load(`select * from product where ProID=${id}`),
+    single: id => db.load(`select * from products where ProID=${id}`),
     add: entity => db.add('products',entity),
     del: id => db.del('products',{ProID: id}),
     patch: entity =>{
