@@ -3,7 +3,6 @@ const categoryModel = require('../models/category.model');
 module.exports = function(app)  {
     app.use(async (req, res, next) => {
         res.locals.retUrl=req.originalUrl;
-        console.log(res.locals.retUrl);
         const rows = await categoryModel.allWithDetails();
         res.locals.lcCategories = rows;
     

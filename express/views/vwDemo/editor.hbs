@@ -1,3 +1,7 @@
+{{#section 'css'}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+  rel="stylesheet" type="text/css" />
+{{/section}}
 {{#section 'js'}}
 <script
     src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
@@ -17,11 +21,15 @@
 {{/section}}
 
 <form method="POST" novalidate>
-    <div class="card shadow">
+    <div class=" shadow">
         <h4 class="card-header">
             Editor
         </h4>
         <div class="card-body">
+             <div class="form-group">
+                <label for="Image">Pro ID</label>
+                <input class="form-control" id="Image" name="Image"></input>
+            </div>
             <div class="form-group">
                 <label for="ProID">Pro ID</label>
                 <input class="form-control" id="ProID" name="ProID"></input>
