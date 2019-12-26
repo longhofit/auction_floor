@@ -10,6 +10,10 @@ module.exports={
     pageByCat: (catId,offset) => db.load(`select * from products where CatID=${catId} limit ${config.paginate.limit} offset ${offset}`),
     single: id => db.load(`select * from products where ProID=${id}`),
     add: entity => db.add('products',entity),
+    max: async comlumn => {
+       const rows= await db.max('products',`${comlumn}`);
+       return rows[0].max;
+    },
     del: id => db.del('products',{ProID: id}),
     patch: entity =>{
         const condition={ ProID: entity.ProID};

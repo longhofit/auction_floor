@@ -10,7 +10,7 @@ router.get('/:id', async (req, res) => {
     // }
     const proId=req.params.id;
     const rows = await productModel.single(proId);
-
+   
     res.render('vwProducts/detail', {
         products: rows[0]
 

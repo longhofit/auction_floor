@@ -1,7 +1,7 @@
 {{#section 'css'}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
   rel="stylesheet" type="text/css" />
-  
+
 {{/section}}
 
 {{#section 'js'}}
@@ -15,19 +15,19 @@
   });
 </script>
 <script
-    src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+  src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
 <script>
-    tinymce.init({
-        selector: '#txtFullDes',
-        height: 600,
-        plugins: 'paste image link autolink lists table media',
-        menubar: false,
-        toolbar: [
-            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
-            'forecolor backcolor',
-            'table link image media',
-        ],
-    });
+  tinymce.init({
+    selector: '#txtFullDes',
+    height: 600,
+    plugins: 'paste image link autolink lists table media',
+    menubar: false,
+    toolbar: [
+      'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+      'forecolor backcolor',
+      'table link image media',
+    ],
+  });
 </script>
 {{/section}}
 
@@ -38,11 +38,18 @@
     </h4>
     <div class="card-body">
       <div class="form-group">
-        <input id="Image" name="Image" type="file">
+        <label for="CatID"> Chọn danh mục</label>
+        <select name="CatID" class="form-control form-control-sm">
+          <option value="2">Điện thoại</option>
+          <option value="3">Máy tính bảng</option>
+          <option value="5">Tivi</option>
+          <option value="6">Guitar</option>
+          <option value="7">Thú cưng</option>
+        </select>
       </div>
+
       <div class="form-group">
-        <label for="ProID">Pro ID</label>
-        <input class="form-control" id="ProID" name="ProID"></input>
+        <input id="Image" name="Image" type="file">
       </div>
       <div class="form-group">
         <label for="txtProName">Name</label>
@@ -59,10 +66,6 @@
       <div class="form-group">
         <label for="Price">Price</label>
         <input class="form-control" id="Price" name="Price"></input>
-      </div>
-      <div class="form-group">
-        <label for="CatID">Cat ID</label>
-        <input class="form-control" id="CatID" name="CatID"></input>
       </div>
       <div class="form-group">
         <label for="Quantity">Quantity</label>

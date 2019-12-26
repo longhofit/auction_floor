@@ -34,7 +34,7 @@ router.get('/:id/products', async (req, res) => {
         })
     }
 
-   
+    console.log(rows);
     // const rows = await productModel.pageByCat(req.params.id,offset);
     res.render('vwProducts/allByCat', {
         products: rows,
