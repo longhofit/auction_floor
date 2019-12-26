@@ -3,9 +3,8 @@ const multer = require('multer');
 let fs = require('fs-extra');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(req.session.ProID);
+
     let path = `./public/imgs/sp/${req.session.ProID}`;
-    console.log(path);
     fs.mkdirsSync(path);
     cb(null, path);
   },
