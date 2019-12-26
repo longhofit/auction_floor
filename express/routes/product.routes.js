@@ -12,9 +12,12 @@ router.get('/:id', async (req, res) => {
     const rows = await productModel.single(proId);
    
     res.render('vwProducts/detail', {
-        products: rows[0]
+        products: rows[0],
+    
 
     });
+
+    
 
   //  const rows = await productModel.allByCat(req.params.id);
     // res.render('vwProducts/allByCat', {
