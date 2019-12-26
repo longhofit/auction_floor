@@ -4,6 +4,8 @@ const moment = require('moment');
 const userModel = require('../models/user.model');
 const restrict=require('../middlewares/auth.mdw');
 const router = express.Router();
+
+
 router.get('/register', async (req, res) => {
   res.render('vwAccount/register');
 });
@@ -26,6 +28,7 @@ router.post('/register', async (req, res) => {
 router.get('/login', (req, res) => {
   res.render('vwAccount/login', { layout: false })
 });
+
 
 router.post('/login', async (req, res) => {
   // const user={
