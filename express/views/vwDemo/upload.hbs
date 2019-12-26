@@ -31,7 +31,7 @@
 </script>
 {{/section}}
 
-<form method="POST" novalidate enctype="multipart/form-data">
+<form method="POST" novalidate enctype="multipart/form-data"  >
   <div class=" shadow">
     <h4 class="card-header">
       Upload
@@ -49,7 +49,8 @@
       </div>
 
       <div class="form-group">
-        <input id="Image" name="Image" type="file">
+        <label for="Image">Upload ảnh</label>
+        <input id="Image" name="Image" type="file" multiple>
       </div>
       <div class="form-group">
         <label for="txtProName">Name</label>

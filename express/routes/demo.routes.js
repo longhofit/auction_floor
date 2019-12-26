@@ -9,8 +9,8 @@ const storage = multer.diskStorage({
     cb(null, path);
   },
   filename: function (req, file, cb) {
-    let filename=`${req.session.ProID}_1.jpg`
-    cb(null, filename)
+    //let filename=`${req.session.ProID}_1.jpg`
+    cb(null, file.originalname+"_"+Date.now());
   },
 
 });
@@ -34,23 +34,35 @@ router.get('/editor', function (req, res) {
 router.post('/editor', async (req, res) => {
   const result = await productModel.add(req.body);
   upload.single('Image')(req, res, err => {
-    if (err) { }  
+    if (err) { aaaaaaaaaaaaaaaaaaaaa}  
   });
   res.send('ok');
 });
 router.get('/upload', async (req, res) => {
   req.session.ProID=await productModel.max(`ProID`)+1;
+  console.log( req.session.ProID);
   res.render('vwDemo/upload');
 });
 router.post('/upload', (req, res) => {
 
-  upload.single('Image')(req, res,  err => {
+  upload.array('Image',5)(req, res, async err => {
     if (err) { };
     var entity = req.body;
     entity.ProID= req.session.ProID;
     entity.Image = `/imgs/sp/${req.session.ProID}/${entity.ProID}_1.jpg`;
-    const result =  productModel.add(entity);
+    const result = await productModel.add(entity);
+    var filenames = req.files.map(function(file) {
+      return file.filename; 
+    });
+    for(var i=0;i<filenames.length;i++)
+    {
+      fs.rename(`./public/imgs/sp/${req.session.ProID}/${filenames[i]}`, `./public/imgs/sp/${req.session.ProID}/${req.session.ProID}_${i}.jpg`, function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+    });
+    }
+
+    res.redirect(`/demo/upload`);
   });
-  res.redirect(`/demo/upload`);
+  
 })
 module.exports = router;
