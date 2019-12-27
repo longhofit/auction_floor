@@ -3,6 +3,7 @@ const config=require('../config/default.json');
 module.exports={
     all:()=> db.load('select * from product'),
     allByCat: catId => db.load(`select * from products where CatID=${catId}`),
+
     countByCat: async catId => {
         const rows = await db.load(`select count(*) as total from products where CatID=${catId}`);
         return rows[0].total;
@@ -21,6 +22,14 @@ module.exports={
         delete entity.ProID;
        // console.log(condition,entity);
        return db.patch('products',entity,condition);
-    }
+    },
+   // allImg: ProID =>db.load(`select * from proimage as link where ProID = 2018`),
+    addImgs: entity => {
+        for (var i=0;i<entity.length;i++)
+        {
+            db.add('proimage',entity[i])
+        }
+    },
+    loadImgs: ProID => db.load(`select * from proimage where ProID=${ProID}`)
    
 }

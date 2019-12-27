@@ -1,7 +1,7 @@
 const restrict=require('../middlewares/auth.mdw');
 module.exports = function (app) {
-  app.use('/account', require('../routes/account.routes'));
-  app.use('/categories', require('../routes/category.routes'));
-  app.use('/products', require('../routes/product.routes'));
+  app.use('/account', require('../routes/customer/account.routes'));
+  app.use('/categories', require('../routes/customer/category.routes'));
+  app.use('/products', require('../routes/customer/product.routes'));
   app.use('/admin/categories',restrict,require('../routes/admin/category.routes'));
 }; 

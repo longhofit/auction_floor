@@ -5,7 +5,7 @@ const pool=mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '123456',
-    database: 'auctiondb'
+    database: 'online_aucdb'
 
 });
 const mysql_query=util.promisify(pool.query).bind(pool);

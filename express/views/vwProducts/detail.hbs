@@ -1,8 +1,8 @@
 {{#section 'css'}}
-    <link rel="stylesheet" href="../../css/style-laptop.css" type="text/css">
+    <link rel="stylesheet" href="/css/style-laptop.css" type="text/css">
 {{/section}}
 {{#section 'js'}}
- <script src="../..//js/slideshow.js"></script>
+ <script src="/js/slideshow.js"></script>
 {{/section}}
   <div class="mt-3 ml-5">
     <ul class="list-inline">
@@ -46,7 +46,7 @@
 
           <div class="col-12 mt-4">
             <span class="font-weight-bold ">
-             {{products.ProName}} <br>
+            {{products.ProName}}  <br>
             </span>
             <span> <small>Thương hiệu:</small> <span class="text-danger">Cherub</span> </span>
           </div>
@@ -232,6 +232,10 @@
         
 
         {{{products.FullDes}}}
+        {{#each proImgs}} 
+        <img src="{{ImageLink}}" alt="">
+        {{/each}}
+ 
       </div>
     </div>
 
