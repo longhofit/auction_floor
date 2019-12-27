@@ -1,8 +1,6 @@
-const express = require('express');
 const multer = require('multer');
 let fs = require('fs-extra');
 const productModel = require('../../models/product.model');
-const config = require('../../config/default.json');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 

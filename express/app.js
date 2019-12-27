@@ -47,10 +47,7 @@ app.get('/', (req, res) => {
     arr: rows,
   });
 });
-app.get('/about', (req, res) => {
 
-  res.render('about');
-});
 
 
 app.use((req, res, next) => {

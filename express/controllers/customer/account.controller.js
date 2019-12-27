@@ -1,10 +1,6 @@
-const express = require('express');
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../../models/user.model');
-const restrict = require('../../middlewares/auth.mdw');
-const router = express.Router();
-
 module.exports.vwregister = async (req, res) => {
     res.render('vwAccount/register');
 };
