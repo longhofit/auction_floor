@@ -19,36 +19,3 @@ module.exports = {
 
   
 };
-  // load: sql => new Promise((done,fail)=>{
-    //         pool.query(sql,  (err, results, fields) => {
-    //             if (err){
-    //                 fail(err);
-    //             }
-    //             else{
-    //                 done(results);
-    //             }
-    //         });
-    //   })
-
-   
-    // load: (sql,fn_done) => {
-    //     var mysqlconnection = mysql.createConnection({
-    //         host: 'localhost',
-    //         user: 'root',
-    //         password: '123456',
-    //         database: 'employeedb'
-    //     });
-    
-    //     mysqlconnection.connect(function (err) {
-    //         //nếu có nỗi thì in ra
-    //         if (err) console.log('khong thanh cong' + JSON.stringify(err));
-    //         //nếu thành công
-    //         mysqlconnection.query(sql,  (err, results, fields) => {
-    //             if (err) throw err;
-
-    //             fn_done(results); 
-
-    //             mysqlconnection.end();
-    //         });
-    //     });
-    // }

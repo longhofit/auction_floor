@@ -11,6 +11,7 @@ module.exports={
     pageByCat: (catId,offset) => db.load(`select * from products where CatID=${catId} limit ${config.paginate.limit} offset ${offset}`),
     single: id => db.load(`select * from products where ProID=${id}`),
     add: entity => db.add('products',entity),
+    addBidLog : entity => db.add('bidding_log',entity),
     max: async comlumn => {
        const rows= await db.max('products',`${comlumn}`);
        return rows[0].max;
@@ -30,6 +31,8 @@ module.exports={
             db.add('proimage',entity[i])
         }
     },
-    loadImgs: ProID => db.load(`select * from proimage where ProID=${ProID}`)
+    loadImgs: ProID => db.load(`select * from proimage where ProID=${ProID}`),
+    allLogByProID: ProID => db.load (`select * from bidding_log where ProID=${ProID}`),
+    endTime : ProID=> db.load(`select * from endtime where ProID=${ProID}`)
    
 }

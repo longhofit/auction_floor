@@ -1,6 +1,7 @@
 const multer = require('multer');
 let fs = require('fs-extra');
 const productModel = require('../../models/product.model');
+const userModel = require('../../models/user.model');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
@@ -19,49 +20,48 @@ const upload = multer({ storage });
 
 
 module.exports.productDetail = async (req, res) => {
+  
     const proId = req.params.id;
-    const rows = await productModel.single(proId);
+    req.session.beforePost=req.originalUrl
+    const [productinfo, loginfo,endtime] = await Promise.all([
+        productModel.single(proId),
+        productModel.allLogByProID(proId),
+        productModel.endTime(proId)
+
+    ]);
+  
+        
+    
+
+
+    const [winnerinfo, sellerinfo] = await Promise.all([
+        userModel.single(productinfo[0].WinerID),
+        userModel.single(productinfo[0].SellerID)
+
+    ]);
+    req.session.ProID=proId;
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
-    var rows2=[];
+    var proimg=[];
     fs.readdir(imgFolder, (err, files) => {
         files.forEach(file => {
          //   console.log(`${file}`);
             if(err) console.log(err);
             var fullname=`/imgs/sp/${proId}/${file}`
-            rows2.push({ImageLink: fullname });
+            proimg.push({ImageLink: fullname });
         });
     });
     res.render('vwProducts/detail', {
-        products: rows[0],
-        proImgs: rows2
-    });
-    // for (const c of res.locals.lcCategories) {
-    //     if (c.proId === +req.params.id) {
-    //         c.isActive = true;
-    //     } 
-    // }
-   
-    // const rows = await productModel.single(proId);
-    // const rows2=await productModel.loadImgs(proId);
+        products: productinfo[0],
+        proImgs: proimg,
+        winner:winnerinfo[0],
+        seller : sellerinfo[0],
+        loginfor : loginfo,
+        endtime: endtime[0]
 
+    });
     
 
-    // var productsImg = [];
-    // // console.log(rows2[4].ImageLink);
-    // // console.log(rows2[5]);
-    // for (var i = 0; i < rows2.length; i++) {
-    //   //  console.log(rows2[i].ImageLink);
-    //     productsImg.push(rows2[i].ImageLink);
-    // }
-  //  console.log(productsImg);
-
-    // proImgs=[];
-    // for(var i=0;i<rows2.length;i++)
-    // {
-    //     proImgs[i].push(rows2[i].ImageLink)
-    // }
-    // console.log(proImgs);
     
 }
 module.exports.formUpload = async (req, res, next) => {
@@ -99,7 +99,7 @@ module.exports.addProduct = async (req, res) => {
       //      imgEntity.push({ ProID: entity.ProID, ImageLink: imglink[i] });
    //     }
    //     console.log(imgEntity);
-
+        entity.SellerID=req.session.authUser.f_ID;
         const result1 = await productModel.add(entity);
         res.redirect('/products/upload');
     });
@@ -122,4 +122,23 @@ module.exports.loadImage = (req, res) => {
         });
     });
     res.send('ok');
+};
+
+module.exports.bidding = async (req, res) => {
+    // console.log(req.body.Price);
+    // console.log(req.session.ProID);
+    // console.log(req.session.authUser.f_ID);
+    if (req.session.isAuthenticated === false) {
+        return res.redirect(`/account/login?retUrl=${ req.session.beforePost}`);
+    }
+    else {
+        entity={Price:req.body.Price, ProID: req.session.ProID, UserID:req.session.authUser.f_ID, UserName:req.session.authUser.f_Name };
+        console.log(entity);
+        const result = await productModel.addBidLog(entity);
+        res.redirect(req.headers.referer);
+        
+    }
+   
 }
+
+

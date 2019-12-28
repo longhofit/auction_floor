@@ -39,6 +39,7 @@ module.exports.login = async (req, res) => {
     delete user.f_Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user;
+    
     const url = req.query.retUrl || '/';
     res.redirect(url);
 };
