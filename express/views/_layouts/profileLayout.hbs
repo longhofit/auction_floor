@@ -15,10 +15,11 @@
   <link rel="stylesheet" href="/css/responsive.css" />
   <link rel="stylesheet" href="/css/footer.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" />
+  <link rel="stylesheet" href="/css/style-laptop.css" type="text/css" />
   {{{_sections.css}}}
   {{{_sections.js}}}
 
-  <title>Aution Floor Site</title>
+  <title>Aution Floor Sit</title>
 </head>
 
 <body>
@@ -91,8 +92,41 @@
     </div>
   </div>
 
-
-    {{{body}}}
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-12 col-md-3 border-right">
+      <div class="row">
+        <span class="m-3 ">Tài khoản của <code>{{authUser.f_Name}}</code></span>
+      </div>
+      <ul class="list-group list-group-flush mt-3">
+        <li class="list-group-item">
+          <a class="text-danger " href="account.html">Thông tin tài khoản</a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="feedback.html">Đánh giá dành cho bạn</a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="watchlist.html">Sản phẩm yêu thích</a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="bidding.html">Sản phẩm bạn đang đấu giá
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="winproduct.html">Sản phẩm đã thắng </a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="/account/request">Yêu cầu trở thành seller
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-12 col-md-9 mt-3">
+      {{{body}}}
+    </div>
+  </div>
+</div>
+    
 
   <!-- Footer -->
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />

@@ -59,13 +59,13 @@
             <span> Giá hiện tại:</span> <br>
 
             <span class=" font-weight-bold imgTit  ">{{format products.Price}}</span> <br>
-            <span><small>Giá mua ngay: 2.000.000.000đ</small> <span class="font-weight-bold">
+            <span><small>Giá mua ngay: {{format products.PriceToBuy}}</small> <span class="font-weight-bold">
               </span></span> <br>
 
           </div>
           <div class="col-6 ">
             <span> Người thắng hiện tại:</span> <br>
-            <span class=" font-weight-bold imgTit ">{{products.WinerID}}</span> <br>
+            <span class=" font-weight-bold imgTit ">{{winner.f_Name}}</span> <br>
             <span><small></small> <code>12</code> điểm (<i class="fa fa-thumbs-down" aria-hidden="true"></i> <code
                 class="mr-2">4</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <code>16</code> ) </span>
           </div>
@@ -243,7 +243,7 @@
               </span>
 
 
-              <span class="text-dark"><small>Giá mua ngay: <code>2.000.000.000₫</code></small></span>
+              <span class="text-dark"><small>Giá mua ngay: <code>{{format products.Price}}</code></small></span>
 
 
 

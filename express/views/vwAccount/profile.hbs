@@ -1,15 +1,47 @@
-{{#section 'css'}}
- <link rel="stylesheet" href="/css/style.css" type="text/css" />
-{{/section}}
-<div class=" shadow">
-  <h4 class="card-header">
-    <i class="fa fa-home" aria-hidden="true"></i>
-    Profile
-  </h4>
-  <div class="card-body">
-    Sinh viên tự tsc hiện.
-  </div>
-  <div class="card-footer text-muted">
-    Footer
-  </div>
-</div>
+
+      <div class="col-12 text-center">
+        <h6>Cập nhật thông tin tài khoản</h6>
+      </div>
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Họ tên:</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="{{authUser.f_Name}}" />
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Số điện thoại:</label>
+          <input class="form-control" type="text" placeholder="0909123321" readonly />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email:</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="levanus@gmail.com" />
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Nhập mật khẩu hiện tại:</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            placeholder="Mật khẩu hiện tại" />
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="change-pass" onclick="abcf()" />
+          <label class="form-check-label" for="exampleCheck1">Đổi mật khẩu</label>
+        </div>
+        <div id="test" style="display: none;">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Mật khẩu mới:</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="" />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Nhập lại mật khẩu mới:</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="" />
+          </div>
+        </div>
+
+        <button id="btn-alert" type="submit" class="btn btn-danger mt-3">
+          Cập nhật
+        </button>
+      </form>
+    </div>

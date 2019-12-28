@@ -8,4 +8,6 @@ router.get('/login',controller.vwlogin);
 router.post('/login',controller.login);
 router.get('/profile',restrict,controller.profile);
 router.post('/logout',controller.logout)
+router.get('/request',controller.vwrequest);
+router.post('/request',controller.sendrequest);
 module.exports = router;

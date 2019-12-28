@@ -9,7 +9,7 @@ module.exports={
     },
     add: entity => db.add('user',entity),
     del: id => db.del('user',{f_ID: id}),
-  
+    addrequest: entity => db.add('request',entity)
    
    
 };

@@ -136,7 +136,7 @@ module.exports.bidding = async (req, res) => {
         console.log(entity);
         const result = await productModel.addBidLog(entity);
         res.redirect(req.headers.referer);
-        
+
     }
    
 }

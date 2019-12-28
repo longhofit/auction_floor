@@ -39,7 +39,7 @@ module.exports.login = async (req, res) => {
     delete user.f_Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user;
-    
+
     const url = req.query.retUrl || '/';
     res.redirect(url);
 };
@@ -54,5 +54,14 @@ module.exports.logout = (req, res) => {
 }
 module.exports.profile = (req, res) => {
 
-    res.render('vwAccount/profile');
+
+    res.render('vwAccount/profile', { layout: 'profileLayout.hbs' });
 };
+module.exports.vwrequest = (req, res) => {
+    res.render('vwAccount/request', { layout: 'profileLayout.hbs' });
+}
+module.exports.sendrequest = (req, res) => {
+    entity = { UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name, Mess: req.body.Mess };
+    userModel.addrequest(entity);
+    res.redirect('/account/request')
+}
