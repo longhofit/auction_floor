@@ -135,7 +135,7 @@ module.exports.bidding = async (req, res) => {
         entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name };
         const result = await productModel.addBidLog(entity);
         res.redirect(req.headers.referer);
-
+        
     }
 
 }
@@ -146,8 +146,9 @@ module.exports.addWishList = async (req, res) => {
     else {
         entity = { UserID: req.session.authUser.f_ID, ProID: req.session.ProID };
         await productModel.addwishlist(entity);
-        const rs2 = await productModel.allByWishList([2091, 2092]);
-        console.log(rs2);
+        console.log(entity);
+        // const rs2 = await productModel.allByWishList([2091, 2092]);
+        // console.log(rs2);
         res.redirect(req.headers.referer);
 
     }
