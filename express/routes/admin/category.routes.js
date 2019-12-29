@@ -1,5 +1,4 @@
 const express = require('express');
-const categoryModel = require('../../models/category.model');
 const router = express.Router();
 const controller=require('../../controllers/admin/category.controller');
 router.get('/',controller.catIndex);

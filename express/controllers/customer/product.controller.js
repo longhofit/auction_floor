@@ -132,7 +132,7 @@ module.exports.bidding = async (req, res) => {
         return res.redirect(`/account/login?retUrl=${ req.session.beforePost}`);
     }
     else {
-        entity={Price:req.body.Price, ProID: req.session.ProID, UserID:req.session.authUser.f_ID, UserName:req.session.authUser.f_Name };
+        entity={Price:req.body.Price, ProID: req.session.ProID, UserID:req.session.authUser.f_ID, UserName:req.session.authUser.f_UserName };
         console.log(entity);
         const result = await productModel.addBidLog(entity);
         res.redirect(req.headers.referer);

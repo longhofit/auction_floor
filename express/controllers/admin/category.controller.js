@@ -1,20 +1,17 @@
-const express = require('express');
 const categoryModel = require('../../models/category.model');
 module.exports.catIndex = async (req, res) => {
     // try {
     const rows = await categoryModel.all();
     res.render('vwCategories/index', {
         categories: rows,
-        empty: rows.length === 0
+        empty: rows.length === 0,
+        layout: 'adminLayout.hbs'
     });
-    // } catch (err) {
-    //     console.log(err);
-    //     res.end('View error log in console.');
-    // }
+
 
 };
 module.exports.vwadd = (req, res) => {
-    res.render('vwCategories/add');
+    res.render('vwCategories/add',{layout: 'adminLayout.hbs'});
 
 };
 
@@ -40,14 +37,15 @@ module.exports.vwEdit = async (req, res) => {
     //     CatName: 'unknown'
     // }
     res.render('vwAccount/edit', {
-        category: rows[0]
+        category: rows[0],
+        layout: 'adminLayout.hbs'
 
     });
 
 };
 module.exports.vwEdit2 =  (req, res) => {
    
-    res.render('vwDemo/upload');
+    res.render('vwDemo/upload',{layout: 'adminLayout.hbs'});
 
 };
 

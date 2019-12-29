@@ -15,10 +15,11 @@
   <link rel="stylesheet" href="/css/responsive.css" />
   <link rel="stylesheet" href="/css/footer.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" />
+  <link rel="stylesheet" href="/css/style-laptop.css" type="text/css" />
   {{{_sections.css}}}
   {{{_sections.js}}}
 
-  <title>Aution Floor Site</title>
+  <title>Aution Floor Sit</title>
 </head>
 
 <body>
@@ -56,7 +57,6 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/account/profile">Quản lí tài khoản</a>
-             <a class="dropdown-item" href="/admin">Admin rules</a>
             <a class="dropdown-item"href="javascript: $('#frmLogout').submit();">Đăng xuất</a>
         </li>
         {{else}}
@@ -92,8 +92,36 @@
     </div>
   </div>
 
-
-    {{{body}}}
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-12 col-md-3 border-right">
+      <div class="row">
+        <span class="m-3 "> Quyền admin của <code>{{authUser.f_Name}}</code></span>
+      </div>
+      <ul class="list-group list-group-flush mt-3">
+        <li class="list-group-item">
+          <a class="text-danger " href="account.html">Thông tin tài khoản</a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="/admin/categories">Quản lí danh mục</a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="/admin/user">Quản lí danh sách người dùng</a>
+        </li>
+        <li class="list-group-item">
+          <a class="text-dark" href="/admin/accept">Duyệt yêu cầu thành seller
+          </a>
+        </li>
+  
+        </li> 
+      </ul>
+    </div>
+    <div class="col-12 col-md-9 mt-3">
+      {{{body}}}
+    </div>
+  </div>
+</div>
+    
 
   <!-- Footer -->
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />

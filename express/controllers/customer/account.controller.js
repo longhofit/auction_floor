@@ -60,8 +60,15 @@ module.exports.profile = (req, res) => {
 module.exports.vwrequest = (req, res) => {
     res.render('vwAccount/request', { layout: 'profileLayout.hbs' });
 }
-module.exports.sendrequest = (req, res) => {
-    entity = { UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name, Mess: req.body.Mess };
-    userModel.addrequest(entity);
-    res.redirect('/account/request')
+module.exports.sendrequest = async (req, res) => {
+    entity = { UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_UserName, Mess: req.body.Mess };
+    await  userModel.addrequest(entity);
+    res.redirect('/account/request');
+};
+module.exports.public_profile = async (req,res) =>{
+    const UserID = req.params.id;
+    const user= await userModel.single(UserID);
+    
+    res.render('vwAccount/public_profile',{users:user[0] });
+    
 }

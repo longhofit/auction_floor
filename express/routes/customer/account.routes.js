@@ -10,4 +10,5 @@ router.get('/profile',restrict,controller.profile);
 router.post('/logout',controller.logout)
 router.get('/request',controller.vwrequest);
 router.post('/request',controller.sendrequest);
+router.get('/public_profile/:id',controller.public_profile);
 module.exports = router;
