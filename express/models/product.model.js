@@ -81,7 +81,7 @@ module.exports = {
         return db.load(sql);
     },
     allContinue : () => db.load(`select ProID from endtime where CURRENT_TIMESTAMP < endtime`),
-
+    allEnd: () =>db.load(`select ProID from endtime where CURRENT_TIMESTAMP > endtime`),
     allByArrIDBidding: (ProID,UserID) => {
         var inlist = '';
         for (var i = 0; i < ProID.length; i++) { 
@@ -91,6 +91,17 @@ module.exports = {
         const sql=`SELECT * FROM products WHERE SellerID=${UserID} and ProID in (${inlist})`;
         console.log(sql);
         return db.load(sql);
+    },
+    allProIBidded : (ProID,UserID) => {
+        var inlist = '';
+        for (var i = 0; i < ProID.length; i++) { 
+            inlist += `${ProID[i]},`;
+        }
+        inlist = inlist.substring(0, inlist.length - 1);
+        const sql=`SELECT * FROM products WHERE (SellerID = ${UserID}) and (winerid is not null) and (proid in (${inlist}))`;
+        console.log(sql);
+        return db.load(sql);
+
     }
 }
 // var inlist = '';

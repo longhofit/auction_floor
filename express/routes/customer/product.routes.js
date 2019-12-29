@@ -12,4 +12,5 @@ router.get('/wishlist',restrict.beforeLogin,controller.allByWishList);
 router.get('/biddinglist',restrict.beforeLogin,controller.allByBiddingList);
 router.get('/wonlist',restrict.beforeLogin,controller.allByWonList);
 router.get('/sellinglist',restrict.beforeLogin,controller.allBySellingList);
+router.get('/biddedlist',restrict.beforeLogin,controller.allByBiddedList);
 module.exports = router;

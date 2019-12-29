@@ -247,6 +247,25 @@ module.exports.allBySellingList = async (req,res) => {
 
 
 }
+module.exports.allByBiddedList = async (req,res) => {
+    const arrId= await productModel.allEnd();
+    if (arrId.length < 1)
+        res.send('khong san pham trong list');
+    else{
+        ids = [];
+        for (var i = 0; i < arrId.length; i++)
+            ids.push(arrId[i].ProID);
+        const result= await productModel.allProIBidded(ids,req.session.authUser.f_ID);
+        console.log(result);
+        res.render('vwProducts/allByBiddinglist',{
+            products: result, empty: 0 
+        });
+        
+    }
+    //allByArrIDBidding
+
+
+}
 
 
 
