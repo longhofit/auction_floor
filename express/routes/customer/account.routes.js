@@ -6,7 +6,7 @@ router.get('/register',controller.vwregister);
 router.post('/register',controller.register);
 router.get('/login',controller.vwlogin);
 router.post('/login',controller.login);
-router.get('/profile',restrict,controller.profile);
+router.get('/profile',restrict.beforeLogin,controller.profile);
 router.post('/logout',controller.logout)
 router.get('/request',controller.vwrequest);
 router.post('/request',controller.sendrequest);

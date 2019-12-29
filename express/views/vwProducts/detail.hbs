@@ -90,15 +90,28 @@
 
         <div class="col-12 border-bottom">
 
-          <div class="form-group ml-3 mt-2">
+
+          <div>
             <label for="cusbid">Ra giá của bạn:</label> <br>
             <form method="POST" action="/products/bidding">
               <input style="width:50%" id="Price" name="Price" placeholder=""> <br>
-              <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Yêu thích</button>
+
               <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true"> </i>Đấu
                 giá</button>
             </form>
           </div>
+
+
+
+          <div>
+            <form method="POST" action="/products/addwishlist">
+
+              <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Yêu thích</button>
+
+            </form>
+          </div>
+
+
 
 
         </div>
@@ -118,7 +131,7 @@
                 (<i class="fa fa-thumbs-down" aria-hidden="true"></i> <code class="mr-2">4</code> <i
                   class="fa fa-thumbs-up" aria-hidden="true"></i> <code>16</code>)</span></li>
             <li class="list-group-item"> <span> <small>Đăng lúc: <code>{{products.CreatedDTime}}</code>
-                 </small>
+                </small>
                 <span class="font-weight-bold"> </span> </span> <br></li>
             <li class="list-group-item"> <span> <small>Kết thúc vào: <code>{{endtime.endtime}}</code></small>
                 <span class="font-weight-bold"> </span> </span></li>
@@ -178,7 +191,7 @@
             <td>{{BidTime}}</td>
           </tr>
           {{/each}}
-         
+
         </tbody>
       </table>
     </div>
