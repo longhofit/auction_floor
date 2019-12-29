@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `online_aucdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `online_aucdb`;
 -- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
 --
 -- Host: localhost    Database: online_aucdb
@@ -14,6 +16,24 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `bidding_log`
+--
+
+DROP TABLE IF EXISTS `bidding_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bidding_log` (
+  `LogID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `ProID` varchar(25) DEFAULT NULL,
+  `Price` int(11) DEFAULT NULL,
+  `BidTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `UserName` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`LogID`)
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `bidding_log`
@@ -60,6 +80,20 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categories` (
+  `CatID` int(11) NOT NULL AUTO_INCREMENT,
+  `CatName` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`CatID`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `categories`
 --
 
@@ -70,6 +104,20 @@ INSERT INTO `categories` VALUES (2,'Điện thoại'),(3,'Máy tính bảng'),(5
 UNLOCK TABLES;
 
 --
+-- Table structure for table `endtime`
+--
+
+DROP TABLE IF EXISTS `endtime`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `endtime` (
+  `ProID` int(11) NOT NULL AUTO_INCREMENT,
+  `endtime` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ProID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `endtime`
 --
 
@@ -78,6 +126,35 @@ LOCK TABLES `endtime` WRITE;
 INSERT INTO `endtime` VALUES (2091,'2019-12-28 20:39:49'),(2092,'2019-12-28 20:42:51'),(2093,'2019-12-28 21:19:06'),(2094,'2019-12-28 21:20:02'),(2095,'2019-12-28 21:22:30'),(2096,'2019-12-29 11:10:22'),(2097,'2019-12-29 16:43:36'),(2098,'2019-12-29 20:15:05'),(2099,'2019-12-29 20:18:00'),(2100,'2019-12-29 23:36:53'),(2101,'2019-12-29 23:40:07'),(2103,'2019-12-30 01:01:54'),(2104,'2019-12-30 01:03:46');
 /*!40000 ALTER TABLE `endtime` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `products` (
+  `ProID` int(11) NOT NULL AUTO_INCREMENT,
+  `ProName` varchar(45) DEFAULT NULL,
+  `TinyDes` varchar(45) DEFAULT NULL,
+  `FullDes` longtext,
+  `Price` int(11) DEFAULT NULL,
+  `CatID` int(11) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `PriceToBuy` int(11) DEFAULT NULL,
+  `CreatedDTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `SellerID` int(11) DEFAULT NULL,
+  `WinerID` int(11) DEFAULT NULL,
+  `isDelay` varchar(1) DEFAULT NULL,
+  `Step` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ProID`),
+  KEY `Pro_Seller_idx` (`SellerID`),
+  KEY `Pro_Winner_idx` (`WinerID`),
+  CONSTRAINT `Pro_Seller` FOREIGN KEY (`SellerID`) REFERENCES `user` (`f_ID`),
+  CONSTRAINT `Pro_Winner` FOREIGN KEY (`WinerID`) REFERENCES `user` (`f_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `products`
@@ -107,6 +184,22 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Table structure for table `request`
+--
+
+DROP TABLE IF EXISTS `request`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `request` (
+  `rqID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) DEFAULT NULL,
+  `UserName` varchar(35) DEFAULT NULL,
+  `Mess` varchar(35) DEFAULT NULL,
+  PRIMARY KEY (`rqID`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `request`
 --
 
@@ -114,6 +207,26 @@ LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `f_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `f_UserName` varchar(30) DEFAULT NULL,
+  `f_Email` varchar(45) DEFAULT NULL,
+  `f_Password` longtext,
+  `f_Name` varchar(45) DEFAULT NULL,
+  `f_DOB` varchar(45) DEFAULT NULL,
+  `f_Type` varchar(10) DEFAULT 'bidder',
+  `f_CreatedTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`f_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
@@ -124,6 +237,21 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (9,'longho','lelongho998@gmail.com','$2a$10$nQ/JJmvNtOqoPdl/LpbyWubWIF5v.fF6U45.RpQA/mM8DBcM2AUve','Long Hồ','2020-01-24',NULL,'2019-12-29 10:37:02'),(10,'ccc','23@asda','$2a$10$6lSjwAcOmcu65Ac6g6dSQO3BHcoenB1gLz82GWIz.zRouz.RQTF7a','Long Hồ','2019-12-30',NULL,'2019-12-29 10:37:02'),(11,'qqq','tralong@yahoo.com','$2a$10$zideGOblJOw5wl7MfOfK0O/REYbZe1ccDQHVGvo9RPSmC.gWgfZVu','Trà Long','2019-12-18','seller','2019-12-29 10:37:02'),(12,'longho','lelongho998@gmail.com','$2a$10$09EUQivLi4TYnXOeov.90edFFzJW.rsyKZrGrPtK2Hpf5cuyhOVpi','Long','2020-02-25',NULL,'2019-12-29 10:37:02'),(13,'123','lelongho98@gmail.com','$2a$10$oNS0Lde1QiQQF/k1GNAWB.ecro2K7Yi52XoL4O4E/VGTvq78G37Ji','123','2019-12-12',NULL,'2019-12-29 10:37:02'),(14,'222','222','$2a$10$wqOOIysUZVD19yZASLozCuEspaBOgfQuIKZS3gEFMT3rQ.M1Aio52','222','2020-01-15',NULL,'2019-12-29 10:37:02'),(15,'lll','123','$2a$10$7HnLIlSDy3H7j4y50ByS8Oiof3ZGqPRDbRFwxvelK3xoqSTUKLcKC','123','2020-01-01',NULL,'2019-12-29 10:37:02'),(16,'a123','lelongo998@gmail.com','$2a$10$FtDkt5cdK91O2QukrXzJW.lwCd/41mvDJM//rE7hCNBxiUN8ahKYu','Long Ho','2019-12-25','seller','2019-12-29 10:37:02'),(17,'23','lelongo998@gmail.com','213','d2',NULL,'bidder','2019-12-29 10:37:26'),(18,'aaa','asdasdasd@asdasd.com','$2a$10$qfITvReSO3/FhbbBp..0KuO/VTMBVb.OUSyhd13hehr/LlDYIVy.W','asdasdd','2019-12-03','bidder','2019-12-29 10:38:53');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `wishlist`
+--
+
+DROP TABLE IF EXISTS `wishlist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `wishlist` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) DEFAULT NULL,
+  `ProID` varchar(35) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `wishlist`
@@ -152,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-30  0:56:36
+-- Dump completed on 2019-12-30  1:36:36
