@@ -1,5 +1,6 @@
 const multer = require('multer');
 let fs = require('fs-extra');
+const nodemailer = require('nodemailer');
 const productModel = require('../../models/product.model');
 const userModel = require('../../models/user.model');
 const storage = multer.diskStorage({
@@ -40,6 +41,7 @@ module.exports.productDetail = async (req, res) => {
 
     ]);
     req.session.ProID = proId;
+    req.session.ProName=productinfo[0].ProName
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
     var proimg = [];
@@ -134,6 +136,30 @@ module.exports.bidding = async (req, res) => {
     else {
         entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name };
         const result = await productModel.addBidLog(entity);
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            host: "smtp.gmail.com",
+            port: "465",
+            ssl: true,
+            auth: {
+                user: 'lelongho998@gmail.com',
+                pass: '0909565151It'
+            }
+        });
+
+        var mailOptions = {
+            from: 'lelongho998as@gmail.com',
+            to: `${req.session.authUser.f_Email}`,
+            subject: 'THÔNG BÁO: Đặt giá thành công',
+            text: `Bạn đã ra giá cho sản phẩm ${req.session.ProName} với mức giá ${req.body.Price}, chi tiết xem tại abcxyz.com/products/detail/${req.session.ProID}`
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        })
         res.redirect(req.headers.referer);
 
     }
@@ -280,7 +306,7 @@ module.exports.like = async (req, res) => {
             entity = { f_id: req.body.userid, f_LikePoint: 1, f_Dislikepoint: 0 };
         if (req.body.point == -1)
             entity = { f_id: req.body.userid, f_LikePoint: 0, f_Dislikepoint: 1 };
-        entity2 = { 
+        entity2 = {
             content: req.body.content,
             fberid: req.session.authUser.f_ID,
             fbtoid: req.body.userid,
@@ -288,7 +314,7 @@ module.exports.like = async (req, res) => {
         }
         console.log(entity);
         console.log(entity2);
-         
+
         await Promise.all([
             userModel.patch(entity),
             userModel.addFeedback(entity2)
