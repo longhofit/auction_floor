@@ -94,16 +94,27 @@
 
 
 
-          <div>
-            <label for="cusbid">Ra giá của bạn:</label> <br>
+          <div class="d-flex justify-content-around ">
+
             <form method="POST" action="/products/bidding">
-              <input style="width:50%" id="Price" name="Price" placeholder=""> <br>
+              <label for="cusbid">Ra giá của bạn:</label> <br>
+              <input style="" id="Price" name="Price" value="{{validPrice}}"> <br>
 
               <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
                 </i>Đấu
                 giá</button>
 
             </form>
+            <form method="POST" action="/products/autobidding">
+              <label for="cusbid">Giá cao nhất (Tự động đấu giá)</label> <br>
+              <input style="" id="Price" name="maxprice" placeholder=""> <br>
+
+              <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
+                </i>Đấu
+                giá tự động</button>
+
+            </form>
+
           </div>
           <div>
             <form method="POST" action="/products/addwishlist">
@@ -141,16 +152,16 @@
                 <span class="font-weight-bold"> </span> </span></li>
             <li class="list-group-item">
 
-              <form method="POST" action="/products/like">
+              <form method="POST" action="/products/feedback">
                 <div class="form-group">
-                 
+
 
                   <div class="form-group">
-                     <label for="cusbid"><small>Đánh giá người bán:</small></label> <br>
+                    <label for="cusbid"><small>Đánh giá người bán:</small></label> <br>
                     <select name="point" class="form-control" id="exampleFormControlSelect1">
                       <option value="1">Like</option>
                       <option value="-1">Dislike</option>
-                   
+
                     </select>
                   </div>
 
@@ -160,7 +171,7 @@
                     <label for="exampleFormControlTextarea1">Example textarea</label>
                     <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                   </div>
-                   <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Gửi</button>
+                  <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Gửi</button>
               </form>
             </li>
 

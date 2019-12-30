@@ -25,7 +25,7 @@ module.exports.add = async (req, res) => {
 
 module.exports.err = (req, res) => {
     throw new Error('error occured');
-}
+} 
 
 module.exports.vwEdit = async (req, res) => {
     const rows = await categoryModel.single(req.params.id);

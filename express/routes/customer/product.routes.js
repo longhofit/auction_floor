@@ -13,5 +13,6 @@ router.get('/biddinglist',restrict.beforeLogin,controller.allByBiddingList);
 router.get('/wonlist',restrict.beforeLogin,controller.allByWonList);
 router.get('/sellinglist',restrict.beforeLogin,controller.allBySellingList);
 router.get('/biddedlist',restrict.beforeLogin,controller.allByBiddedList);
-router.post('/like',controller.like);
+router.post('/like',controller.feedback);
+router.post('/autobidding',controller.autobidding);
 module.exports = router;

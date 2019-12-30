@@ -102,7 +102,9 @@ module.exports = {
         console.log(sql);
         return db.load(sql);
 
-    }
+    },
+    addAutoBid: entity => db.add('autobid',entity),
+    loadAutobid: ProID => db.load(`select * from autobid where ProID=${ProID}`)
 }
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {

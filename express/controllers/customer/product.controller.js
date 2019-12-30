@@ -21,7 +21,12 @@ const upload = multer({ storage });
 
 
 module.exports.productDetail = async (req, res) => {
+    // var cron = require('node-cron');
 
+    // cron.schedule('* * * * * *', () => {
+    //     console.log('running a task every minute');
+    // });
+    
     const proId = req.params.id;
     req.session.beforePost = req.originalUrl
     const [productinfo, loginfo, endtime] = await Promise.all([
@@ -41,7 +46,10 @@ module.exports.productDetail = async (req, res) => {
 
     ]);
     req.session.ProID = proId;
-    req.session.ProName=productinfo[0].ProName
+    req.session.ProName = productinfo[0].ProName;
+    req.session.StepPrice=productinfo[0].Step;
+    req.session.CurrPrice=productinfo[0].Price;
+    req.session.SellerEmail = sellerinfo[0].f_Email;
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
     var proimg = [];
@@ -59,7 +67,8 @@ module.exports.productDetail = async (req, res) => {
         winner: winnerinfo[0],
         seller: sellerinfo[0],
         loginfor: loginfo,
-        endtime: endtime[0]
+        endtime: endtime[0],
+        validPrice:productinfo[0].Price+productinfo[0].Step
 
     });
 
@@ -135,31 +144,62 @@ module.exports.bidding = async (req, res) => {
     }
     else {
         entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name };
-        const result = await productModel.addBidLog(entity);
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            host: "smtp.gmail.com",
-            port: "465",
-            ssl: true,
-            auth: {
-                user: 'lelongho998@gmail.com',
-                pass: '0909565151It'
-            }
-        });
+        const [result,autoBid] = await Promise.all([
+            productModel.addBidLog(entity),
+           productModel.loadAutobid(entity.ProID),
+        ])
+       if (autoBid.length!=0)
+        {
+            if(entity.Price<autoBid[0].MaxPrice)
+               {
+                console.log(entity.Price);
+                console.log(req.session.StepPrice);
+                   entity.Price= parseInt(entity.Price,10) +req.session.StepPrice;
+                   entity.UserID=autoBid[0].UserID;
+                   entity.UserName=autoBid[0].UserName;
+                   await productModel.addBidLog(entity);
+               }
+        }
+        
 
-        var mailOptions = {
-            from: 'lelongho998as@gmail.com',
-            to: `${req.session.authUser.f_Email}`,
-            subject: 'THÔNG BÁO: Đặt giá thành công',
-            text: `Bạn đã ra giá cho sản phẩm ${req.session.ProName} với mức giá ${req.body.Price}, chi tiết xem tại abcxyz.com/products/detail/${req.session.ProID}`
-        };
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
-        })
+    
+        // var transporter = nodemailer.createTransport({
+        //     service: 'gmail',
+        //     host: "smtp.gmail.com",
+        //     port: "465",
+        //     ssl: true,
+        //     auth: {
+        //         user: 'lelongho998@gmail.com',
+        //         pass: '0909565151It'
+        //     }
+        // });
+
+        // var mailOptions = {
+        //     from: 'lelongho998@gmail.com',
+        //     to: `${req.session.authUser.f_Email},${req.session.SellerEmail}`,
+        //     subject: 'THÔNG BÁO: Đặt giá thành công',
+        //     text: `Bạn đã ra giá cho sản phẩm ${req.session.ProName} với mức giá ${req.body.Price}, chi tiết xem tại abcxyz.com/products/detail/${req.session.ProID}`
+        // };
+        // transporter.sendMail(mailOptions, function (error, info) {
+        //     if (error) {
+        //         console.log(error);
+        //     } else {
+        //         console.log('Email sent: ' + info.response);
+        //     }
+        // })
+        // var mailOptions2 = {
+        //     from: 'lelongho998@gmail.com',
+        //     to: `${req.session.SellerEmail}`,
+        //     subject: 'THÔNG BÁO: Đã có người ra giá cho sản phẩm của bạn',
+        //     text: `Người dùng ${req.session.authUser.f_UserName} đã ra giá ${req.body.Price} cho sản phẩm của bạn, chi tiết xem tại abcxyz.com/products/detail/${req.session.ProID}`
+        // };
+        // transporter.sendMail(mailOptions2, function (error, info) {
+        //     if (error) {
+        //         console.log(error);
+        //     } else {
+        //         console.log('Email sent: ' + info.response);
+        //     }
+        // })
         res.redirect(req.headers.referer);
 
     }
@@ -293,7 +333,7 @@ module.exports.allByBiddedList = async (req, res) => {
 
 
 }
-module.exports.like = async (req, res) => {
+module.exports.feedback = async (req, res) => {
 
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
@@ -327,4 +367,27 @@ module.exports.like = async (req, res) => {
 }
 
 
+module.exports.autobidding = async (req, res) => {
+    if (req.session.isAuthenticated === false) {
+        return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
+    }
+    else {
+        entity = {
+            UserID: req.session.authUser.f_ID,
+            ProID: req.session.ProID,
+            UserName: req.session.authUser.f_Name,
+            MaxPrice: req.body.maxprice
+        }
+        entity2 = { 
+            Price: req.session.CurrPrice+req.session.StepPrice,
+            ProID: req.session.ProID,
+            UserID: req.session.authUser.f_ID,
+            UserName: req.session.authUser.f_Name };
+            await Promise.all([
+                productModel.addAutoBid(entity),
+                productModel.addBidLog(entity2)
+            ])
+        res.redirect(req.headers.referer);
+    }
 
+} 
