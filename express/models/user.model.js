@@ -17,5 +17,15 @@ module.exports = {
         entity = { f_Type: 'seller' };
         console.log(condition, entity);
         return db.patch('user', entity, condition);
+    }, 
+    patch: entity => {
+        const condition = { f_id: entity.f_id };
+        // console.log(condition,entity);
+        delete entity.f_id;
+        // console.log(condition,entity);
+        return db.patch('user', entity, condition);
+    },
+    addFeedback: entity =>{
+        db.add('feedback',entity);
     }
 };

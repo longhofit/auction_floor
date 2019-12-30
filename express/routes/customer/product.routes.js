@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const restrict=require('../../middlewares/auth.mdw');
-const controller=require('../../controllers/customer/product.controller')
+const controller=require('../../controllers/customer/product.controller');
 router.get('/detail/:id',controller.productDetail);
 router.get('/upload',controller.formUpload);
 router.post('/upload',controller.addProduct);
@@ -13,4 +13,5 @@ router.get('/biddinglist',restrict.beforeLogin,controller.allByBiddingList);
 router.get('/wonlist',restrict.beforeLogin,controller.allByWonList);
 router.get('/sellinglist',restrict.beforeLogin,controller.allBySellingList);
 router.get('/biddedlist',restrict.beforeLogin,controller.allByBiddedList);
+router.post('/like',controller.like);
 module.exports = router;

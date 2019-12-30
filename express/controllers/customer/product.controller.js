@@ -135,7 +135,7 @@ module.exports.bidding = async (req, res) => {
         entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name };
         const result = await productModel.addBidLog(entity);
         res.redirect(req.headers.referer);
-        
+
     }
 
 }
@@ -197,10 +197,10 @@ module.exports.allByBiddingList = async (req, res) => {
             //console.log(`ids2${ids2}`);
             const result = await productModel.allByArrID(ids2);
             console.log(result);
-            res.render('vwProducts/allByBiddinglist',{
-                products: result, empty: 0 
+            res.render('vwProducts/allByBiddinglist', {
+                products: result, empty: 0
             });
-        }   
+        }
     }
 }
 module.exports.allByWonList = async (req, res) => {
@@ -221,50 +221,82 @@ module.exports.allByWonList = async (req, res) => {
             for (var x = 0; x < continueIDs.length; x++)
                 ids2.push(continueIDs[x].ProID);
             //console.log(`ids2${ids2}`);
-            const result = await productModel.allByArrIDWon(ids2,req.session.authUser.f_ID);
+            const result = await productModel.allByArrIDWon(ids2, req.session.authUser.f_ID);
             console.log(result);
-            res.render('vwProducts/allByBiddinglist',{
-                products: result, empty: 0 
+            res.render('vwProducts/allByBiddinglist', {
+                products: result, empty: 0
             });
-        }   
+        }
     }
 }
-module.exports.allBySellingList = async (req,res) => {
-    const arrId= await productModel.allContinue();
+module.exports.allBySellingList = async (req, res) => {
+    const arrId = await productModel.allContinue();
     if (arrId.length < 1)
         res.send('khong san pham trong list');
-    else{
+    else {
         ids = [];
         for (var i = 0; i < arrId.length; i++)
             ids.push(arrId[i].ProID);
-        const result= await productModel.allByArrIDBidding(ids,req.session.authUser.f_ID);
+        const result = await productModel.allByArrIDBidding(ids, req.session.authUser.f_ID);
         console.log(result);
-        res.render('vwProducts/allByBiddinglist',{
-            products: result, empty: 0 
+        res.render('vwProducts/allByBiddinglist', {
+            products: result, empty: 0
         });
-        
+
     }
     //allByArrIDBidding
 
 
 }
-module.exports.allByBiddedList = async (req,res) => {
-    const arrId= await productModel.allEnd();
+module.exports.allByBiddedList = async (req, res) => {
+    const arrId = await productModel.allEnd();
     if (arrId.length < 1)
         res.send('khong san pham trong list');
-    else{
+    else {
         ids = [];
         for (var i = 0; i < arrId.length; i++)
             ids.push(arrId[i].ProID);
-        const result= await productModel.allProIBidded(ids,req.session.authUser.f_ID);
+        const result = await productModel.allProIBidded(ids, req.session.authUser.f_ID);
         console.log(result);
-        res.render('vwProducts/allByBiddinglist',{
-            products: result, empty: 0 
+        res.render('vwProducts/allByBiddinglist', {
+            products: result, empty: 0
         });
-        
+
     }
     //allByArrIDBidding
 
+
+}
+module.exports.like = async (req, res) => {
+
+    if (req.session.isAuthenticated === false) {
+        return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
+    }
+    else {
+
+        console.log(req.body);
+        var entity;
+        if (req.body.point == 1)
+            entity = { f_id: req.body.userid, f_LikePoint: 1, f_Dislikepoint: 0 };
+        if (req.body.point == -1)
+            entity = { f_id: req.body.userid, f_LikePoint: 0, f_Dislikepoint: 1 };
+        entity2 = { 
+            content: req.body.content,
+            fberid: req.session.authUser.f_ID,
+            fbtoid: req.body.userid,
+            proid: req.body.ProID
+        }
+        console.log(entity);
+        console.log(entity2);
+         
+        await Promise.all([
+            userModel.patch(entity),
+            userModel.addFeedback(entity2)
+        ])
+
+        res.redirect(req.headers.referer);
+
+    }
 
 }
 
