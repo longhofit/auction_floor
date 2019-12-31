@@ -13,15 +13,16 @@
                         Add Category
                     </a>
                 </th> --}}
-                <th scope="col">Tin nhắn</th>
+                <th class="text-center"scope="col">Tin nhắn</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             {{#each request}}
             <tr>
-                <th scope="row" class="text-center">{{UserName}}</th>
-                <td>{{Mess}}</td>
+               
+                <td class="text-center">{{UserID}}</td>
+                <td class="text-center">{{Mess}}</td>
                 <td class="text-right">
                     <form method="POST" action="/admin/accept">
                         <input type="hidden" name="UserID" value="{{UserID}}">

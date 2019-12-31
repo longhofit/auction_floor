@@ -49,12 +49,12 @@
             {{products.ProName}} <br>
           </span>
           <span> <small>Thương hiệu :</small> <span class="text-danger">Cherub</span> </span> <br>Yêu
-           {{#if isCantBid}}
-           <span class="text-danger">Không thể đấu giá vì điểm đánh giá của bạn bé hơn 80% </span>
-           {{/if}}
-           {{#if isNotValidPrice}}
-            <span class="text-danger">Giá chưa hợp lệ, vui lòng xem lại</span>
-           {{/if}}
+          {{#if isCantBid}}
+          <span class="text-danger">Không thể đấu giá vì điểm đánh giá của bạn bé hơn 80% </span>
+          {{/if}}
+          {{#if isNotValidPrice}}
+          <span class="text-danger">Giá chưa hợp lệ, vui lòng xem lại</span>
+          {{/if}}
         </div>
         <div class="col-12  d-flex justify-content-center  ">
           <span class="cd font-weight-bold imgTit text-danger border color"></span>
@@ -71,9 +71,18 @@
           </div>
           <div class="col-6 ">
             <span> Người thắng hiện tại:</span> <br>
-            <span class=" font-weight-bold imgTit ">{{winner.f_Name}}</span> <br>
-            <span><small></small> <code>12</code> điểm (<i class="fa fa-thumbs-down" aria-hidden="true"></i> <code
-                class="mr-2">4</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i> <code>16</code> ) </span>
+            {{#if havewiner}}
+
+            <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
+                class=" font-weight-bold imgTit ">{{winner.f_Name}}</span> <br>
+            </a>
+
+            <span><code>{{totals}}</code> điểm <code class="mr-2"></code>
+             <code>{{points.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <code>{{points.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+            </span>
+            {{else}}
+            <span class=" font-weight-bold imgTit ">Chưa có</span> <br>
+            {{/if}}
           </div>
 
 
@@ -101,13 +110,14 @@
 
 
           <div class="d-flex justify-content-around ">
-           
+
             {{#if isnot}}
             <form method="POST" action="/products/bidding">
               <label for="cusbid">Ra giá của bạn :</label> <br>
               <input style="" id="Price" name="Price" value="{{validPrice}}"> <br>
 
-              <button onclick="return myConfirm();" type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
+              <button onclick="return myConfirm();" type="submit" class="btn btn-danger mt-2"> <i
+                  class="fa fa-gavel mr-2" aria-hidden="true">
                 </i>Đấu
                 giá</button>
 
@@ -121,7 +131,7 @@
                 giá tự động</button>
 
             </form>
-            
+
             {{else}}
             <button type="submit" class="btn btn-danger mt-2">Bạn đã bị người bán từ chối đấu giá</button>
             {{/if}}
@@ -153,10 +163,12 @@
 
           <ul class="list-group list-group-flush">
             <li class="list-group-item"> <span><small>Người bán:</small></span>
-              <span><code>{{seller.f_Name}}</code> | </span> <span><small></small> <code>12</code> điểm
-                (<i class="fa fa-thumbs-down" onclick="javascript: $('#dislike').submit();" aria-hidden="true"></i><code
-                  class="mr-2">4</code> <i class="fa fa-thumbs-up" onclick="javascript: $('#like').submit();"
-                  aria-hidden="true"></i> <code>16</code>) <small></small></span></li>
+              <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
+                class=" font-weight-bold imgTit ">{{seller.f_Name}}</span> <br>
+            </a> 
+               <span><code>{{totals2}}</code> điểm <code class="mr-2"></code>
+             <code>{{points2.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <code>{{points2.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+            </span></li>
             <li class="list-group-item"> <span> <small>Đăng lúc: <code>{{products.CreatedDTime}}</code>
                 </small>
                 <span class="font-weight-bold"> </span> </span> <br></li>
@@ -242,7 +254,7 @@
               ***{{UserID}}</td>
             <td>{{Price}}</td>
             <td>{{BidTime}}</td>
-            <td> 
+            <td>
               <form method="POST" action="/products/banbid">
                 <input type="hidden" name="UserID" value="{{UserID}}">
                 <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>

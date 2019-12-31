@@ -39,14 +39,33 @@ module.exports.productDetail = async (req, res) => {
         userModel.single(productinfo[0].WinerID),
         userModel.single(productinfo[0].SellerID)
 
-    ]); 
+    ]);
+    var ishavewiner = true;
+    if (winnerinfo.length == 0)
+        ishavewiner = false;
     req.session.ProID = productinfo[0].ProID;
     req.session.ProName = productinfo[0].ProName;
     req.session.StepPrice = productinfo[0].Step;
     req.session.CurrPrice = productinfo[0].Price;
     req.session.FullDes = productinfo[0].FullDes;
     req.session.SellerEmail = sellerinfo[0].f_Email;
-    req.session.winnerid = winnerinfo[0].f_ID;
+    var point;
+    var point2;
+    var total;
+    var total2;
+    if (ishavewiner){
+        req.session.winnerid = winnerinfo[0].f_ID;
+        [point,point2]= await Promise.all([
+            userModel.loadPoint(winnerinfo[0].f_ID),
+            userModel.loadPoint(sellerinfo[0].f_ID)
+        ])
+        total=point[0].LikePoint/(point[0].DislikePoint+point[0].LikePoint);
+        total=`${Math.round(total*100)}%`;
+        total2=point2[0].LikePoint/(point2[0].DislikePoint+point2[0].LikePoint);
+        total2=`${Math.round(total2*100)}%`;
+
+    }
+        
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
     var proimg = [];
@@ -67,7 +86,7 @@ module.exports.productDetail = async (req, res) => {
             req.session.isNotBanBid = true;
     }
 
-
+    
     console.log(req.session.isNotBanBid);
     res.render('vwProducts/detail', {
         products: productinfo[0],
@@ -79,7 +98,12 @@ module.exports.productDetail = async (req, res) => {
         validPrice: productinfo[0].Price + productinfo[0].Step,
         isnot: req.session.isNotBanBid,
         isCantBid: req.session.isCantBid,
-        isNotValidPrice: req.session.isNotValidPrice
+        isNotValidPrice: req.session.isNotValidPrice,
+        havewiner:ishavewiner,
+        points:point[0],
+        points2: point2[0],
+        totals:total,
+        totals2: total2
 
     });
 
@@ -157,7 +181,7 @@ module.exports.bidding = async (req, res) => {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
     }
     else {
-        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name };
+        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID };
         const [point, curPrice] = await Promise.all([
             userModel.loadPoint(entity.UserID),
             productModel.single(entity.ProID)
@@ -186,7 +210,6 @@ module.exports.bidding = async (req, res) => {
                 console.log(req.session.StepPrice);
                 entity.Price = parseInt(entity.Price, 10) + req.session.StepPrice;
                 entity.UserID = autoBid[0].UserID;
-                entity.UserName = autoBid[0].UserName;
                 await productModel.addBidLog(entity);
                 //   hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
                 //   hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`);
@@ -370,14 +393,14 @@ module.exports.autobidding = async (req, res) => {
         entity = {
             UserID: req.session.authUser.f_ID,
             ProID: req.session.ProID,
-         //   UserName: req.session.authUser.f_Name,
+            //   UserName: req.session.authUser.f_Name,
             MaxPrice: req.body.maxprice
         }
         entity2 = {
             Price: req.session.CurrPrice + req.session.StepPrice,
             ProID: req.session.ProID,
             UserID: req.session.authUser.f_ID,
-           // UserName: req.session.authUser.f_Name
+            // UserName: req.session.authUser.f_Name
         };
         await Promise.all([
             productModel.addAutoBid(entity),

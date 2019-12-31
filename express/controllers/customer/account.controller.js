@@ -91,7 +91,7 @@ module.exports.vwrequest = (req, res) => {
     res.render('vwAccount/request', { layout: 'profileLayout.hbs' });
 }
 module.exports.sendrequest = async (req, res) => {
-    entity = { UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_UserName, Mess: req.body.Mess };
+    entity = { UserID: req.session.authUser.f_ID,  Mess: req.body.Mess };
     await userModel.addrequest(entity);
     res.redirect('/account/request');
 };
@@ -137,10 +137,13 @@ module.exports.viewpoint= async (req,res) => {
     userID=req.session.authUser.f_ID;
     point= await userModel.loadPoint(userID);
     feedback=  await userModel.loadFeedback(req.session.authUser.f_ID);
-    console.log(feedback);
+    console.log(point);
+    total=point[0].LikePoint/(point[0].DislikePoint+point[0].LikePoint);
+    total=`${Math.round(total*100)}%`
     res.render('vwAccount/feedbackpoint',{
         layout: 'profileLayout.hbs',
         points: point[0],
+        totals: total,
         feedbacks: feedback
     })
         
