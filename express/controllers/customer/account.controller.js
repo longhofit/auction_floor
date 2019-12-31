@@ -24,7 +24,7 @@ module.exports.vwlogin = (req, res) => {
 
 module.exports.login = async (req, res) => {
     req.session.flag = 2;
-  
+
     // const user={
     //   username:req.body.username,
     //   password=req.body.password
@@ -41,6 +41,7 @@ module.exports.login = async (req, res) => {
     delete user.f_Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user;
+    req.session.Type = user.f_Type;
     const url = req.query.retUrl || '/';
     res.redirect(url);
 };
@@ -91,7 +92,7 @@ module.exports.vwrequest = (req, res) => {
     res.render('vwAccount/request', { layout: 'profileLayout.hbs' });
 }
 module.exports.sendrequest = async (req, res) => {
-    entity = { UserID: req.session.authUser.f_ID,  Mess: req.body.Mess };
+    entity = { UserID: req.session.authUser.f_ID, Mess: req.body.Mess };
     await userModel.addrequest(entity);
     res.redirect('/account/request');
 };
@@ -104,11 +105,11 @@ module.exports.public_profile = async (req, res) => {
 }
 module.exports.vwchangepass = (req, res) => {
     console.log(req.session.flag2);
-    res.render('vwAccount/changepass', { 
+    res.render('vwAccount/changepass', {
         layout: 'profileLayout.hbs',
         isFailPass: req.session.flag2 == 1
- });
- req.session.flag2 = 0;
+    });
+    req.session.flag2 = 0;
 }
 module.exports.changepass = async (req, res) => {
 
@@ -117,8 +118,8 @@ module.exports.changepass = async (req, res) => {
     if (rs === false) {
         req.session.flag2 = 1;
         console.log("saipass");
-           return res.redirect(req.headers.referer);
-        
+        return res.redirect(req.headers.referer);
+
     }
     else {
         req.session.flag2 = 0;
@@ -137,18 +138,21 @@ module.exports.changepass = async (req, res) => {
     req.session.flag2 = 0;
 
 }
-module.exports.viewpoint= async (req,res) => {
-    userID=req.session.authUser.f_ID;
-    point= await userModel.loadPoint(userID);
-    feedback=  await userModel.loadFeedback(req.session.authUser.f_ID);
+module.exports.viewpoint = async (req, res) => {
+    userID = req.session.authUser.f_ID;
+    point = await userModel.loadPoint(userID);
+    feedback = await userModel.loadFeedback(req.session.authUser.f_ID);
     console.log(point);
-    total=point[0].LikePoint/(point[0].DislikePoint+point[0].LikePoint);
-    total=`${Math.round(total*100)}%`
-    res.render('vwAccount/feedbackpoint',{
+    total = point[0].LikePoint / (point[0].DislikePoint + point[0].LikePoint);
+    total = `${Math.round(total * 100)}%`
+    res.render('vwAccount/feedbackpoint', {
         layout: 'profileLayout.hbs',
         points: point[0],
         totals: total,
         feedbacks: feedback
     })
-        
+
+}
+module.exports.vwfeedback= (req,res) => {
+    res.render('vwAccount/feedback',);
 }

@@ -15,4 +15,5 @@ router.get('/public_profile/:id',controller.public_profile);
 router.get('/changepass',controller.vwchangepass);
 router.post('/changepass',controller.changepass);
 router.get('/feedbackpoint',controller.viewpoint);
+router.get('/feedback',controller.vwfeedback);
 module.exports = router;

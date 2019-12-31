@@ -18,22 +18,24 @@
   <div class="row m-2  ">
     <div class="col-12 col-md-5 border-right border-bottom border-left">
       <div class="row">
-        <img class="slide" src="/imgs/sp/1/1_0.jpg" alt="">
-        <img class="slide" src="/imgs/sp/1/1_1.jpg" alt="">
-        <img class="slide" src="/imgs/sp/1/1_2.jpg" alt="">
+        <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_0.jpg" alt="">
+        <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_1.jpg" alt="">
+        {{!-- <img class="slide" src="/imgs/sp/1/1_2.jpg" alt="">
         <img class="slide" src="/imgs/sp/1/1_3.jpg" alt="">
-        <img class="slide" src="/imgs/sp/1/1_4.jpg" alt="">
+        <img class="slide" src="/imgs/sp/1/1_4.jpg" alt=""> --}}
 
 
       </div>
       <div class="row d-flex justify-content-center">
 
 
-        <img onclick="shows(1)" class="border itemcard" src="/imgs/sp/1/sm1.jpg" alt="">
+        {{!-- <img onclick="shows(1)" class="border itemcard" src="/imgs/sp/1/sm1.jpg" alt="">
         <img onclick="shows(2)" class="border itemcard" src="/imgs/sp/1/sm2.jpg" alt="">
         <img onclick="shows(3)" class="border itemcard" src="/imgs/sp/1/sm3.jpg" alt="">
         <img onclick="shows(4)" class="border itemcard" src="/imgs/sp/1/sm4.jpg" alt="">
-        <img onclick="shows(5)" class="border itemcard" src="/imgs/sp/1/sm5.jpg" alt="">
+        <img onclick="shows(5)" class="border itemcard" src="/imgs/sp/1/sm5.jpg" alt=""> --}}
+        <button onclick="show(1)">click</button>
+        <button onclick="show(2)">click</button>
 
 
       </div>
@@ -74,11 +76,17 @@
             {{#if havewiner}}
 
             <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
-                class=" font-weight-bold imgTit ">{{winner.f_Name}}</span> <br>
+                class=" font-weight-bold imgTit ">{{winner.f_Name}} </span>
+
             </a>
+            <form action="/account/feedback"><button type="submit"  class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Đánh
+                giá</button></form>
+            <br>
+
 
             <span><code>{{totals}}</code> điểm <code class="mr-2"></code>
-             <code>{{points.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <code>{{points.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
+              <code>{{points.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+              <code>{{points.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i>
             </span>
             {{else}}
             <span class=" font-weight-bold imgTit ">Chưa có</span> <br>
@@ -135,7 +143,7 @@
             {{else}}
             <button type="submit" class="btn btn-danger mt-2">Bạn đã bị người bán từ chối đấu giá</button>
             {{/if}}
-          
+
 
           </div>
           <div>
@@ -164,11 +172,12 @@
           <ul class="list-group list-group-flush">
             <li class="list-group-item"> <span><small>Người bán:</small></span>
               <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
-                class=" font-weight-bold imgTit ">{{seller.f_Name}}</span> <br>
-            </a> 
-               <span><code>{{totals2}}</code> điểm <code class="mr-2"></code>
-             <code>{{points2.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i> <code>{{points2.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i> 
-            </span></li>
+                  class=" font-weight-bold imgTit ">{{seller.f_Name}}</span> <br>
+              </a>
+              <span><code>{{totals2}}</code> điểm <code class="mr-2"></code>
+                <code>{{points2.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                <code>{{points2.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              </span></li>
             <li class="list-group-item"> <span> <small>Đăng lúc: <code>{{products.CreatedDTime}}</code>
                 </small>
                 <span class="font-weight-bold"> </span> </span> <br></li>
@@ -192,7 +201,7 @@
                   <div class="form-group">
                     <input name="userid" type="hidden" value="{{seller.f_ID}}">
                     <input name="ProID" type="hidden" value="{{products.ProID}}">
-                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <label for="exampleFormControlTextarea1">Nhận xét</label>
                     <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                   </div>
                   <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Gửi</button>
@@ -299,8 +308,10 @@
     </div>
   </div>
   <div class="row m-2 mt-4  ">
-    <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span> <a class="ml-2 text-dark" href="/products/vwappenddes">Bổ
-      sung mô tả</a>
+    <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span>
+    <form class="ml-2" method="GET" action="/products/vwappenddes"> <button type="submit" class="btn btn-danger mt-2"> <i
+          class="fas fa-heart"></i> Bổ sung mô tả</button></form>
+
     <div class="col-12">
 
 
