@@ -30,5 +30,6 @@ module.exports = {
     addFeedback: entity =>{
         db.add('feedback',entity);
     },
-    loadPoint: UserID => db.load(`select * from userpoint where userid =${UserID}`)
+    loadPoint: UserID => db.load(`select * from userpoint where userid =${UserID}`),
+    loadFeedback: FBtoID => db.load(`select * from feedback where FBtoID=${FBtoID}  `)
 };

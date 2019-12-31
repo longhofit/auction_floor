@@ -23,7 +23,8 @@ module.exports.vwlogin = (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
-    req.session.flag=2;
+    req.session.flag = 2;
+  
     // const user={
     //   username:req.body.username,
     //   password=req.body.password
@@ -55,9 +56,10 @@ module.exports.logout = (req, res) => {
 module.exports.profile = (req, res) => {
 
 
-    res.render('vwAccount/profile', { 
+    res.render('vwAccount/profile', {
         layout: 'profileLayout.hbs',
-        isFailPass: req.session.flag==1 });
+        isFailPass: req.session.flag == 1
+    });
 };
 module.exports.updateprofile = async (req, res) => {
     entity = {
@@ -78,11 +80,11 @@ module.exports.updateprofile = async (req, res) => {
         return res.redirect(req.headers.referer);
 
     }
-    req.session.flag=0
+    req.session.flag = 0
     delete entity.f_Password;
     console.log(entity.f_ID);
     await userModel.patch(entity);
-    req.session.authUser=await userModel.singleByUsername(entity.f_UserName);
+    req.session.authUser = await userModel.singleByUsername(entity.f_UserName);
     res.redirect(req.headers.referer);
 }
 module.exports.vwrequest = (req, res) => {
@@ -99,4 +101,47 @@ module.exports.public_profile = async (req, res) => {
 
     res.render('vwAccount/public_profile', { users: user[0] });
 
+}
+module.exports.vwchangepass = (req, res) => {
+    res.render('vwAccount/changepass', { 
+        layout: 'profileLayout.hbs',
+        isFailPass: req.session.flag2 == 1
+ });
+}
+module.exports.changepass = async (req, res) => {
+
+    const user = await userModel.singleByUsername(req.session.authUser.f_UserName);
+    const rs = bcrypt.compareSync(req.body.oldpass, user.f_Password);
+    if (rs === false) {
+        req.session.flag2 = 1;
+        console.log("saipass");
+        return res.redirect(req.headers.referer);
+    }
+    else {
+        req.session.flag2 = 0;
+        entity = {
+            f_ID: req.session.authUser.f_ID,
+            f_Password: req.body.newpass
+
+        }
+        const N = 10;
+        const hash = bcrypt.hashSync(entity.f_Password, N);
+        entity.f_Password = hash;
+        console.log(entity);
+        await userModel.patch(entity);
+        res.redirect(req.headers.referer);
+    }
+
+}
+module.exports.viewpoint= async (req,res) => {
+    userID=req.session.authUser.f_ID;
+    point= await userModel.loadPoint(userID);
+    feedback=  await userModel.loadFeedback(req.session.authUser.f_ID);
+    console.log(feedback);
+    res.render('vwAccount/feedbackpoint',{
+        layout: 'profileLayout.hbs',
+        points: point[0],
+        feedbacks: feedback
+    })
+        
 }

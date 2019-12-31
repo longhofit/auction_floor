@@ -338,9 +338,9 @@ module.exports.feedback = async (req, res) => {
         console.log(req.body);
         var entity;
         if (req.body.point == 1)
-            entity = { f_id: req.body.userid, f_LikePoint: 1, f_Dislikepoint: 0 };
+            entity = { f_ID: req.body.userid, f_LikePoint: 1, f_Dislikepoint: 0 };
         if (req.body.point == -1)
-            entity = { f_id: req.body.userid, f_LikePoint: 0, f_Dislikepoint: 1 };
+            entity = { f_ID: req.body.userid, f_LikePoint: 0, f_Dislikepoint: 1 };
         entity2 = {
             content: req.body.content,
             fberid: req.session.authUser.f_ID,
