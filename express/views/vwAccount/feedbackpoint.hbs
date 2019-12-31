@@ -2,10 +2,11 @@
 <link rel="stylesheet" href="/css/style-laptop.css" type="text/css">
 {{/section}}
 <div class=" shadow">
-    <h4 class="card-header">
-        Danh sách đánh giá
+    <h4 class="card-header d-flex flex-column text-center">
+        <span>Danh sách đánh giá</span> 
+        <span class="text-danger mt-2"> {{points.LikePoint}} Like, {{points.DislikePoint}} Dislike, Phần trăm điểm: {{totals}}</span>
     </h4>
-    <h4>Điểm like: {{points.LikePoint}}  Điểm dislike: {{points.DislikePoint}} Phần trăm điểm: {{totals}} </h4>
+   
     
     <table class="table table-hover">
         <thead>
@@ -26,9 +27,9 @@
         <tbody>
             {{#each feedbacks}}
             <tr>
-                <th scope="row" class="text-center">{{FBerID}}</th>
-                <th scope="row" class="text-center">{{content}}</th>
-                <th scope="row" class="text-center">{{ProID}}</th>
+                <td scope="row" class="text-center">{{FBerID}}</td>
+                <td scope="row" class="text-center">{{content}}</td>
+                <td scope="row" class="text-center">{{ProID}}</td>
 
             </tr>
             {{/each}}

@@ -106,6 +106,9 @@ module.exports.productDetail = async (req, res) => {
         totals2: total2
 
     });
+    req.session.isNotValidPrice=false;
+    req.session.isCantBid=false;
+
 
 
 
@@ -219,6 +222,7 @@ module.exports.bidding = async (req, res) => {
 
 
         res.redirect(req.headers.referer);
+        
 
     }
 

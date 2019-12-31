@@ -103,10 +103,12 @@ module.exports.public_profile = async (req, res) => {
 
 }
 module.exports.vwchangepass = (req, res) => {
+    console.log(req.session.flag2);
     res.render('vwAccount/changepass', { 
         layout: 'profileLayout.hbs',
         isFailPass: req.session.flag2 == 1
  });
+ req.session.flag2 = 0;
 }
 module.exports.changepass = async (req, res) => {
 
@@ -115,7 +117,8 @@ module.exports.changepass = async (req, res) => {
     if (rs === false) {
         req.session.flag2 = 1;
         console.log("saipass");
-        return res.redirect(req.headers.referer);
+           return res.redirect(req.headers.referer);
+        
     }
     else {
         req.session.flag2 = 0;
@@ -131,6 +134,7 @@ module.exports.changepass = async (req, res) => {
         await userModel.patch(entity);
         res.redirect(req.headers.referer);
     }
+    req.session.flag2 = 0;
 
 }
 module.exports.viewpoint= async (req,res) => {
