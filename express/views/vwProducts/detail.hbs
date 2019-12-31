@@ -48,7 +48,13 @@
           <span class="font-weight-bold ">
             {{products.ProName}} <br>
           </span>
-          <span> <small>Thương hiệu:</small> <span class="text-danger">Cherub</span> </span>
+          <span> <small>Thương hiệu :</small> <span class="text-danger">Cherub</span> </span> <br>Yêu
+           {{#if isCantBid}}
+           <span class="text-danger">Không thể đấu giá vì điểm đánh giá của bạn bé hơn 80% </span>
+           {{/if}}
+           {{#if isNotValidPrice}}
+            <span class="text-danger">Giá chưa hợp lệ, vui lòng xem lại</span>
+           {{/if}}
         </div>
         <div class="col-12  d-flex justify-content-center  ">
           <span class="cd font-weight-bold imgTit text-danger border color"></span>
@@ -81,7 +87,7 @@
             <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Thiết
                 kế đơn giản, kích thước phù hợp với chân bạn</small></li>
             <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Bền và vững chắc
-                với mặt dưới được trang bị lớp cao su có tác dụng chống trượt</small></li>
+                với mặt dưới được trang bị lớp cao su có tác dụng chống trượt </small></li>
 
 
           </ul>
@@ -95,12 +101,13 @@
 
 
           <div class="d-flex justify-content-around ">
-
+           
+            {{#if isnot}}
             <form method="POST" action="/products/bidding">
-              <label for="cusbid">Ra giá của bạn:</label> <br>
+              <label for="cusbid">Ra giá của bạn :</label> <br>
               <input style="" id="Price" name="Price" value="{{validPrice}}"> <br>
 
-              <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
+              <button onclick="return myConfirm();" type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
                 </i>Đấu
                 giá</button>
 
@@ -114,6 +121,11 @@
                 giá tự động</button>
 
             </form>
+            
+            {{else}}
+            <button type="submit" class="btn btn-danger mt-2">Bạn đã bị người bán từ chối đấu giá</button>
+            {{/if}}
+
 
           </div>
           <div>
@@ -221,14 +233,22 @@
             <th class="color" scope="row">Người mua</th>
             <th class="color" scope="row">Giá</th>
             <th class="color" scope="row">Thời điểm</th>
+            <th class="color" scope="row"></th>
 
           </tr>
           {{#each loginfor}}
           <tr>
             <td> <i class="fa fa-trophy" aria-hidden="true"></i>
-              ***{{UserName}}</td>
+              ***{{UserID}}</td>
             <td>{{Price}}</td>
             <td>{{BidTime}}</td>
+            <td> 
+              <form method="POST" action="/products/banbid">
+                <input type="hidden" name="UserID" value="{{UserID}}">
+                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
+
+              </form>
+            </td>
           </tr>
           {{/each}}
 
@@ -246,7 +266,7 @@
         <tbody>
           <tr>
             <th class="color" scope="row">Thương hiệu</th>
-            <td> Cherub</td>
+            <td> Cherub </td>
 
           </tr>
           <tr>
@@ -267,7 +287,8 @@
     </div>
   </div>
   <div class="row m-2 mt-4  ">
-    <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span>
+    <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span> <a class="ml-2 text-dark" href="/products/vwappenddes">Bổ
+      sung mô tả</a>
     <div class="col-12">
 
 

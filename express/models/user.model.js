@@ -19,13 +19,16 @@ module.exports = {
         return db.patch('user', entity, condition);
     }, 
     patch: entity => {
-        const condition = { f_id: entity.f_id };
+        const condition = { f_ID: entity.f_ID };
         // console.log(condition,entity);
-        delete entity.f_id;
+        delete entity.f_ID;
         // console.log(condition,entity);
+        console.log(entity);
+        console.log(condition);
         return db.patch('user', entity, condition);
     },
     addFeedback: entity =>{
         db.add('feedback',entity);
-    }
+    },
+    loadPoint: UserID => db.load(`select * from userpoint where userid =${UserID}`)
 };

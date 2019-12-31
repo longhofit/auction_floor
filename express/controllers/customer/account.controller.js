@@ -23,6 +23,7 @@ module.exports.vwlogin = (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
+    req.session.flag=2;
     // const user={
     //   username:req.body.username,
     //   password=req.body.password
@@ -39,7 +40,6 @@ module.exports.login = async (req, res) => {
     delete user.f_Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user;
-
     const url = req.query.retUrl || '/';
     res.redirect(url);
 };
@@ -55,20 +55,48 @@ module.exports.logout = (req, res) => {
 module.exports.profile = (req, res) => {
 
 
-    res.render('vwAccount/profile', { layout: 'profileLayout.hbs' });
+    res.render('vwAccount/profile', { 
+        layout: 'profileLayout.hbs',
+        isFailPass: req.session.flag==1 });
 };
+module.exports.updateprofile = async (req, res) => {
+    entity = {
+        f_ID: req.session.authUser.f_ID,
+        f_UserName: req.session.authUser.f_UserName,
+        f_Name: req.body.f_Name,
+        f_Email: req.body.f_Email,
+        f_DOB: req.body.dob,
+        f_Password: req.body.f_Password
+    }
+    console.log(entity);
+
+
+    const user = await userModel.singleByUsername(entity.f_UserName);
+    const rs = bcrypt.compareSync(entity.f_Password, user.f_Password);
+    if (rs === false) {
+        req.session.flag = 1;
+        return res.redirect(req.headers.referer);
+
+    }
+    req.session.flag=0
+    delete entity.f_Password;
+    console.log(entity.f_ID);
+    await userModel.patch(entity);
+    req.session.authUser=await userModel.singleByUsername(entity.f_UserName);
+    res.redirect(req.headers.referer);
+}
 module.exports.vwrequest = (req, res) => {
     res.render('vwAccount/request', { layout: 'profileLayout.hbs' });
 }
 module.exports.sendrequest = async (req, res) => {
     entity = { UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_UserName, Mess: req.body.Mess };
-    await  userModel.addrequest(entity);
+    await userModel.addrequest(entity);
     res.redirect('/account/request');
 };
-module.exports.public_profile = async (req,res) =>{
+module.exports.public_profile = async (req, res) => {
     const UserID = req.params.id;
-    const user= await userModel.single(UserID);
-    
-    res.render('vwAccount/public_profile',{users:user[0] });
-    
+    const user = await userModel.single(UserID);
+
+    res.render('vwAccount/public_profile', { users: user[0] });
+
 }
