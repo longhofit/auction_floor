@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/style-laptop.css" type="text/css">
 {{/section}}
 
-<form method="POST" action="/products/like">
+<form method="POST" action="/products/feedbackwinner">
     <div class="form-group">
 
 
@@ -16,8 +16,8 @@
         </div>
 
         <div class="form-group">
-            <input name="userid" type="hidden" value="{{winner.f_ID}}">
-            <input name="ProID" type="hidden" value="{{products.ProID}}">
+            {{!-- <input name="userid" type="hidden" value="{{winner.f_ID}}">
+            <input name="ProID" type="hidden" value="{{products.ProID}}"> --}}
             <label for="exampleFormControlTextarea1">Nhận xét</label>
             <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>

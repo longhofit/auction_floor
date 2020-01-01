@@ -154,5 +154,5 @@ module.exports.viewpoint = async (req, res) => {
 
 }
 module.exports.vwfeedback= (req,res) => {
-    res.render('vwAccount/feedback',);
+    res.render('vwAccount/feedback');
 }

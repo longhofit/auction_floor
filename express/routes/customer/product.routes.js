@@ -13,7 +13,8 @@ router.get('/biddinglist',restrict.beforeLogin,controller.allByBiddingList);
 router.get('/wonlist',restrict.beforeLogin,controller.allByWonList);
 router.get('/sellinglist',restrict.beforeLogin,controller.allBySellingList);
 router.get('/biddedlist',restrict.beforeLogin,controller.allByBiddedList);
-router.post('/like',controller.feedback);
+router.post('/feedbackseller',controller.feedbackseller);
+router.post('/feedbackwinner',controller.feedbackwinner)
 router.post('/autobidding',controller.autobidding);
 router.get('/vwappenddes',restrict.beforeLogin,controller.vwappen);
 router.post('/vwappenddes',controller.append);

@@ -49,23 +49,24 @@ module.exports.productDetail = async (req, res) => {
     req.session.CurrPrice = productinfo[0].Price;
     req.session.FullDes = productinfo[0].FullDes;
     req.session.SellerEmail = sellerinfo[0].f_Email;
+    req.session.SellerID=sellerinfo[0].f_ID;
     var point;
     var point2;
     var total;
     var total2;
-    if (ishavewiner){
+    if (ishavewiner) {
         req.session.winnerid = winnerinfo[0].f_ID;
-        [point,point2]= await Promise.all([
+        [point, point2] = await Promise.all([
             userModel.loadPoint(winnerinfo[0].f_ID),
             userModel.loadPoint(sellerinfo[0].f_ID)
         ])
-        total=point[0].LikePoint/(point[0].DislikePoint+point[0].LikePoint);
-        total=`${Math.round(total*100)}%`;
-        total2=point2[0].LikePoint/(point2[0].DislikePoint+point2[0].LikePoint);
-        total2=`${Math.round(total2*100)}%`;
+        total = point[0].LikePoint / (point[0].DislikePoint + point[0].LikePoint);
+        total = `${Math.round(total * 100)}%`;
+        total2 = point2[0].LikePoint / (point2[0].DislikePoint + point2[0].LikePoint);
+        total2 = `${Math.round(total2 * 100)}%`;
 
     }
-        
+
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
     var proimg = [];
@@ -86,7 +87,7 @@ module.exports.productDetail = async (req, res) => {
             req.session.isNotBanBid = true;
     }
 
-    
+
     console.log(req.session.isNotBanBid);
     res.render('vwProducts/detail', {
         products: productinfo[0],
@@ -99,15 +100,15 @@ module.exports.productDetail = async (req, res) => {
         isnot: req.session.isNotBanBid,
         isCantBid: req.session.isCantBid,
         isNotValidPrice: req.session.isNotValidPrice,
-        havewiner:ishavewiner,
-        points:point[0],
+        havewiner: ishavewiner,
+        points: point[0],
         points2: point2[0],
-        totals:total,
+        totals: total,
         totals2: total2
 
     });
-    req.session.isNotValidPrice=false;
-    req.session.isCantBid=false;
+    req.session.isNotValidPrice = false;
+    req.session.isCantBid = false;
 
 
 
@@ -222,7 +223,7 @@ module.exports.bidding = async (req, res) => {
 
 
         res.redirect(req.headers.referer);
-        
+
 
     }
 
@@ -355,7 +356,7 @@ module.exports.allByBiddedList = async (req, res) => {
 
 
 }
-module.exports.feedback = async (req, res) => {
+module.exports.feedbackseller = async (req, res) => {
 
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
@@ -363,16 +364,17 @@ module.exports.feedback = async (req, res) => {
     else {
 
         console.log(req.body);
+        UserID = req.session.SellerID;
         var entity;
         if (req.body.point == 1)
-            entity = { f_ID: req.body.userid, f_LikePoint: 1, f_Dislikepoint: 0 };
+            entity = { f_ID: UserID, f_LikePoint: 1, f_Dislikepoint: 0 };
         if (req.body.point == -1)
-            entity = { f_ID: req.body.userid, f_LikePoint: 0, f_Dislikepoint: 1 };
+            entity = { f_ID: UserID, f_LikePoint: 0, f_Dislikepoint: 1 };
         entity2 = {
             content: req.body.content,
             fberid: req.session.authUser.f_ID,
-            fbtoid: req.body.userid,
-            proid: req.body.ProID
+            fbtoid: UserID,
+            proid: req.session.ProID
         }
         console.log(entity);
         console.log(entity2);
@@ -462,3 +464,36 @@ module.exports.banbid = async (req, res) => {
     // }
     res.redirect(req.headers.referer);
 } 
+module.exports.feedbackwinner= async (req,res) => {
+    if (req.session.isAuthenticated === false) {
+        return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
+    }
+    else {
+
+        console.log(req.body);
+        UserID = req.session.winnerid;
+        var entity;
+        if (req.body.point == 1)
+            entity = { f_ID: UserID, f_LikePoint: 1, f_Dislikepoint: 0 };
+        if (req.body.point == -1)
+            entity = { f_ID: UserID, f_LikePoint: 0, f_Dislikepoint: 1 };
+        entity2 = {
+            content: req.body.content,
+            fberid: req.session.authUser.f_ID,
+            fbtoid: UserID,
+            proid: req.session.ProID
+        }
+        console.log(entity);
+        console.log(entity2);
+
+        await Promise.all([
+            userModel.patch(entity),
+            userModel.addFeedback(entity2)
+        ])
+
+        res.redirect(req.headers.referer);
+
+    }
+
+    
+}
