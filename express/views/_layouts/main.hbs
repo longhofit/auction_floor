@@ -18,7 +18,16 @@
   {{{_sections.css}}}
   {{{_sections.js}}}
 
-  <title>Aution Floor Site</title>
+  <title>{{#if isBidder}}
+    bidder
+    {{/if}}
+    {{#if isAdmin}}
+    admin
+    {{/if}}
+    {{#if isSeller}}
+    seller
+    {{/if}}
+  </title>
 </head>
 
 <body>

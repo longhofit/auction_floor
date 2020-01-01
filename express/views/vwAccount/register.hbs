@@ -1,17 +1,19 @@
 {{#section 'css'}}
 <link rel="stylesheet" href="/css/style.css" type="text/css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
 {{/section}}
 
 {{#section 'js'}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 <script>
     $('#txtDOB').datetimepicker({
-        format:'d/m/Y',
-        timepicker:false,
-        mask:true,
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
     });
-    function validate(){
+    function validate() {
         return true;
     }
 </script>
@@ -20,6 +22,18 @@
     <h4 class="card-header">
         Register
     </h4>
+     {{#if isExistUserName}}
+    <h4 class="text-danger">
+        Ton tai UserName
+    </h4>
+    {{/if}}
+    {{#if isExistMail}}
+    <h4 class="text-danger">
+        Ton tai email
+    </h4>
+    {{/if}}
+    
+
     <div class="card-body">
         <form onsubmit="return validate();" method="POST" novalidate id="frmRegister" name="frmRegister">
             <h5 class="mb-3">Account</h5>
@@ -40,20 +54,17 @@
             <h5>Information</h5>
             <div class="form-group">
                 <label for="textName">Name</label>
-                <input type="text" class="form-control" id="textName" name="f_Name" placeholder="John Witch"
-                    >
+                <input type="text" class="form-control" id="textName" name="f_Name" placeholder="John Witch">
             </div>
-              <div class="form-group">
+            <div class="form-group">
                 <label for="txtEmail">Email</label>
-                <input type="text" class="form-control" id="txtEmail" name="f_Email" placeholder="asb@.db"
-                   >
+                <input type="text" class="form-control" id="txtEmail" name="f_Email" placeholder="asb@.db">
             </div>
-                <div class="form-group">
+            <div class="form-group">
                 <label for="txtDOB">Date of Birth</label>
-                <input type="text" class="form-control" id="txtDOB" name="dob"
-                    >
+                <input type="text" class="form-control" id="txtDOB" name="dob">
             </div>
-          
+
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-check" aria-hidden="true"></i>
                 Register

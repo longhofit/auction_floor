@@ -2,20 +2,45 @@ const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../../models/user.model');
 module.exports.vwregister = async (req, res) => {
-    res.render('vwAccount/register');
+    res.render('vwAccount/register', {
+        isExistMail: req.session.isExistMail,
+        isExistUserName: req.session.isExistUserName
+    });
+    req.session.isExistMail = false;
+    req.session.isExistUserName=false;
 };
 
 module.exports.register = async (req, res) => {
-    const N = 10;
-    const hash = bcrypt.hashSync(req.body.raw_password, N);
-    const dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
-    const entity = req.body;
-    entity.f_Password = hash;
-    entity.f_DOB = dob;
-    delete entity.raw_password;
-    delete entity.dob;
-    const result = await userModel.add(entity);
-    res.render('vwAccount/register');
+    
+    const [rows, rowsUserName] = await Promise.all([
+        userModel.checkEmail(req.body.f_Email),
+        userModel.checkUserName(req.body.f_UserName)
+    ])
+
+    req.session.isExistMail = false;
+    req.session.isExistUserName = false;
+    if (rowsUserName.length > 0)
+        req.session.isExistUserName = true;
+    else {
+        if (rows.length > 0) {
+            req.session.isExistMail = true;
+        }
+        else {
+            console.log("dang ki");
+            const N = 10;
+            const hash = bcrypt.hashSync(req.body.raw_password, N);
+            const dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
+            const entity = req.body;
+            entity.f_Password = hash;
+            entity.f_DOB = dob;
+            delete entity.raw_password;
+            delete entity.dob;
+            const result = await userModel.add(entity);
+        }
+
+    }
+
+    res.redirect(req.headers.referer);
 
 };
 module.exports.vwlogin = (req, res) => {
@@ -41,7 +66,6 @@ module.exports.login = async (req, res) => {
     delete user.f_Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user;
-    req.session.Type = user.f_Type;
     const url = req.query.retUrl || '/';
     res.redirect(url);
 };
@@ -153,6 +177,6 @@ module.exports.viewpoint = async (req, res) => {
     })
 
 }
-module.exports.vwfeedback= (req,res) => {
+module.exports.vwfeedback = (req, res) => {
     res.render('vwAccount/feedback');
 }

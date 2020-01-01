@@ -30,6 +30,7 @@ module.exports.productDetail = async (req, res) => {
         productModel.endTime(proId)
 
     ]);
+    
 
 
 
@@ -50,19 +51,23 @@ module.exports.productDetail = async (req, res) => {
     req.session.FullDes = productinfo[0].FullDes;
     req.session.SellerEmail = sellerinfo[0].f_Email;
     req.session.SellerID = sellerinfo[0].f_ID;
-    var point=[];
+    var point = [];
     var point2 = await userModel.loadPoint(sellerinfo[0].f_ID);
     total2 = point2[0].LikePoint / (point2[0].DislikePoint + point2[0].LikePoint);
     total2 = `${Math.round(total2 * 100)}%`;
     var total;
     var total2;
+    //  req.session.isOwn = false;
 
     if (ishavewiner) {
         req.session.winnerid = winnerinfo[0].f_ID;
         point = await userModel.loadPoint(winnerinfo[0].f_ID);
         total = point[0].LikePoint / (point[0].DislikePoint + point[0].LikePoint);
         total = `${Math.round(total * 100)}%`;
+        //  if (req.session.authUser.f_ID == winnerinfo[0].f_ID)
+        //     req.session.isOwn=true;
     }
+    console.log(req.session.isOwn);
 
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
@@ -283,9 +288,18 @@ module.exports.allByBiddingList = async (req, res) => {
                 ids2.push(endTimeIDs[x].ProID);
             //console.log(`ids2${ids2}`);
             const result = await productModel.allByArrID(ids2);
+           
+            for (pro of result) {
+                if (pro.WinerID == req.session.authUser.f_ID)
+                    pro.isOwn = true;
+                else pro.isOwn = false
+            }
             console.log(result);
+
             res.render('vwProducts/allByBiddinglist', {
-                products: result, empty: 0
+                products: result,
+                empty: 0,
+
             });
         }
     }
