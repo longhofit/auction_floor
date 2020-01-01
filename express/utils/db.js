@@ -4,7 +4,7 @@ const pool=mysql.createPool({
     connectionLimit: 50,
     host: 'localhost',
     user: 'root',
-    password: 'MeoCoC@nh7448',
+    password: '123456',
     database: 'online_aucdb'
 
 });
