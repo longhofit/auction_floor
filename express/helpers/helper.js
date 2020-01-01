@@ -35,33 +35,18 @@ module.exports.sendmail = (emailtosend,title,content) => {
     
 }
 
-
-//default
-let DEFAULT_MARKSTRING_LENGTH = 4;
-let DEFAULT_MARKSTRING_MINLENGTH = 10;
-let DEFAULT_MARKSTRING_MAXLENGTH = 10;
-let DEFAULT_MARKSTRING_CHAR = "*";
-let DEFAULT_MARKSTRING_ISLEFTTORIGHT = true;
-
-module.exports.markString = (source) => {
-    return markString(source, DEFAULT_MARKSTRING_LENGTH, DEFAULT_MARKSTRING_MINLENGTH, DEFAULT_MARKSTRING_MAXLENGTH, DEFAULT_MARKSTRING_CHAR, DEFAULT_MARKSTRING_ISLEFTTORIGHT);
-}
-
-module.exports.markString = (source, length) => {
-    return markString(source, length, DEFAULT_MARKSTRING_MINLENGTH, DEFAULT_MARKSTRING_MAXLENGTH, DEFAULT_MARKSTRING_CHAR, DEFAULT_MARKSTRING_ISLEFTTORIGHT);
-}
-
 module.exports.markString = (source, showLength, minLenth, maxLength, charMark, isLeftToRight) => {
-    var Mark = charMark.substring(0,1);
+    var Mark = charMark;
+    Mark = Mark.substring(0,1);
     let sourceLength = source.length; 
     var resultLength = sourceLength;
-    var result = "";
+    var result = '';
 
     //Swap
-    if(minLenth > maxlength){
-        minLenth = maxlength + minLenth;
-        maxlength = minLenth - maxlength;
-        minLenth = minLenth - maxlength;
+    if(minLenth > maxLength){
+        minLenth = maxLength + minLenth;
+        maxLength = minLenth - maxLength;
+        minLenth = minLenth - maxLength;
     }
 
     if(resultLength > maxLength ){
