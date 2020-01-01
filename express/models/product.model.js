@@ -81,6 +81,7 @@ module.exports = {
         return db.load(sql);
     },
     allContinue: () => db.load(`select ProID from endtime where CURRENT_TIMESTAMP < endtime`),
+    allMinuteAgo: minutes => db.load(`select ProID from products where  (DATE_ADD(CreatedDTime, INTERVAL ${minutes} MINUTE)>CURRENT_TIMESTAMP)`),
     allEnd: () => db.load(`select ProID from endtime where CURRENT_TIMESTAMP > endtime`),
     allByArrIDBidding: (ProID, UserID) => {
         var inlist = '';
@@ -115,7 +116,8 @@ module.exports = {
         db.del('bidding_log', { ProID: ProID, UserID: UserID })
     },
     loadWinWithPrice: (ProID) => db.load(`select * from bidding_log where Price=(SELECT max(price) FROM bidding_log where  proid=${ProID})
-    `)
+    `),
+    coutBid: (ProID) => db.load(`select count(*) from products where ProID=${ProID}`)
 }
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {

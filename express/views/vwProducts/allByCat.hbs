@@ -22,7 +22,13 @@
             <h5 class="card-title mt-3">
               {{ProName}}
             </h5>
-            <h5 class="card-title text-danger">{{format Price}}</h5>
+            <h5 class="card-title text-danger">Giá hiện tại: {{format Price}}đ</h5>
+            <h5 class="card-title text-danger">Người giữ giá: {{WinerID}}</h5>
+            <p>Thời gian còn lại: *chưa làm*</p>
+            <p>Số lượt ra giá: {{NumberBid}}</p>
+           {{#if MinutesAgo}}
+           moi tao trong 2 phut
+           {{/if}}
             <p class="card-text">
               {{TinyDes}}
             </p>

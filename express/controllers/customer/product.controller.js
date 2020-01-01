@@ -49,22 +49,19 @@ module.exports.productDetail = async (req, res) => {
     req.session.CurrPrice = productinfo[0].Price;
     req.session.FullDes = productinfo[0].FullDes;
     req.session.SellerEmail = sellerinfo[0].f_Email;
-    req.session.SellerID=sellerinfo[0].f_ID;
-    var point;
-    var point2;
+    req.session.SellerID = sellerinfo[0].f_ID;
+    var point=[];
+    var point2 = await userModel.loadPoint(sellerinfo[0].f_ID);
+    total2 = point2[0].LikePoint / (point2[0].DislikePoint + point2[0].LikePoint);
+    total2 = `${Math.round(total2 * 100)}%`;
     var total;
     var total2;
+
     if (ishavewiner) {
         req.session.winnerid = winnerinfo[0].f_ID;
-        [point, point2] = await Promise.all([
-            userModel.loadPoint(winnerinfo[0].f_ID),
-            userModel.loadPoint(sellerinfo[0].f_ID)
-        ])
+        point = await userModel.loadPoint(winnerinfo[0].f_ID);
         total = point[0].LikePoint / (point[0].DislikePoint + point[0].LikePoint);
         total = `${Math.round(total * 100)}%`;
-        total2 = point2[0].LikePoint / (point2[0].DislikePoint + point2[0].LikePoint);
-        total2 = `${Math.round(total2 * 100)}%`;
-
     }
 
     const imgFolder = `./public/imgs/sp/${proId}/`;
@@ -181,6 +178,7 @@ module.exports.bidding = async (req, res) => {
     // console.log(req.body.Price);
     // console.log(req.session.ProID);
     // console.log(req.session.authUser.f_ID);
+    console.log("dau gia");
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
     }
@@ -463,8 +461,8 @@ module.exports.banbid = async (req, res) => {
 
     // }
     res.redirect(req.headers.referer);
-} 
-module.exports.feedbackwinner= async (req,res) => {
+}
+module.exports.feedbackwinner = async (req, res) => {
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
     }
@@ -491,9 +489,9 @@ module.exports.feedbackwinner= async (req,res) => {
             userModel.addFeedback(entity2)
         ])
 
-        res.redirect(req.headers.referer);
+        res.redirect(`/products/detail/${entity2.proid}`);
 
     }
 
-    
+
 }

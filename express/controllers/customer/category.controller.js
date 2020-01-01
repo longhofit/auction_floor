@@ -1,6 +1,7 @@
 const productModel = require('../../models/product.model');
 const config = require('../../config/default.json');
 module.exports.productByCat = async (req, res) => {
+
     for (const c of res.locals.lcCategories) {
         if (c.CatID === +req.params.id) {
             c.isActive = true;
@@ -12,11 +13,23 @@ module.exports.productByCat = async (req, res) => {
     if (page < 1) page = 1;
     const offset = (page - 1) * config.paginate.limit;
 
-    const [total, rows] = await Promise.all([
+    const [total, rows, newpros] = await Promise.all([
         productModel.countByCat(catId),
-        productModel.pageByCat(catId, offset)
-
+        productModel.pageByCat(catId, offset),
+        productModel.allMinuteAgo(3)
     ])
+    console.log(newpros);
+    for (row of rows) {
+        row.MinutesAgo = false;
+        for (newpro of newpros) {
+            if (row.ProID == newpro.ProID)
+                row.MinutesAgo = true;
+        }
+
+    }
+    console.log(rows);
+
+
 
 
 
@@ -31,6 +44,7 @@ module.exports.productByCat = async (req, res) => {
 
         })
     }
+
 
     // const rows = await productModel.pageByCat(req.params.id,offset);
     res.render('vwProducts/allByCat', {
