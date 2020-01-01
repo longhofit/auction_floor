@@ -38,6 +38,8 @@ module.exports.sendmail = (emailtosend,title,content) => {
 module.exports.markString = (source, showLength, minLenth, maxLength, charMark, isLeftToRight) => {
     var Mark = charMark;
     Mark = Mark.substring(0,1);
+    if(source==null)
+        return null;
     let sourceLength = source.length; 
     var resultLength = sourceLength;
     var result = '';

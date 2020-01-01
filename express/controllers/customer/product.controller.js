@@ -22,6 +22,7 @@ const upload = multer({ storage });
 
 
 module.exports.productDetail = async (req, res) => {
+
     const proId = req.params.id;
     req.session.beforePost = req.originalUrl
     const [productinfo, loginfo, endtime] = await Promise.all([
@@ -30,7 +31,9 @@ module.exports.productDetail = async (req, res) => {
         productModel.endTime(proId)
 
     ]);
-    
+
+
+
 
 
 
@@ -41,6 +44,21 @@ module.exports.productDetail = async (req, res) => {
         userModel.single(productinfo[0].SellerID)
 
     ]);
+    var isMyPro = false;
+    var isSellerButNotMine = false;
+
+    if (req.session.isAuthenticated) {
+        if (sellerinfo[0].f_ID == req.session.authUser.f_ID) {
+            isMyPro = true;
+        }
+        else {
+            if (req.session.authUser.f_Type == "Seller")
+                isSellerButNotMine = true;
+
+        }
+
+    }
+    console.log(isSellerButNotMine);
     var ishavewiner = true;
     if (winnerinfo.length == 0)
         ishavewiner = false;
@@ -61,6 +79,7 @@ module.exports.productDetail = async (req, res) => {
 
     if (ishavewiner) {
         req.session.winnerid = winnerinfo[0].f_ID;
+
         point = await userModel.loadPoint(winnerinfo[0].f_ID);
         total = point[0].LikePoint / (point[0].DislikePoint + point[0].LikePoint);
         total = `${Math.round(total * 100)}%`;
@@ -90,7 +109,7 @@ module.exports.productDetail = async (req, res) => {
     }
 
 
-    console.log(req.session.isNotBanBid);
+    console.log(isMyPro);
     res.render('vwProducts/detail', {
         products: productinfo[0],
         proImgs: proimg,
@@ -106,7 +125,9 @@ module.exports.productDetail = async (req, res) => {
         points: point[0],
         points2: point2[0],
         totals: total,
-        totals2: total2
+        totals2: total2,
+        isMyPro: isMyPro,
+        isSellerButNotMine: isSellerButNotMine
 
     });
     req.session.isNotValidPrice = false;
@@ -188,7 +209,7 @@ module.exports.bidding = async (req, res) => {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
     }
     else {
-        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID };
+        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_UserName };
         const [point, curPrice] = await Promise.all([
             userModel.loadPoint(entity.UserID),
             productModel.single(entity.ProID)
@@ -288,7 +309,7 @@ module.exports.allByBiddingList = async (req, res) => {
                 ids2.push(endTimeIDs[x].ProID);
             //console.log(`ids2${ids2}`);
             const result = await productModel.allByArrID(ids2);
-           
+
             for (pro of result) {
                 if (pro.WinerID == req.session.authUser.f_ID)
                     pro.isOwn = true;

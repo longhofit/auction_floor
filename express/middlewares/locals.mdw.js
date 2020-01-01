@@ -30,6 +30,10 @@ module.exports = function (app) {
         res.locals.isAdmin=true;
       }
     }
+    else
+    {
+      res.locals.isAnony=true;
+    }
     next();
 
   });

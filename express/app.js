@@ -4,6 +4,7 @@ const hbs_sections = require('express-handlebars-sections');
 const session = require('express-session');
 const morgan = require('morgan');
 const numeral = require('numeral');
+const helpers=require('../express/helpers/helper')
 require('express-async-errors');
 
 
@@ -29,6 +30,7 @@ app.engine('hbs', exphbs({
   helpers: {
     section: hbs_sections(),
     format: val => numeral(val).format('0,0'),
+    mask: name => helpers.markString(name,6,10,10,"*",true)
     
   },
 
