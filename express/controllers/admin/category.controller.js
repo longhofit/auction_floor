@@ -1,4 +1,5 @@
 const categoryModel = require('../../models/category.model');
+
 module.exports.catIndex = async (req, res) => {
     // try {
     const rows = await categoryModel.all();

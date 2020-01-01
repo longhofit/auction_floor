@@ -28,7 +28,8 @@ app.engine('hbs', exphbs({
   layoutsDir: 'views/_layouts',
   helpers: {
     section: hbs_sections(),
-    format: val => numeral(val).format('0,0')
+    format: val => numeral(val).format('0,0'),
+    
   },
 
 

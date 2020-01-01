@@ -7,8 +7,13 @@ router.post('/register',controller.register);
 router.get('/login',controller.vwlogin);
 router.post('/login',controller.login);
 router.get('/profile',restrict.beforeLogin,controller.profile);
+router.post('/profile',restrict.beforeLogin,controller.updateprofile);
 router.post('/logout',controller.logout)
 router.get('/request',controller.vwrequest);
 router.post('/request',controller.sendrequest);
 router.get('/public_profile/:id',controller.public_profile);
+router.get('/changepass',controller.vwchangepass);
+router.post('/changepass',controller.changepass);
+router.get('/feedbackpoint',controller.viewpoint);
+router.get('/feedback',controller.vwfeedback);
 module.exports = router;

@@ -4,6 +4,7 @@ module.exports.vwmanagerUser= (req,res) =>{
 }
 module.exports.vwaccept = async (req,res) =>
 {   request= await userModel.loadrequest();
+    console.log(request);
     res.render('vwAccount/accept',{request,layout: 'adminLayout.hbs'});
 }
 module.exports.accept =async (req,res) => {
@@ -16,6 +17,5 @@ module.exports.accept =async (req,res) => {
 }
 module.exports.vwlist = async (req,res) =>{
     result= await userModel.all();
-    console.log(result);
     res.render('vwAccount/userlist',{users: result,layout: 'adminLayout.hbs'});
 }

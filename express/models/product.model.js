@@ -43,7 +43,7 @@ module.exports = {
             inlist += `${ProID[i]},`;
         }
         inlist = inlist.substring(0, inlist.length - 1);
-       // const sql = 'select ProID from endtime where (endtime>CURRENT_TIMESTAMP) and (ProID in (' + inlist + ') )';
+        // const sql = 'select ProID from endtime where (endtime>CURRENT_TIMESTAMP) and (ProID in (' + inlist + ') )';
         const sql = `select ProID from endtime where (endtime>CURRENT_TIMESTAMP) and (ProID in (${inlist}))`;
         console.log(sql);
         return db.load(sql);
@@ -54,7 +54,7 @@ module.exports = {
             inlist += `${ProID[i]},`;
         }
         inlist = inlist.substring(0, inlist.length - 1);
-       // const sql = 'select ProID from endtime where (endtime<CURRENT_TIMESTAMP) and (ProID in (' + inlist + ') )';
+        // const sql = 'select ProID from endtime where (endtime<CURRENT_TIMESTAMP) and (ProID in (' + inlist + ') )';
         const sql = `select ProID from endtime where (endtime<CURRENT_TIMESTAMP) and (ProID in (${inlist}))`;
         console.log(sql);
         return db.load(sql);
@@ -66,45 +66,58 @@ module.exports = {
         }
         inlist = inlist.substring(0, inlist.length - 1);
         //const sql = 'SELECT * FROM products WHERE ProID in (' + inlist + ')';
-        const sql=`SELECT * FROM products WHERE ProID in (${inlist})`;
+        const sql = `SELECT * FROM products WHERE ProID in (${inlist})`;
         console.log(sql);
         return db.load(sql);
     },
-    allByArrIDWon: (ProID,UserID) => {
+    allByArrIDWon: (ProID, UserID) => {
         var inlist = '';
-        for (var i = 0; i < ProID.length; i++) { 
+        for (var i = 0; i < ProID.length; i++) {
             inlist += `${ProID[i]},`;
         }
         inlist = inlist.substring(0, inlist.length - 1);
-        const sql=`SELECT * FROM products WHERE ProID in (${inlist}) and WinerID=${UserID}`;
+        const sql = `SELECT * FROM products WHERE ProID in (${inlist}) and WinerID=${UserID}`;
         console.log(sql);
         return db.load(sql);
     },
-    allContinue : () => db.load(`select ProID from endtime where CURRENT_TIMESTAMP < endtime`),
-    allEnd: () =>db.load(`select ProID from endtime where CURRENT_TIMESTAMP > endtime`),
-    allByArrIDBidding: (ProID,UserID) => {
+    allContinue: () => db.load(`select ProID from endtime where CURRENT_TIMESTAMP < endtime`),
+    allMinuteAgo: minutes => db.load(`select ProID from products where  (DATE_ADD(CreatedDTime, INTERVAL ${minutes} MINUTE)>CURRENT_TIMESTAMP)`),
+    allEnd: () => db.load(`select ProID from endtime where CURRENT_TIMESTAMP > endtime`),
+    allByArrIDBidding: (ProID, UserID) => {
         var inlist = '';
-        for (var i = 0; i < ProID.length; i++) { 
+        for (var i = 0; i < ProID.length; i++) {
             inlist += `${ProID[i]},`;
         }
         inlist = inlist.substring(0, inlist.length - 1);
-        const sql=`SELECT * FROM products WHERE SellerID=${UserID} and ProID in (${inlist})`;
+        const sql = `SELECT * FROM products WHERE SellerID=${UserID} and ProID in (${inlist})`;
         console.log(sql);
         return db.load(sql);
     },
-    allProIBidded : (ProID,UserID) => {
+    allProIBidded: (ProID, UserID) => {
         var inlist = '';
-        for (var i = 0; i < ProID.length; i++) { 
+        for (var i = 0; i < ProID.length; i++) {
             inlist += `${ProID[i]},`;
         }
         inlist = inlist.substring(0, inlist.length - 1);
-        const sql=`SELECT * FROM products WHERE (SellerID = ${UserID}) and (winerid is not null) and (proid in (${inlist}))`;
+        const sql = `SELECT * FROM products WHERE (SellerID = ${UserID}) and (winerid is not null) and (proid in (${inlist}))`;
         console.log(sql);
         return db.load(sql);
 
     },
-    addAutoBid: entity => db.add('autobid',entity),
-    loadAutobid: ProID => db.load(`select * from autobid where ProID=${ProID}`)
+    addAutoBid: entity => db.add('autobid', entity),
+    loadAutobid: ProID => db.load(`select * from autobid where ProID=${ProID}`),
+    addBannedList: entity => {
+        console.log(`   ${entity}    addBannedList `);
+        db.add(`bannedlist`, entity)
+    },
+    isInBanBidList: (ProID, UserID) => db.load(`select * from bannedlist where ProID=${ProID} and UserID=${UserID} `),
+    delBidLog: (ProID, UserID) => {
+        console.log(` ${ProID} ${UserID} delBidLog `);
+        db.del('bidding_log', { ProID: ProID, UserID: UserID })
+    },
+    loadWinWithPrice: (ProID) => db.load(`select * from bidding_log where Price=(SELECT max(price) FROM bidding_log where  proid=${ProID})
+    `),
+    coutBid: (ProID) => db.load(`select count(*) from products where ProID=${ProID}`)
 }
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {

@@ -1,8 +1,9 @@
 const multer = require('multer');
 let fs = require('fs-extra');
-const nodemailer = require('nodemailer');
+
 const productModel = require('../../models/product.model');
 const userModel = require('../../models/user.model');
+const hepler = require('../../helpers/helper');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
@@ -21,12 +22,6 @@ const upload = multer({ storage });
 
 
 module.exports.productDetail = async (req, res) => {
-    // var cron = require('node-cron');
-
-    // cron.schedule('* * * * * *', () => {
-    //     console.log('running a task every minute');
-    // });
-    
     const proId = req.params.id;
     req.session.beforePost = req.originalUrl
     const [productinfo, loginfo, endtime] = await Promise.all([
@@ -45,11 +40,30 @@ module.exports.productDetail = async (req, res) => {
         userModel.single(productinfo[0].SellerID)
 
     ]);
-    req.session.ProID = proId;
+    var ishavewiner = true;
+    if (winnerinfo.length == 0)
+        ishavewiner = false;
+    req.session.ProID = productinfo[0].ProID;
     req.session.ProName = productinfo[0].ProName;
-    req.session.StepPrice=productinfo[0].Step;
-    req.session.CurrPrice=productinfo[0].Price;
+    req.session.StepPrice = productinfo[0].Step;
+    req.session.CurrPrice = productinfo[0].Price;
+    req.session.FullDes = productinfo[0].FullDes;
     req.session.SellerEmail = sellerinfo[0].f_Email;
+    req.session.SellerID = sellerinfo[0].f_ID;
+    var point=[];
+    var point2 = await userModel.loadPoint(sellerinfo[0].f_ID);
+    total2 = point2[0].LikePoint / (point2[0].DislikePoint + point2[0].LikePoint);
+    total2 = `${Math.round(total2 * 100)}%`;
+    var total;
+    var total2;
+
+    if (ishavewiner) {
+        req.session.winnerid = winnerinfo[0].f_ID;
+        point = await userModel.loadPoint(winnerinfo[0].f_ID);
+        total = point[0].LikePoint / (point[0].DislikePoint + point[0].LikePoint);
+        total = `${Math.round(total * 100)}%`;
+    }
+
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
     var proimg = [];
@@ -61,6 +75,17 @@ module.exports.productDetail = async (req, res) => {
             proimg.push({ ImageLink: fullname });
         });
     });
+    req.session.isNotBanBid = true;
+    if (req.session.isAuthenticated == true) {
+        const rows = await productModel.isInBanBidList(req.session.ProID, req.session.authUser.f_ID);
+        if (rows.length > 0)
+            req.session.isNotBanBid = false;
+        else
+            req.session.isNotBanBid = true;
+    }
+
+
+    console.log(req.session.isNotBanBid);
     res.render('vwProducts/detail', {
         products: productinfo[0],
         proImgs: proimg,
@@ -68,9 +93,20 @@ module.exports.productDetail = async (req, res) => {
         seller: sellerinfo[0],
         loginfor: loginfo,
         endtime: endtime[0],
-        validPrice:productinfo[0].Price+productinfo[0].Step
+        validPrice: productinfo[0].Price + productinfo[0].Step,
+        isnot: req.session.isNotBanBid,
+        isCantBid: req.session.isCantBid,
+        isNotValidPrice: req.session.isNotValidPrice,
+        havewiner: ishavewiner,
+        points: point[0],
+        points2: point2[0],
+        totals: total,
+        totals2: total2
 
     });
+    req.session.isNotValidPrice = false;
+    req.session.isCantBid = false;
+
 
 
 
@@ -111,6 +147,9 @@ module.exports.addProduct = async (req, res) => {
         //     }
         //     console.log(imgEntity);
         entity.SellerID = req.session.authUser.f_ID;
+
+        entity.FullDes = `${hepler.datenow()}\n\n${req.body.FullDes}`;
+        console.log(entity.FullDes);
         const result1 = await productModel.add(entity);
         res.redirect('/products/upload');
     });
@@ -139,68 +178,50 @@ module.exports.bidding = async (req, res) => {
     // console.log(req.body.Price);
     // console.log(req.session.ProID);
     // console.log(req.session.authUser.f_ID);
+    console.log("dau gia");
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
     }
     else {
-        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_Name };
-        const [result,autoBid] = await Promise.all([
-            productModel.addBidLog(entity),
-           productModel.loadAutobid(entity.ProID),
+        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID };
+        const [point, curPrice] = await Promise.all([
+            userModel.loadPoint(entity.UserID),
+            productModel.single(entity.ProID)
+
         ])
-       if (autoBid.length!=0)
-        {
-            if(entity.Price<autoBid[0].MaxPrice)
-               {
+        req.session.isCantBid = false;
+        if (point[0].LikePoint / (point[0].LikePoint + point[0].DislikePoint) <= 0.8) {
+            req.session.isCantBid = true;
+            return res.redirect(req.headers.referer);
+        }
+        req.session.isNotValidPrice = false;
+        if (entity.Price < curPrice[0].Price + curPrice[0].Step) {
+            req.session.isNotValidPrice = true;
+            return res.redirect(req.headers.referer);
+        }
+
+        const [result, autoBid] = await Promise.all([
+            productModel.addBidLog(entity),
+            //hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`),
+            //hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`),
+            productModel.loadAutobid(entity.ProID),
+        ])
+        if (autoBid.length != 0) {
+            if (entity.Price < autoBid[0].MaxPrice) {
                 console.log(entity.Price);
                 console.log(req.session.StepPrice);
-                   entity.Price= parseInt(entity.Price,10) +req.session.StepPrice;
-                   entity.UserID=autoBid[0].UserID;
-                   entity.UserName=autoBid[0].UserName;
-                   await productModel.addBidLog(entity);
-               }
+                entity.Price = parseInt(entity.Price, 10) + req.session.StepPrice;
+                entity.UserID = autoBid[0].UserID;
+                await productModel.addBidLog(entity);
+                //   hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
+                //   hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`);
+            }
         }
-        
 
-    
-        // var transporter = nodemailer.createTransport({
-        //     service: 'gmail',
-        //     host: "smtp.gmail.com",
-        //     port: "465",
-        //     ssl: true,
-        //     auth: {
-        //         user: 'lelongho998@gmail.com',
-        //         pass: '0909565151It'
-        //     }
-        // });
 
-        // var mailOptions = {
-        //     from: 'lelongho998@gmail.com',
-        //     to: `${req.session.authUser.f_Email},${req.session.SellerEmail}`,
-        //     subject: 'THÔNG BÁO: Đặt giá thành công',
-        //     text: `Bạn đã ra giá cho sản phẩm ${req.session.ProName} với mức giá ${req.body.Price}, chi tiết xem tại abcxyz.com/products/detail/${req.session.ProID}`
-        // };
-        // transporter.sendMail(mailOptions, function (error, info) {
-        //     if (error) {
-        //         console.log(error);
-        //     } else {
-        //         console.log('Email sent: ' + info.response);
-        //     }
-        // })
-        // var mailOptions2 = {
-        //     from: 'lelongho998@gmail.com',
-        //     to: `${req.session.SellerEmail}`,
-        //     subject: 'THÔNG BÁO: Đã có người ra giá cho sản phẩm của bạn',
-        //     text: `Người dùng ${req.session.authUser.f_UserName} đã ra giá ${req.body.Price} cho sản phẩm của bạn, chi tiết xem tại abcxyz.com/products/detail/${req.session.ProID}`
-        // };
-        // transporter.sendMail(mailOptions2, function (error, info) {
-        //     if (error) {
-        //         console.log(error);
-        //     } else {
-        //         console.log('Email sent: ' + info.response);
-        //     }
-        // })
+
         res.redirect(req.headers.referer);
+
 
     }
 
@@ -333,7 +354,7 @@ module.exports.allByBiddedList = async (req, res) => {
 
 
 }
-module.exports.feedback = async (req, res) => {
+module.exports.feedbackseller = async (req, res) => {
 
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
@@ -341,16 +362,17 @@ module.exports.feedback = async (req, res) => {
     else {
 
         console.log(req.body);
+        UserID = req.session.SellerID;
         var entity;
         if (req.body.point == 1)
-            entity = { f_id: req.body.userid, f_LikePoint: 1, f_Dislikepoint: 0 };
+            entity = { f_ID: UserID, f_LikePoint: 1, f_Dislikepoint: 0 };
         if (req.body.point == -1)
-            entity = { f_id: req.body.userid, f_LikePoint: 0, f_Dislikepoint: 1 };
+            entity = { f_ID: UserID, f_LikePoint: 0, f_Dislikepoint: 1 };
         entity2 = {
             content: req.body.content,
             fberid: req.session.authUser.f_ID,
-            fbtoid: req.body.userid,
-            proid: req.body.ProID
+            fbtoid: UserID,
+            proid: req.session.ProID
         }
         console.log(entity);
         console.log(entity2);
@@ -375,19 +397,101 @@ module.exports.autobidding = async (req, res) => {
         entity = {
             UserID: req.session.authUser.f_ID,
             ProID: req.session.ProID,
-            UserName: req.session.authUser.f_Name,
+            //   UserName: req.session.authUser.f_Name,
             MaxPrice: req.body.maxprice
         }
-        entity2 = { 
-            Price: req.session.CurrPrice+req.session.StepPrice,
+        entity2 = {
+            Price: req.session.CurrPrice + req.session.StepPrice,
             ProID: req.session.ProID,
             UserID: req.session.authUser.f_ID,
-            UserName: req.session.authUser.f_Name };
-            await Promise.all([
-                productModel.addAutoBid(entity),
-                productModel.addBidLog(entity2)
-            ])
+            // UserName: req.session.authUser.f_Name
+        };
+        await Promise.all([
+            productModel.addAutoBid(entity),
+            productModel.addBidLog(entity2)
+        ])
+        //  hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa chọn ra  giá tự động `,`Bạn đã ra giá max ${entity.MaxPrice} đồng cho sản phẩm ${req.session.ProName}.Hệ thống sẽ tự đấu giá tự động. Xem chi tiết tại abcxyz.com.`);
+        // hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity2.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
+
         res.redirect(req.headers.referer);
     }
 
-} 
+}
+module.exports.vwappen = (req, res) => {
+    res.render('vwDemo/append');
+}
+module.exports.append = async (req, res) => {
+
+    console.log(req.body);
+    entity = { ProID: req.session.ProID, FullDes: `${req.session.FullDes}\n\nThời gian bổ sung:\n\n${hepler.datenow()}${req.body.FullDes}` };
+    console.log(entity);
+    await productModel.patch(entity);
+
+    res.redirect(req.headers.referer);
+}
+module.exports.banbid = async (req, res) => {
+    console.log(req.body);
+    entity = {
+        UserID: req.body.UserID,
+        ProID: req.session.ProID
+    }
+    console.log(entity);
+    console.log(`winer: ${req.session.winnerid}`);
+    const [rs1, rs2] = await Promise.all([
+        productModel.addBannedList(entity),
+        userModel.single(entity.UserID)
+    ]);
+
+    // hepler.sendmail(rs2[0].f_Email,`ONLINE AUCTION  THÔNG BÁO!!:Bạn vừa bị kick ra khỏi sản phẩm`,`Bạn vừa bị người bán từ chối ra giá sản phẩm ${req.session.ProName}, chi tiết xem tại abcxyz.com`);
+
+    // if (req.session.winnerid == entity.UserID) {
+
+    //     await Promise.all([
+    //         productModel.addBannedList(entity),
+    //         productModel.delBidLog(entity.ProID,entity.UserID)
+    //     ])
+    //     const results= await productModel.loadWinWithPrice(entity.ProID);
+    //     console.log(results);
+    //     entity2={
+    //         ProID:results[0].ProID,
+    //         WinerID: results[0].UserID,
+    //         Price: results[0].Price
+    //     }
+    //     await productModel.patch(entity2);
+
+    // }
+    res.redirect(req.headers.referer);
+}
+module.exports.feedbackwinner = async (req, res) => {
+    if (req.session.isAuthenticated === false) {
+        return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
+    }
+    else {
+
+        console.log(req.body);
+        UserID = req.session.winnerid;
+        var entity;
+        if (req.body.point == 1)
+            entity = { f_ID: UserID, f_LikePoint: 1, f_Dislikepoint: 0 };
+        if (req.body.point == -1)
+            entity = { f_ID: UserID, f_LikePoint: 0, f_Dislikepoint: 1 };
+        entity2 = {
+            content: req.body.content,
+            fberid: req.session.authUser.f_ID,
+            fbtoid: UserID,
+            proid: req.session.ProID
+        }
+        console.log(entity);
+        console.log(entity2);
+
+        await Promise.all([
+            userModel.patch(entity),
+            userModel.addFeedback(entity2)
+        ])
+
+        res.redirect(`/products/detail/${entity2.proid}`);
+
+    }
+
+
+}

@@ -71,3 +71,11 @@ function abcf()
         disp.style.display = "none";
       }
 }
+function myConfirm() {
+    var result = confirm("Xác nhận đấu giá?");
+    if (result==true) {
+     return true;
+    } else {
+     return false;
+    }
+  }

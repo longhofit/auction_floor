@@ -12,7 +12,11 @@ module.exports = function (app) {
     res.locals.isAuthenticated = req.session.isAuthenticated;
     res.locals.authUser = req.session.authUser;
     res.locals.CatID = req.body.CatID;
+    res.locals.isNotBanBid = req.session.isNotBanBid;
+    if (req.session.Type == "seller")
+      res.locals.isSeller = true;
     next();
+
   });
 };
 // module.exports = async (req, res, next) => {

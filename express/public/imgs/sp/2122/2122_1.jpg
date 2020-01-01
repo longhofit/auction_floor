@@ -1,0 +1,154 @@
+
+    <!-- popular_courses_start -->
+    <div class="popular_courses plus_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <a href="#" class="genric-btn default circle arrow">Level 1 - Low Beginner</a>
+                </div>
+                <div class="col-9">
+                    <div class="button-group-area mt-40">
+                        <a href="#" class="genric-btn primary circle arrow">Lesson 1<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn success circle arrow">Lesson 2<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn info circle arrow">Lesson 3<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn warning circle arrow">Lesson 4<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn danger circle arrow">Lesson 5<span class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <a href="#" class="genric-btn default circle arrow">Level 2 - Mid Beginner</a>
+
+                </div>
+                <div class="col-9">
+                    <div class="button-group-area mt-40">
+                        <a href="#" class="genric-btn primary circle arrow">Lesson 1<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn success circle arrow">Lesson 2<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn info circle arrow">Lesson 3<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn warning circle arrow">Lesson 4<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn danger circle arrow">Lesson 5<span class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <a href="#" class="genric-btn default circle arrow">Level 3 - High Beginner</a>
+                </div>
+                <div class="col-9">
+                    <div class="button-group-area mt-40">
+
+                        <a href="#" class="genric-btn primary circle arrow">Lesson 1<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn success circle arrow">Lesson 2<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn info circle arrow">Lesson 3<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn warning circle arrow">Lesson 4<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn danger circle arrow">Lesson 5<span class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <a href="#" class="genric-btn default circle arrow">Level 4 - Low Intermediate</a>
+
+                </div>
+                <div class="col-9">
+                    <div class="button-group-area mt-40">
+
+                        <a href="#" class="genric-btn primary-border circle arrow">Lesson 1<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn success-border circle arrow">Lesson 2<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn info-border circle arrow">Lesson 3<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn warning-border circle arrow">Lesson 4<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn danger-border circle arrow">Lesson 5<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <a href="#" class="genric-btn default-border circle arrow">Level 5 - Mid Intermediate
+                                </a>
+                </div>
+                <div class="col-9">
+                    <div class="button-group-area mt-10">
+
+                        <a href="#" class="genric-btn primary-border circle arrow">Lesson 1<span
+                                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn success-border circle arrow">Lesson 2<span
+                                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn info-border circle arrow">Lesson 3<span
+                                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn warning-border circle arrow">Lesson 4<span
+                                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn danger-border circle arrow">Lesson 5<span
+                                                            class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <a href="#" class="genric-btn default-border circle arrow">Level 6 - High Intermediate
+                                </a>
+
+                </div>
+                <div class="col-9">
+                    <div class="button-group-area mt-10">
+
+                        <a href="#" class="genric-btn primary-border circle arrow">Lesson 1<span
+                                                                class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn success-border circle arrow">Lesson 2<span
+                                                                class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn info-border circle arrow">Lesson 3<span
+                                                                class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn warning-border circle arrow">Lesson 4<span
+                                                                class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn danger-border circle arrow">Lesson 5<span
+                                                                class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <a href="#" class="genric-btn default circle arrow">Level 7 - Advanced<span class="lnr lnr-arrow-right"></span></a>
+
+                </div>
+                <div class="col-9">
+                    <div class="button-group-area mt-10">
+                        <a href="#" class="genric-btn primary-border circle arrow">Lesson 1<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn success-border circle arrow">Lesson 2<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn info-border circle arrow">Lesson 3<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn warning-border circle arrow">Lesson 4<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                        <a href="#" class="genric-btn danger-border circle arrow">Lesson 5<span
+                                            class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div id="ted-talk" class="row">
+
+            </div>
+
+            <div id="ted-talk" class="row">
+
+            </div>
+
+            <div id="ted-talk" class="row">
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- popular_courses_end-->
+

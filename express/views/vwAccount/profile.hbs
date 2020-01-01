@@ -1,47 +1,60 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+{{/section}}
 
-      <div class="col-12 text-center">
-        <h6>Cập nhật thông tin tài khoản</h6>
-      </div>
-      <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Họ tên:</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="{{authUser.f_Name}}" />
-        </div>
+{{#section 'js'}}
+<script src="/js/slideshow.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script>
+  $('#txtDOB').datetimepicker({
+    format: 'd/m/Y',
+    timepicker: false,
+    mask: true,
+  });
+  function validate() {
+    return true;
+  }
+</script>
+{{/section}}
+<div class="col-12 text-center">
+  <h6>Cập nhật thông tin tài khoản </h6>
+  {{#if isFailPass}}
+  <span class="text-danger">Mật khẩu không chính xác</span>
+  {{/if}}
+</div>
+<form method="POST">
 
-        <div class="form-group">
-          <label for="exampleInputEmail1">Số điện thoại:</label>
-          <input class="form-control" type="text" placeholder="0909123321" readonly />
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email:</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="levanus@gmail.com" />
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Nhập mật khẩu hiện tại:</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-            placeholder="Mật khẩu hiện tại" />
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="change-pass" onclick="abcf()" />
-          <label class="form-check-label" for="exampleCheck1">Đổi mật khẩu</label>
-        </div>
-        <div id="test" style="display: none;">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Mật khẩu mới:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-              placeholder="" />
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Nhập lại mật khẩu mới:</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-              placeholder="" />
-          </div>
-        </div>
+  <div class="form-group">
+    <label for="f_Name">Họ tên:</label>
+    <input class="form-control" id="f_Name" name="f_Name" value="{{authUser.f_Name}}" />
+  </div>
 
-        <button id="btn-alert" type="submit" class="btn btn-danger mt-3">
-          Cập nhật
-        </button>
-      </form>
-    </div>
+  <div class="form-group">
+    <label for="sdt">Số điện thoại:</label>
+    <input class="form-control" placeholder="0909123321" name="f_Phone" readonly />
+  </div>
+  <div class="form-group">
+    <label for="mail">Email:</label>
+    <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" name="f_Email"
+      value="{{authUser.f_Email}}" />
+  </div>
+
+  <div class="form-group">
+    <label for="">Xác nhận mật khẩu:</label>
+    <input type="password" class="form-control" name="f_Password" placeholder="Mật khẩu hiện tại" />
+  </div>
+  <div class="form-group">
+    <label for="txtDOB">Date of Birth</label>
+    <input type="text" class="form-control" id="txtDOB" name="dob">
+  </div>
+
+
+
+  <button id="btn-alert" type="submit" class="btn btn-danger mt-3">
+    Cập nhật
+  </button>
+</form>
+</div>
