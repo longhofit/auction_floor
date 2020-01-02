@@ -1,17 +1,18 @@
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../../models/user.model');
+const request=require('request');
 module.exports.vwregister = async (req, res) => {
     res.render('vwAccount/register', {
         isExistMail: req.session.isExistMail,
         isExistUserName: req.session.isExistUserName
     });
     req.session.isExistMail = false;
-    req.session.isExistUserName=false;
+    req.session.isExistUserName = false;
 };
 
 module.exports.register = async (req, res) => {
-    
+
     const [rows, rowsUserName] = await Promise.all([
         userModel.checkEmail(req.body.f_Email),
         userModel.checkUserName(req.body.f_UserName)
@@ -47,28 +48,40 @@ module.exports.vwlogin = (req, res) => {
     res.render('vwAccount/login', { layout: false })
 };
 
-module.exports.login = async (req, res) => {
-    req.session.flag = 2;
+module.exports.login = (req, res) => {
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.send("Please select captcha first");
+    }
+    const secretKey = "6LcdpssUAAAAALt-am7HkpUvbcW6nJryfK5D5vlF";
 
-    // const user={
-    //   username:req.body.username,
-    //   password=req.body.password
-    // };
-    const user = await userModel.singleByUsername(req.body.username);
-    if (user === null) throw new Error('Invalid username or password.');
-    const rs = bcrypt.compareSync(req.body.password, user.f_Password);
-    if (rs === false)
-        return res.render('vwAccount/login', {
-            layout: false,
-            showError: true,
-            err_message: 'Login failed'
-        });
-    delete user.f_Password;
-    req.session.isAuthenticated = true;
-    req.session.authUser = user;
-    const url = req.query.retUrl || '/';
-    res.redirect(url);
+    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+
+    request(verificationURL, async (error, response, body) => {
+        body = JSON.parse(body);
+
+        if (body.success !== undefined && !body.success) {
+            return res.send("Failed captcha verification");
+        }
+        req.session.flag = 2;
+        const user = await userModel.singleByUsername(req.body.username);
+        if (user === null) throw new Error('Invalid username or password.');
+        const rs = bcrypt.compareSync(req.body.password, user.f_Password);
+        if (rs === false)
+            return res.render('vwAccount/login', {
+                layout: false,
+                showError: true,
+                err_message: 'Login failed'
+            });
+        delete user.f_Password;
+        req.session.isAuthenticated = true;
+        req.session.authUser = user;
+        const url = req.query.retUrl || '/';
+        res.redirect(url);
+
+    });
+
 };
+
 
 
 

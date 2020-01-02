@@ -1,6 +1,6 @@
 const multer = require('multer');
 let fs = require('fs-extra');
-
+const request = require('request');
 const productModel = require('../../models/product.model');
 const userModel = require('../../models/user.model');
 const hepler = require('../../helpers/helper');
@@ -44,6 +44,7 @@ module.exports.productDetail = async (req, res) => {
         userModel.single(productinfo[0].SellerID)
 
     ]);
+    console.log(winnerinfo[0]);
     var isMyPro = false;
     var isSellerButNotMine = false;
 
@@ -121,7 +122,7 @@ module.exports.productDetail = async (req, res) => {
         isnot: req.session.isNotBanBid,
         isCantBid: req.session.isCantBid,
         isNotValidPrice: req.session.isNotValidPrice,
-        havewiner: ishavewiner,
+        havewiner: ishavewiner, 
         points: point[0],
         points2: point2[0],
         totals: total,
@@ -529,4 +530,24 @@ module.exports.feedbackwinner = async (req, res) => {
     }
 
 
+}
+module.exports.test = (req, res) => {
+    res.render('vwProducts/test.hbs');
+}
+module.exports.capcha = (req, res) => {
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.json({ "responseError": "Please select captcha first" });
+    }
+    const secretKey = "6LcdpssUAAAAALt-am7HkpUvbcW6nJryfK5D5vlF";
+
+    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+
+    request(verificationURL, function (error, response, body) {
+        body = JSON.parse(body);
+
+        if (body.success !== undefined && !body.success) {
+            return res.json({ "responseError": "Failed captcha verification" });
+        }
+        res.send('123123');
+    });
 }

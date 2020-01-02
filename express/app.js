@@ -4,7 +4,7 @@ const hbs_sections = require('express-handlebars-sections');
 const session = require('express-session');
 const morgan = require('morgan');
 const numeral = require('numeral');
-const helpers=require('../express/helpers/helper')
+const helpers=require('./helpers/helper');
 require('express-async-errors');
 
 
@@ -67,6 +67,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(PORT , () => {
   console.log(`Server running at http://localhost:${PORT}`);
 })
