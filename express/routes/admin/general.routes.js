@@ -6,4 +6,5 @@ router.get('/',controller.vwmanagerUser);
 router.get('/accept',controller.vwaccept);
 router.post('/accept',controller.accept);
 router.get('/userlist',controller.vwlist);
+router.post('/banseller',controller.banseller);
 module.exports = router;

@@ -117,7 +117,8 @@ module.exports = {
     },
     loadWinWithPrice: (ProID) => db.load(`select * from bidding_log where Price=(SELECT max(price) FROM bidding_log where  proid=${ProID})
     `),
-    coutBid: (ProID) => db.load(`select count(*) from products where ProID=${ProID}`)
+    coutBid: (ProID) => db.load(`select count(*) from products where ProID=${ProID}`),
+    isEnd: (proid) => db.load(`SELECT * FROM endtime where proid=${proid} and endtime< CURRENT_TIMESTAMP`)
 }
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {

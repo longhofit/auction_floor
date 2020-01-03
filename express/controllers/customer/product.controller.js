@@ -25,20 +25,16 @@ module.exports.productDetail = async (req, res) => {
 
     const proId = req.params.id;
     req.session.beforePost = req.originalUrl
-    const [productinfo, loginfo, endtime] = await Promise.all([
+    const [productinfo, loginfo, endtime,isEnd] = await Promise.all([
         productModel.single(proId),
         productModel.allLogByProID(proId),
-        productModel.endTime(proId)
+        productModel.endTime(proId),
+        productModel.isEnd(proId)
 
     ]);
-
-
-
-
-
-
-
-
+    req.session.isEnd=false;
+    if(isEnd.length==1)
+        req.session.isEnd=true;
     const [winnerinfo, sellerinfo] = await Promise.all([
         userModel.single(productinfo[0].WinerID),
         userModel.single(productinfo[0].SellerID)
@@ -128,7 +124,10 @@ module.exports.productDetail = async (req, res) => {
         totals: total,
         totals2: total2,
         isMyPro: isMyPro,
-        isSellerButNotMine: isSellerButNotMine
+        isSellerButNotMine: isSellerButNotMine,
+        isEnd: req.session.isEnd,
+        isNotEnd: req.session.isEnd===false,
+        isNotMyPro: isMyPro==false
 
     });
     req.session.isNotValidPrice = false;
@@ -229,8 +228,8 @@ module.exports.bidding = async (req, res) => {
 
         const [result, autoBid] = await Promise.all([
             productModel.addBidLog(entity),
-            //hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`),
-            //hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`),
+            // hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`),
+            // hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`),
             productModel.loadAutobid(entity.ProID),
         ])
         if (autoBid.length != 0) {

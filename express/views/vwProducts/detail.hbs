@@ -86,10 +86,15 @@
 
             </a>
             {{/if}}
-
+            {{#if isEnd}}
+            {{#if isMyPro}}
             <form action="/account/feedback"><button type="submit" class="btn btn-danger mt-2"> <i
                   class="fas fa-heart"></i> Đánh
                 giá</button></form>
+            {{/if}}
+
+            {{/if}}
+
             <br>
 
 
@@ -130,24 +135,30 @@
 
             {{#if isnot}}
             <form method="POST" action="/products/bidding">
+
+              {{#if isNotEnd}}
               <label for="cusbid">Ra giá của bạn :</label> <br>
               <input style="" id="Price" name="Price" value="{{validPrice}}"> <br>
-
               <button onclick="return myConfirm();" type="submit" class="btn btn-danger mt-2"> <i
                   class="fa fa-gavel mr-2" aria-hidden="true">
                 </i>Đấu
-                giá</button>
+                giá</button> <br>
+              <form method="POST" action="/products/autobidding">
+                <label for="cusbid">Giá cao nhất (Tự động đấu giá)</label> <br>
+                <input style="" id="Price" name="maxprice" placeholder=""> <br>
+
+                <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
+                  </i>Đấu
+                  giá tự động</button>
+
+              </form>
+              {{else}}
+              <span class="text-danger">Sản phẩm đã kết thúc</span>
+              {{/if}}
+
 
             </form>
-            <form method="POST" action="/products/autobidding">
-              <label for="cusbid">Giá cao nhất (Tự động đấu giá)</label> <br>
-              <input style="" id="Price" name="maxprice" placeholder=""> <br>
 
-              <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
-                </i>Đấu
-                giá tự động</button>
-
-            </form>
 
             {{else}}
             <button type="submit" class="btn btn-danger mt-2">Bạn đã bị người bán từ chối đấu giá</button>
@@ -155,13 +166,17 @@
 
 
           </div>
-          <div>
-            <form method="POST" action="/products/addwishlist">
 
-              <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Yêu thích</button>
 
-            </form>
-          </div>
+          {{#if isNotEnd}}
+
+          <form method="POST" action="/products/addwishlist">
+
+            <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Yêu thích</button>
+
+          </form>
+
+          {{/if}}
 
 
 
@@ -199,6 +214,7 @@
                 <span class="font-weight-bold"> </span> </span> <br></li>
             <li class="list-group-item"> <span> <small>Kết thúc vào: <code>{{endtime.endtime}}</code></small>
                 <span class="font-weight-bold"> </span> </span></li>
+            {{#if isNotMyPro}}
             <li class="list-group-item">
 
               <form method="POST" action="/products/feedbackseller">
@@ -223,6 +239,8 @@
                   <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Gửi</button>
               </form>
             </li>
+            {{/if}}
+
 
 
 

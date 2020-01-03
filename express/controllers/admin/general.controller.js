@@ -15,6 +15,16 @@ module.exports.accept =async (req,res) => {
     res.redirect('/admin/accept');
 
 }
+module.exports.banseller= async (req,res) => {
+    entity={
+        f_ID: req.body.id,
+        f_Type: "bidder",
+        f_isSeller: null
+    }
+    console.log(entity)
+   await userModel.patch(entity);
+   res.redirect(req.headers.referer);
+}
 module.exports.vwlist = async (req,res) =>{
     result= await userModel.all();
     res.render('vwAccount/userlist',{users: result,layout: 'adminLayout.hbs'});

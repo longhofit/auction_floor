@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../../models/user.model');
-const request=require('request');
+const request = require('request');
 module.exports.vwregister = async (req, res) => {
     res.render('vwAccount/register', {
         isExistMail: req.session.isExistMail,
@@ -192,4 +192,9 @@ module.exports.viewpoint = async (req, res) => {
 }
 module.exports.vwfeedback = (req, res) => {
     res.render('vwAccount/feedback');
+}
+module.exports.deleteUser = async (req, res) => {
+    await userModel.del(req.body.id);
+    res.redirect(req.headers.referer);
+
 }

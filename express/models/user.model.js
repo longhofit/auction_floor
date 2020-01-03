@@ -14,7 +14,7 @@ module.exports = {
     accep_request: id => db.del('request', { UserID: id }),
     updateSeller: id => {
         const condition = { f_ID: id };
-        entity = { f_Type: 'seller' };
+        entity = { f_Type: 'seller', f_isSeller: "1" };
         console.log(condition, entity);
         return db.patch('user', entity, condition);
     }, 
