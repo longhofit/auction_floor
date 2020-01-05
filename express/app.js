@@ -44,14 +44,7 @@ app.set('view engine', 'hbs');
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
 
-app.get('/', (req, res) => {
- 
-  console.log(req.session.beforePost);
-  rows = [{a:1}, {a:2}, {a:3},{a:4},{a:5}];
-  res.render('home',{
-    arr: rows,
-  });
-});
+
 
 
 

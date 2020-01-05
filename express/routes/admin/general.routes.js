@@ -8,3 +8,4 @@ router.post('/accept',controller.accept);
 router.get('/userlist',controller.vwlist);
 router.post('/banseller',controller.banseller);
 module.exports = router;
+
