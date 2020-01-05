@@ -118,6 +118,7 @@ module.exports = {
     loadWinWithPrice: (ProID) => db.load(`select * from bidding_log where Price=(SELECT max(price) FROM bidding_log where  proid=${ProID})
     `),
     coutBid: (ProID) => db.load(`select count(*) from products where ProID=${ProID}`),
+<<<<<<< HEAD
 
     //Precondition
     // ALTER TABLE online_aucdb.products ADD FULLTEXT (ProName);
@@ -153,6 +154,12 @@ module.exports = {
     },
 
 
+=======
+    isEnd: (proid) => db.load(`SELECT * FROM endtime where proid=${proid} and endtime< CURRENT_TIMESTAMP`),
+    topBidding: (number) => db.load(`SELECT * FROM products order by NumberBid desc limit ${number}`),
+    topPrice: (number) => db.load(`select * from products where (ProID in (SELECT proid FROM endtime where endtime>CURRENT_TIMESTAMP)) order by PRICE desc limit ${number}`),
+    topEndtime: (number) => db.load( `select * from products where proid in  (SELECT proid FROM endtime where endtime > current_timestamp order by endtime ) limit ${number}`)
+>>>>>>> master
 }
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {

@@ -1,6 +1,6 @@
 const multer = require('multer');
 let fs = require('fs-extra');
-
+const request = require('request');
 const productModel = require('../../models/product.model');
 const userModel = require('../../models/user.model');
 const hepler = require('../../helpers/helper');
@@ -22,24 +22,40 @@ const upload = multer({ storage });
 
 
 module.exports.productDetail = async (req, res) => {
+
     const proId = req.params.id;
     req.session.beforePost = req.originalUrl
-    const [productinfo, loginfo, endtime] = await Promise.all([
+    const [productinfo, loginfo, endtime,isEnd] = await Promise.all([
         productModel.single(proId),
         productModel.allLogByProID(proId),
-        productModel.endTime(proId)
+        productModel.endTime(proId),
+        productModel.isEnd(proId)
 
     ]);
-
-
-
-
-
+    req.session.isEnd=false;
+    if(isEnd.length==1)
+        req.session.isEnd=true;
     const [winnerinfo, sellerinfo] = await Promise.all([
         userModel.single(productinfo[0].WinerID),
         userModel.single(productinfo[0].SellerID)
 
     ]);
+    console.log(winnerinfo[0]);
+    var isMyPro = false;
+    var isSellerButNotMine = false;
+
+    if (req.session.isAuthenticated) {
+        if (sellerinfo[0].f_ID == req.session.authUser.f_ID) {
+            isMyPro = true;
+        }
+        else {
+            if (req.session.authUser.f_Type == "Seller")
+                isSellerButNotMine = true;
+
+        }
+
+    }
+    console.log(isSellerButNotMine);
     var ishavewiner = true;
     if (winnerinfo.length == 0)
         ishavewiner = false;
@@ -50,19 +66,24 @@ module.exports.productDetail = async (req, res) => {
     req.session.FullDes = productinfo[0].FullDes;
     req.session.SellerEmail = sellerinfo[0].f_Email;
     req.session.SellerID = sellerinfo[0].f_ID;
-    var point=[];
+    var point = [];
     var point2 = await userModel.loadPoint(sellerinfo[0].f_ID);
     total2 = point2[0].LikePoint / (point2[0].DislikePoint + point2[0].LikePoint);
     total2 = `${Math.round(total2 * 100)}%`;
     var total;
     var total2;
+    //  req.session.isOwn = false;
 
     if (ishavewiner) {
         req.session.winnerid = winnerinfo[0].f_ID;
+
         point = await userModel.loadPoint(winnerinfo[0].f_ID);
         total = point[0].LikePoint / (point[0].DislikePoint + point[0].LikePoint);
         total = `${Math.round(total * 100)}%`;
+        //  if (req.session.authUser.f_ID == winnerinfo[0].f_ID)
+        //     req.session.isOwn=true;
     }
+    console.log(req.session.isOwn);
 
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
@@ -85,7 +106,7 @@ module.exports.productDetail = async (req, res) => {
     }
 
 
-    console.log(req.session.isNotBanBid);
+    console.log(isMyPro);
     res.render('vwProducts/detail', {
         products: productinfo[0],
         proImgs: proimg,
@@ -97,11 +118,16 @@ module.exports.productDetail = async (req, res) => {
         isnot: req.session.isNotBanBid,
         isCantBid: req.session.isCantBid,
         isNotValidPrice: req.session.isNotValidPrice,
-        havewiner: ishavewiner,
+        havewiner: ishavewiner, 
         points: point[0],
         points2: point2[0],
         totals: total,
-        totals2: total2
+        totals2: total2,
+        isMyPro: isMyPro,
+        isSellerButNotMine: isSellerButNotMine,
+        isEnd: req.session.isEnd,
+        isNotEnd: req.session.isEnd===false,
+        isNotMyPro: isMyPro==false
 
     });
     req.session.isNotValidPrice = false;
@@ -183,7 +209,7 @@ module.exports.bidding = async (req, res) => {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
     }
     else {
-        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID };
+        entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_UserName };
         const [point, curPrice] = await Promise.all([
             userModel.loadPoint(entity.UserID),
             productModel.single(entity.ProID)
@@ -202,8 +228,8 @@ module.exports.bidding = async (req, res) => {
 
         const [result, autoBid] = await Promise.all([
             productModel.addBidLog(entity),
-            //hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`),
-            //hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`),
+            // hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`),
+            // hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`),
             productModel.loadAutobid(entity.ProID),
         ])
         if (autoBid.length != 0) {
@@ -283,9 +309,18 @@ module.exports.allByBiddingList = async (req, res) => {
                 ids2.push(endTimeIDs[x].ProID);
             //console.log(`ids2${ids2}`);
             const result = await productModel.allByArrID(ids2);
+
+            for (pro of result) {
+                if (pro.WinerID == req.session.authUser.f_ID)
+                    pro.isOwn = true;
+                else pro.isOwn = false
+            }
             console.log(result);
+
             res.render('vwProducts/allByBiddinglist', {
-                products: result, empty: 0
+                products: result,
+                empty: 0,
+
             });
         }
     }
@@ -495,6 +530,7 @@ module.exports.feedbackwinner = async (req, res) => {
 
 
 }
+<<<<<<< HEAD
 
 //Search
 module.exports.search = async(req, res) => {
@@ -528,3 +564,25 @@ module.exports.searchOnProName = (req, res) => {
 
 }
 
+=======
+module.exports.test = (req, res) => {
+    res.render('vwProducts/test.hbs');
+}
+module.exports.capcha = (req, res) => {
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.json({ "responseError": "Please select captcha first" });
+    }
+    const secretKey = "6LcdpssUAAAAALt-am7HkpUvbcW6nJryfK5D5vlF";
+
+    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+
+    request(verificationURL, function (error, response, body) {
+        body = JSON.parse(body);
+
+        if (body.success !== undefined && !body.success) {
+            return res.json({ "responseError": "Failed captcha verification" });
+        }
+        res.send('123123');
+    });
+}
+>>>>>>> master

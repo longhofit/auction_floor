@@ -75,12 +75,26 @@
             <span> Người thắng hiện tại:</span> <br>
             {{#if havewiner}}
 
+            {{#if isMyPro}}
             <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
                 class=" font-weight-bold imgTit ">{{winner.f_Name}} </span>
 
             </a>
-            <form action="/account/feedback"><button type="submit"  class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Đánh
+            {{else}}
+            <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
+                class=" font-weight-bold imgTit ">{{mask winner.f_Name}} </span>
+
+            </a>
+            {{/if}}
+            {{#if isEnd}}
+            {{#if isMyPro}}
+            <form action="/account/feedback"><button type="submit" class="btn btn-danger mt-2"> <i
+                  class="fas fa-heart"></i> Đánh
                 giá</button></form>
+            {{/if}}
+
+            {{/if}}
+
             <br>
 
 
@@ -121,24 +135,30 @@
 
             {{#if isnot}}
             <form method="POST" action="/products/bidding">
+
+              {{#if isNotEnd}}
               <label for="cusbid">Ra giá của bạn :</label> <br>
               <input style="" id="Price" name="Price" value="{{validPrice}}"> <br>
-
               <button onclick="return myConfirm();" type="submit" class="btn btn-danger mt-2"> <i
                   class="fa fa-gavel mr-2" aria-hidden="true">
                 </i>Đấu
-                giá</button>
+                giá</button> <br>
+              <form method="POST" action="/products/autobidding">
+                <label for="cusbid">Giá cao nhất (Tự động đấu giá)</label> <br>
+                <input style="" id="Price" name="maxprice" placeholder=""> <br>
+
+                <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
+                  </i>Đấu
+                  giá tự động</button>
+
+              </form>
+              {{else}}
+              <span class="text-danger">Sản phẩm đã kết thúc</span>
+              {{/if}}
+
 
             </form>
-            <form method="POST" action="/products/autobidding">
-              <label for="cusbid">Giá cao nhất (Tự động đấu giá)</label> <br>
-              <input style="" id="Price" name="maxprice" placeholder=""> <br>
 
-              <button type="submit" class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
-                </i>Đấu
-                giá tự động</button>
-
-            </form>
 
             {{else}}
             <button type="submit" class="btn btn-danger mt-2">Bạn đã bị người bán từ chối đấu giá</button>
@@ -146,13 +166,17 @@
 
 
           </div>
-          <div>
-            <form method="POST" action="/products/addwishlist">
 
-              <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Yêu thích</button>
 
-            </form>
-          </div>
+          {{#if isNotEnd}}
+
+          <form method="POST" action="/products/addwishlist">
+
+            <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Yêu thích</button>
+
+          </form>
+
+          {{/if}}
 
 
 
@@ -171,9 +195,16 @@
 
           <ul class="list-group list-group-flush">
             <li class="list-group-item"> <span><small>Người bán:</small></span>
+              {{#if isAnony}}
+              <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
+                  class=" font-weight-bold imgTit ">{{mask seller.f_Name}}</span> <br>
+              </a>
+              {{else}}
               <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
                   class=" font-weight-bold imgTit ">{{seller.f_Name}}</span> <br>
               </a>
+              {{/if}}
+
               <span><code>{{totals2}}</code> điểm <code class="mr-2"></code>
                 <code>{{points2.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i>
                 <code>{{points2.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -183,6 +214,7 @@
                 <span class="font-weight-bold"> </span> </span> <br></li>
             <li class="list-group-item"> <span> <small>Kết thúc vào: <code>{{endtime.endtime}}</code></small>
                 <span class="font-weight-bold"> </span> </span></li>
+            {{#if isNotMyPro}}
             <li class="list-group-item">
 
               <form method="POST" action="/products/feedbackseller">
@@ -199,13 +231,16 @@
                   </div>
 
                   <div class="form-group">
-              
+
                     <label for="exampleFormControlTextarea1">Nhận xét</label>
+
                     <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                   </div>
                   <button type="submit" class="btn btn-danger mt-2"> <i class="fas fa-heart"></i> Gửi</button>
               </form>
             </li>
+            {{/if}}
+
 
 
 
@@ -256,10 +291,12 @@
             <th class="color" scope="row"></th>
 
           </tr>
+          {{#if isAdmin}}
           {{#each loginfor}}
           <tr>
             <td> <i class="fa fa-trophy" aria-hidden="true"></i>
-              ***{{UserID}}</td>
+              {{UserName}}
+            </td>
             <td>{{Price}}</td>
             <td>{{BidTime}}</td>
             <td>
@@ -270,14 +307,98 @@
               </form>
             </td>
           </tr>
+
           {{/each}}
+          {{/if}}
+          {{#if isAnony}}
+          {{#each loginfor}}
+          <tr>
+            <td> <i class="fa fa-trophy" aria-hidden="true"></i>
+              {{mask UserName}}
+            </td>
+            <td>{{Price}}</td>
+            <td>{{BidTime}}</td>
+            <td>
+              <form method="POST" action="/products/banbid">
+                <input type="hidden" name="UserID" value="{{UserID}}">
+                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
+
+              </form>
+            </td>
+          </tr>
+
+          {{/each}}
+          {{/if}}
+          {{#if isMyPro}}
+          {{#each loginfor}}
+          <tr>
+            <td> <i class="fa fa-trophy" aria-hidden="true"></i>
+              {{ UserName}}
+            </td>
+            <td>{{Price}}</td>
+            <td>{{BidTime}}</td>
+            <td>
+              <form method="POST" action="/products/banbid">
+                <input type="hidden" name="UserID" value="{{UserID}}">
+                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
+
+              </form>
+            </td>
+          </tr>
+
+          {{/each}}
+          {{/if}}
+          {{#if isBidder}}
+          {{#each loginfor}}
+          <tr>
+            <td> <i class="fa fa-trophy" aria-hidden="true"></i>
+              {{mask UserName}}
+            </td>
+            <td>{{Price}}</td>
+            <td>{{BidTime}}</td>
+            <td>
+              <form method="POST" action="/products/banbid">
+                <input type="hidden" name="UserID" value="{{UserID}}">
+                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
+
+              </form>
+            </td>
+          </tr>
+
+          {{/each}}
+          {{/if}}
+          {{#if isSellerButNotMine}}
+          {{#each loginfor}}
+          <tr>
+            <td> <i class="fa fa-trophy" aria-hidden="true"></i>
+              {{mask UserName}}
+            </td>
+            <td>{{Price}}</td>
+            <td>{{BidTime}}</td>
+            <td>
+              <form method="POST" action="/products/banbid">
+                <input type="hidden" name="UserID" value="{{UserID}}">
+                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
+
+              </form>
+            </td>
+          </tr>
+
+          {{/each}}
+          {{/if}}
+
 
         </tbody>
+
       </table>
     </div>
   </div>
   <div class="row m-2 mt-4  ">
-    <span class="text-uppercase mb-2">CHI TIẾT SẢN PHẨM </span>
+    <span class="text-uppercase mb-2">CHI TIẾT SẢN PHẨM
+      {{#if isAdmin}}
+      asdasd
+      {{/if}}
+    </span>
     <div class="col-12">
       <table class="table table-bordered text-center">
 
@@ -308,8 +429,8 @@
   </div>
   <div class="row m-2 mt-4  ">
     <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span>
-    <form class="ml-2" method="GET" action="/products/vwappenddes"> <button type="submit" class="btn btn-danger mt-2"> <i
-          class="fas fa-heart"></i> Bổ sung mô tả</button></form>
+    <form class="ml-2" method="GET" action="/products/vwappenddes"> <button type="submit" class="btn btn-danger mt-2">
+        <i class="fas fa-heart"></i> Bổ sung mô tả</button></form>
 
     <div class="col-12">
 

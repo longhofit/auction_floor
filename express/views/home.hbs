@@ -1,5 +1,5 @@
 {{#section 'css'}}
- <link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
 {{/section}}
 
 <div class="noboder color">
@@ -26,26 +26,26 @@
       <div class="col-12">
         <div class="responsive border">
 
-          {{#each this.arr }}
+          {{#each top5endtime }}
           <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-            <a href="/products/detail/2056">
+            <a href="/products/detail/{{ProID}}">
 
               <div class="card-container">
                 <div class="card">
                   <div class="img-box">
-                     <img src="../imgs/2056/2056_1.jpg" alt="" />
+                    <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="" />
                     {{!-- <img src="../imgs/sp/1/main_thumbs.jpg" alt="" /> --}}
                   </div>
                   <div class="content">
-                    <p class="img-title">Chuột Không Dây Logitech M330</p>
-  
+                    <p class="img-title">{{ProName}}</p>
+
                     <p class="imgTit cd"></p>
                     <p class="imgTit price">
                       <i class="fa fa-gavel" aria-hidden="true">
-                        20.000.000₫</i>
+                        {{Price}}₫</i>
                     </p>
                     <p class="buy-now">
-                      Giá mua ngay: <span>200.000.000.000₫</span>
+                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
                     </p>
                   </div>
                 </div>
@@ -69,25 +69,25 @@
     <div class="row row-product">
       <div class="col-12">
         <div class="responsive">
-          {{#each this.arr }}
+          {{#each topbidding }}
           <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-            <a href="/products/detail/2056">
+            <a href="/products/detail/{{ProID}}">
 
               <div class="card-container">
                 <div class="card">
                   <div class="img-box">
-                    <img src="../imgs/sp/1/main_thumbs.jpg" alt="" />
+                    <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="" />
                   </div>
                   <div class="content">
-                    <p class="img-title">Chuột Không Dây Logitech M330</p>
+                    <p class="img-title">{{ProName}}</p>
                     {{a}}
                     <p class="imgTit cd"></p>
                     <p class="imgTit price">
                       <i class="fa fa-gavel" aria-hidden="true">
-                        20.000.000₫</i>
+                        {{Price}}₫</i>
                     </p>
                     <p class="buy-now">
-                      Giá mua ngay: <span>200.000.000.000₫</span>
+                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
                     </p>
                   </div>
                 </div>
@@ -114,25 +114,25 @@
     <div class="row row-product">
       <div class="col-12">
         <div class="responsive">
-          {{#each this.arr }}
+          {{#each top5price }}
           <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
-            <a href="/products/detail/2056">
+            <a href="/products/detail/{{ProID}}">
 
               <div class="card-container">
                 <div class="card">
                   <div class="img-box">
-                    <img src="../imgs/sp/1/main_thumbs.jpg" alt="" />
+                    <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="" />
                   </div>
                   <div class="content">
-                    <p class="img-title">Chuột Không Dây Logitech M330</p>
+                    <p class="img-title">{{ProName}}</p>
                     {{a}}
                     <p class="imgTit cd"></p>
                     <p class="imgTit price">
                       <i class="fa fa-gavel" aria-hidden="true">
-                        20.000.000₫</i>
+                       {{Price}}₫</i>
                     </p>
                     <p class="buy-now">
-                      Giá mua ngay: <span>200.000.000.000₫</span>
+                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
                     </p>
                   </div>
                 </div>

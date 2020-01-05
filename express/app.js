@@ -4,6 +4,7 @@ const hbs_sections = require('express-handlebars-sections');
 const session = require('express-session');
 const morgan = require('morgan');
 const numeral = require('numeral');
+const helpers=require('./helpers/helper');
 require('express-async-errors');
 
 
@@ -29,6 +30,7 @@ app.engine('hbs', exphbs({
   helpers: {
     section: hbs_sections(),
     format: val => numeral(val).format('0,0'),
+    mask: name => helpers.markString(name,6,10,10,"*",true)
     
   },
 
@@ -42,14 +44,7 @@ app.set('view engine', 'hbs');
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
 
-app.get('/', (req, res) => {
- 
-  console.log(req.session.beforePost);
-  rows = [{a:1}, {a:2}, {a:3},{a:4},{a:5}];
-  res.render('home',{
-    arr: rows,
-  });
-});
+
 
 
 
@@ -65,6 +60,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(PORT , () => {
   console.log(`Server running at http://localhost:${PORT}`);
 })

@@ -14,7 +14,7 @@ module.exports = {
     accep_request: id => db.del('request', { UserID: id }),
     updateSeller: id => {
         const condition = { f_ID: id };
-        entity = { f_Type: 'seller' };
+        entity = { f_Type: 'seller', f_isSeller: "1" };
         console.log(condition, entity);
         return db.patch('user', entity, condition);
     }, 
@@ -31,5 +31,7 @@ module.exports = {
         db.add('feedback',entity);
     },
     loadPoint: UserID => db.load(`select * from userpoint where userid =${UserID}`),
-    loadFeedback: FBtoID => db.load(`select * from feedback where FBtoID=${FBtoID}  `)
+    loadFeedback: FBtoID => db.load(`select * from feedback where FBtoID=${FBtoID}  `),
+    checkEmail: email => db.load(`select * from user where f_Email = "${email}"`),
+    checkUserName: username => db.load(`select * from user where f_UserName = "${username}"`)
 };
