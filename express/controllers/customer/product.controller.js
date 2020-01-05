@@ -495,3 +495,36 @@ module.exports.feedbackwinner = async (req, res) => {
 
 
 }
+
+//Search
+module.exports.search = async(req, res) => {
+    console.log(req.body);
+    ProName = req.params.ProName;
+    CatID = req.params.ProName;
+    SellerID = req.params.ProName;
+    WinerID = req.params.ProName;
+    DateFrom = req.params.ProName;
+    DateTo = req.params.ProName;
+
+    const result = await productModel.searchFull(ProName, CatID, SellerID, WinerID, DateFrom, DateTo);
+
+    
+
+
+}
+
+//Search
+module.exports.searchOnProName = (req, res) => {
+    console.log(req.body);
+
+    const result = productModel.searchOnProName(req.query.ProName);
+    var data = [];
+    for(i = 0; i< result.length; i++){
+        data.push(result[i].ProName);
+    }
+    res.end(JSON.stringify(data));
+    
+
+
+}
+

@@ -117,7 +117,42 @@ module.exports = {
     },
     loadWinWithPrice: (ProID) => db.load(`select * from bidding_log where Price=(SELECT max(price) FROM bidding_log where  proid=${ProID})
     `),
-    coutBid: (ProID) => db.load(`select count(*) from products where ProID=${ProID}`)
+    coutBid: (ProID) => db.load(`select count(*) from products where ProID=${ProID}`),
+
+    //Precondition
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (ProName);
+    // ALTER TABLE online_aucdb.categories ADD FULLTEXT (CatName);
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (FUllDes);
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (TinyDes);
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (ProName,TinyDes,FullDes);
+    searchOnProName: (ProName) => db.load(`SELECT * FROM online_aucdb.products WHERE MATCH(ProName) against ("${ProName}" IN NATURAL LANGUAGE MODE) LIMIT 8
+    `),
+    searchOnCatName: (CatName) => db.load(`SELECT * FROM online_aucdb.categories WHERE MATCH(CatName) against ("${CatName}" IN NATURAL LANGUAGE MODE) LIMIT 8
+    `),
+    searchFull: (ProName, CatID, SellerID, WinerID, DateFrom, DateTo) => {
+        var query = ` SELECT * FROM online_aucdb.categories as cat, online_aucdb.products as pro WHERE cat.CatID = pro.CatID `;
+        if(CatID != ""){
+            query += ` AND cat.CatID = "${CatID}" `;
+        }
+        if(SellerID != ""){
+            query += ` AND pro.SellerID = "${SellerID}" `;
+        }
+        if(WinerID != ""){
+            query += ` AND pro.WinerID = "${WinerID}" `;
+        }
+        if(DateFrom != ""){
+            query += ` AND pro.CreatedDTime > "${DateFrom}" `;
+        }
+        if(DateTo != ""){
+            query += ` AND pro.CreatedDTime < "${DateTo}" `;
+        }
+        query += ` AND ( MATCH(ProName,TinyDes,FullDes) against ("${ProName}" IN NATURAL LANGUAGE MODE) 
+                    OR MATCH(CatName) against ("strong" IN NATURAL LANGUAGE MODE) ) `;
+        
+        return db.load(query);
+    },
+
+
 }
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {

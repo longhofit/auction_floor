@@ -19,4 +19,6 @@ router.post('/autobidding',controller.autobidding);
 router.get('/vwappenddes',restrict.beforeLogin,controller.vwappen);
 router.post('/vwappenddes',controller.append);
 router.post('/banbid',controller.banbid);
+router.get('/search',controller.searchOnProName);
+
 module.exports = router;

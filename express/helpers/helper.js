@@ -35,7 +35,15 @@ module.exports.sendmail = (emailtosend,title,content) => {
     
 }
 
-module.exports.markString = (source, showLength, minLenth, maxLength, charMark, isLeftToRight) => {
+/// markString
+/// EXP: ("123456", 4, 10, 10, "*", true) => ******3456
+/// <source>: chuỗi gốc
+/// <showLength> số kí tự không bị ẩn
+/// <minLength> độ dài tối thiểu của chuỗi kết quả
+/// <maxLength> độ dài tối đa của chuỗi kết quả
+/// <charMark> Kí tự thay thế
+/// <isLeftToRight> hướng thay thế
+module.exports.markString = (source, showLength, minLength, maxLength, charMark, isLeftToRight) => {
     var Mark = charMark;
     Mark = Mark.substring(0,1);
     let sourceLength = source.length; 
@@ -43,17 +51,17 @@ module.exports.markString = (source, showLength, minLenth, maxLength, charMark, 
     var result = '';
 
     //Swap
-    if(minLenth > maxLength){
-        minLenth = maxLength + minLenth;
-        maxLength = minLenth - maxLength;
-        minLenth = minLenth - maxLength;
+    if(minLength > maxLength){
+        minLength = maxLength + minLength;
+        maxLength = minLength - maxLength;
+        minLength = minLength - maxLength;
     }
 
     if(resultLength > maxLength ){
         resultLength = maxLength;
     }
-    if(resultLength < minLenth){
-        resultLength = minLenth;
+    if(resultLength < minLength){
+        resultLength = minLength;
     }
     if(resultLength <= showLength){
         return source.substring(sourceLength - showLength, sourceLength);
