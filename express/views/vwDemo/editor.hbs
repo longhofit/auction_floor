@@ -1,0 +1,69 @@
+{{#section 'css'}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+  rel="stylesheet" type="text/css" />
+{{/section}}
+{{#section 'js'}}
+<script
+    src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    tinymce.init({
+        selector: '#txtFullDes',
+        height: 600,
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+        ],
+    });
+</script>
+{{/section}}
+
+<form method="POST" novalidate>
+    <div class=" shadow">
+        <h4 class="card-header">
+            Editor
+        </h4>
+        <div class="card-body">
+             <div class="form-group">
+                <label for="Image">Pro ID</label>
+                <input class="form-control" id="Image" name="Image"></input>
+            </div>
+            <div class="form-group">
+                <label for="ProID">Pro ID</label>
+                <input class="form-control" id="ProID" name="ProID"></input>
+            </div>
+             <div class="form-group">
+                <label for="txtProName">Name</label>
+                <input class="form-control" id="ProName" name="ProName"></input>
+            </div>
+             <div class="form-group">
+                <label for="txtTinyDes">TinyDes</label>
+                <input class="form-control" id="TinyDes" name="TinyDes"></input>
+            </div>
+            <div class="form-group">
+                <label for="txtFullDes">FullDes</label>
+                <textarea class="form-control" id="txtFullDes" name="FullDes"></textarea>
+            </div>
+             <div class="form-group">
+                <label for="Price">Price</label>
+                <input class="form-control" id="Price" name="Price"></input>
+            </div>
+            <div class="form-group">
+                <label for="CatID">Cat ID</label>
+                <input class="form-control" id="CatID" name="CatID"></input>
+            </div>
+             <div class="form-group">
+                <label for="Quantity">Quantity</label>
+                <input class="form-control" id="Quantity" name="Quantity"></input>
+            </div>
+        </div>
+        <div class="card-footer text-right">
+            <button type="submit" class="btn btn-lg btn-success btn-block">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Submit
+            </button>
+        </div>
+    </div>
+</form>

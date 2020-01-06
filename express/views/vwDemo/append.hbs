@@ -1,0 +1,44 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+
+{{/section}}
+
+{{#section 'js'}}
+<script
+    src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script>
+    tinymce.init({
+        selector: '#txtFullDes',
+        height: 600,
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+        ],
+    });
+</script>
+</script>
+{{/section}}
+
+<form method="POST">
+    <div class=" shadow">
+        <h4 class="card-header">
+            Upload
+        </h4>
+        <div class="card-body">
+
+            <div class="form-group">
+                <label for="txtFullDes">Bổ sung mô tả chi tiết</label>
+                <textarea class="form-control" id="txtFullDes" name="FullDes" value="2"></textarea>
+            </div>
+           
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-lg btn-success btn-block">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Submit
+                </button>
+            </div>
+        </div>
+</form>

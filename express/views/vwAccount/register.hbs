@@ -1,0 +1,257 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+
+<style>
+    .inputAlert {
+        float: right;
+        color: red;
+        visibility: hidden;
+    }
+
+    .required {
+        color: red;
+    }
+</style>
+
+{{/section}}
+
+{{#section 'js'}}
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
+<script>
+
+    $('#txtDOB').datetimepicker({
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
+    });
+
+    function validUserName() {
+        var userName = $("#textUserName").val();
+        var alert = $("#userNameAlert");
+        console.log(userName);
+        var isValid = true;
+        if (userName.length == 0) {
+            alert.css("visibility", "visible");
+            isValid = false;
+        }
+        else {
+            alert.css("visibility", "hidden");
+        }
+        return isValid;
+    }
+
+    function validPassword() {
+        var pass = $("#txtPassword").val();
+        var alert = $("#passAlert");
+        console.log(pass);
+        var isValid = true;
+        if (pass.length == 0) {
+            alert.css("visibility", "visible");
+            isValid = false;
+        }
+        else {
+            alert.css("visibility", "hidden");
+        }
+        return isValid;
+    }
+
+    function validConfirm() {
+        var pass = $("#txtPassword").val();
+        var confirm = $("#txtConfirm").val();
+        var alert = $("#confirmAlert");
+        console.log(confirm);
+        var isValid = true;
+        if (confirm.length == 0 || confirm != pass) {
+            alert.css("visibility", "visible");
+            isValid = false;
+        }
+        else {
+            alert.css("visibility", "hidden");
+        }
+        return isValid;
+    }
+
+    function validName() {
+        var name = $("#textName").val();
+        var alert = $("#nameAlert");
+        console.log(name);
+        var isValid = true;
+        if (name.length == 0) {
+            alert.css("visibility", "visible");
+            isValid = false;
+        }
+        else {
+            alert.css("visibility", "hidden");
+        }
+        return isValid;
+    }
+
+    function validateEmailAdress(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    function validMail() {
+        var isValid = true;
+        var mail = $('#txtEmail').val();
+        var alert = $("#emailAlert");
+        if (validateEmailAdress(mail) == false) {
+            alert.css("visibility", "visible");
+            isValid = false;
+        }
+        else {
+            alert.css("visibility", "hidden");
+        }
+
+        return isValid;
+    }
+
+    function validDOB() {
+        var dob = $("#txtDOB").val();
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = dd + '/' + mm + '/' + yyyy;
+
+        var arrStartDate = dob.split("/");
+        var date1 = new Date(arrStartDate[2], arrStartDate[1], arrStartDate[0]);
+        var arrEndDate = today.split("/");
+        var date2 = new Date(arrEndDate[2], arrEndDate[1], arrEndDate[0]);
+
+        var isValid = true;
+        var alert = $("#dobAlert");
+
+        if (date1.getTime() > date2.getTime()) {
+            isValid = false;
+            alert.css("visibility", "visible");
+        }
+        else {
+            isValid = true;
+            alert.css("visibility", "hidden");
+        }
+
+        return isValid;
+    }
+
+    function reset() {
+        $("#txtDOB").val("");
+        $("#txtEmail").val("");
+        $("#textName").val("");
+        $("#txtPassword").val("");
+        $("#txtConfirm").val("");
+        $("#textUserName").val("");
+        $('.inputAlert').css("visibility", "hidden");
+    }
+
+    document.getElementById("textUserName").addEventListener("keyup", validUserName);
+    document.getElementById("txtPassword").addEventListener("keyup", validPassword);
+    document.getElementById("txtConfirm").addEventListener("keyup", validConfirm);
+    document.getElementById("textName").addEventListener("keyup", validName);
+    document.getElementById("txtEmail").addEventListener("keyup", validMail);
+
+    function validateForm() {
+        var isName = validName();
+        var isPass = validPassword();
+        var isConfirm = validConfirm();
+        var isUserName = validUserName();
+        var isMail = validMail();
+        var isDOB = validDOB();
+
+        var isValid = isName && isPass && isConfirm && isUserName && isMail && isDOB;
+        return isValid;
+    }
+    document.getElementById("frmRegister").onsubmit = function () {
+        var canSubmit = validateForm();
+        if (canSubmit == false) {
+            swal({
+                title: 'Thông báo',
+                text: 'Bạn cần phải điền đầy đủ các thông tin bắt buộc!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Đóng'
+            }).then((result) => {
+                if (result.value) {
+                    reset();
+                } else {
+                }
+            });
+        }
+        return canSubmit;
+    }
+</script>
+{{/section}}
+
+
+<div class=" shadow mb-4">
+    <h4 class="card-header">
+        Đăng ký
+    </h4>
+    {{#if isExistUserName}}
+    <h4 class="text-danger">
+        Tên tài khoản đã tồn tại
+    </h4>
+    {{/if}}
+    {{#if isExistMail}}
+    <h4 class="text-danger">
+        Email đã tồn tại
+    </h4>
+    {{/if}}
+
+
+    <div class="card-body">
+        <form method="POST" novalidate id="frmRegister" name="frmRegister">
+            <h5 class="mb-3">Tài khoản</h5>
+            <div class="form-group">
+                <label for="textUserName">Tên tài khoản</label>
+                <span class="required">*</span>
+                <span class="inputAlert" id="userNameAlert">Không hợp lệ</span>
+                <input type="text" class="form-control" id="textUserName" name="f_UserName" placeholder="johnwick"
+                    autofocus>
+            </div>
+            <div class="form-group">
+                <label for="txtPassword">Mật khẩu</label>
+                <span class="required">*</span>
+                <span class="inputAlert" id="passAlert">Không hợp lệ</span>
+                <input type="password" class="form-control" id="txtPassword" name="raw_password">
+            </div>
+            <div class="form-group">
+                <label for="txtConfirm">Nhập lại mật khẩu</label>
+                <span class="required">*</span>
+                <span class="inputAlert" id="confirmAlert">Không hợp lệ</span>
+                <input type="password" class="form-control" id="txtConfirm">
+            </div>
+            <hr class="mb-4">
+            <h5>Thông tin cá nhân</h5>
+            <div class="form-group">
+                <label for="textName">Họ tên</label>
+                <span class="required">*</span>
+                <span class="inputAlert" id="nameAlert">Không hợp lệ</span>
+                <input type="text" class="form-control" id="textName" name="f_Name" placeholder="John Wick">
+            </div>
+            <div class="form-group">
+                <label for="txtEmail">Email</label>
+                <span class="required">*</span>
+                <span class="inputAlert" id="emailAlert">Không hợp lệ</span>
+                <input type="text" class="form-control" id="txtEmail" name="f_Email" placeholder="jw2020@gmail.com">
+            </div>
+            <div class="form-group">
+                <label for="txtDOB">Ngày sinh</label>
+                <span class="required">*</span>
+                <span class="inputAlert" id="dobAlert">Không hợp lệ</span>
+                <input type="text" class="form-control" id="txtDOB" name="dob">
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Đăng ký
+            </button>
+        </form>
+    </div>
+</div>

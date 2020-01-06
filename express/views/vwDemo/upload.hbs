@@ -1,0 +1,344 @@
+{{#section 'css'}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+  rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<style>
+  .inputAlert {
+    float: right;
+    color: red;
+    visibility: hidden;
+  }
+
+  .required {
+    color: red;
+  }
+
+  #CatID {
+    font-size: 50px;
+  }
+
+  label {
+    color: black;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
+
+{{/section}}
+
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script
+  src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ezd73nxbzc7bu6e86g2l82jbbffke0mwevwrnyvc5q8h89j6"></script>
+<script src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
+
+<script>
+  $('#Image').fileinput({
+    theme: 'fa',
+    dropZoneEnabled: false,
+    allowedFileExtensions: ['png', 'jpg', 'gif', 'jpeg'],
+
+  });
+
+  tinymce.init({
+    selector: '#txtFullDes',
+    height: 600,
+    plugins: 'paste image link autolink lists table media',
+    menubar: false,
+    toolbar: [
+      'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+      'forecolor backcolor',
+      'table link image media',
+    ],
+  });
+
+
+
+  function checkValidImage() {
+    var imgVal = $('#Image').val();
+    if (imgVal == '') {
+      return false;
+    }
+    return true;
+  }
+
+
+  function checkValidTinyDesc() {
+    var text = $('#TinyDes').val();
+    var alert = $('#tinyDesAlert');
+
+    var isValid = true;
+    if (text.length > 80) {
+      alert.text("Vượt quá 80 ký tự");
+      alert.css("visibility", "visible");
+
+      isValid = false;
+    }
+    else if (text.length == 0) {
+      isValid = false;
+    }
+    else {
+      alert.css("visibility", "hidden");
+    }
+    return isValid;
+  }
+
+
+
+
+
+  function checkValidName() {
+    var name = document.getElementById("ProName");
+    var value = name.value;
+    var alert = document.getElementById("productNameAlert");
+    if (value.length == 0) {
+      alert.style.visibility = "hidden";
+      return false;
+    }
+
+    if (value.length == 5) {
+      alert.textContent = "Asd";
+      return false;
+    }
+
+    return true;
+  }
+
+  function checkValidPrice() {
+    var isValid = true;
+    var price = $('#Price').val();
+    var alert = $("#priceAlert");
+
+    if (price == "" || price.indexOf('.') != -1 ||
+      price.indexOf(',') != -1 || price.indexOf('-') != -1 || parseInt(price, 10) <= 0) {
+      alert.css("visibility", "visible");
+      isValid = false;
+    }
+    else {
+      alert.css("visibility", "hidden");
+      isValid = true;
+    }
+    return isValid;
+  }
+
+  function checkValidStep() {
+    var isValid = true;
+    var step = $('#Step').val();
+    var alert = $("#stepAlert");
+
+    if (step == "" || step.indexOf('.') != -1 ||
+      step.indexOf(',') != -1 || step.indexOf('-') != -1 || parseInt(step, 10) <= 0) {
+      alert.css("visibility", "visible");
+      isValid = false;
+    }
+    else {
+      alert.css("visibility", "hidden");
+      isValid = true;
+    }
+
+    return isValid;
+  }
+
+  function checkValidPriceToBuy() {
+    var isValid = true;
+    var price = $('#Price').val();
+    var priceToBuy = $('#PriceToBuy').val();
+    var alert = $("#priceToBuyAlert");
+
+    if (priceToBuy == "" || priceToBuy.indexOf('.') != -1 ||
+      priceToBuy.indexOf(',') != -1 || priceToBuy.indexOf('-') != -1 || parseInt(priceToBuy, 10) <= 0) {
+      alert.css("visibility", "visible");
+      alert.text("Không hợp lệ");
+      isValid = false;
+    }
+    else {
+      alert.css("visibility", "hidden");
+      isValid = true;
+    }
+
+    if (parseInt(priceToBuy, 10) < parseInt(price, 10)) {
+      alert.css("visibility", "visible");
+      alert.text("Giá mua ngay lớn hơn giá khởi điểm");
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  function checkValidQuantity() {
+    var isValid = true;
+    var quantity = $('#Quantity').val();
+    var alert = $("#quantityAlert");
+
+    if (quantity == "" || quantity.indexOf('.') != -1 ||
+      quantity.indexOf(',') != -1 || quantity.indexOf('-') != -1 || parseInt(quantity, 10) <= 0) {
+      alert.css("visibility", "visible");
+      isValid = false;
+    }
+    else {
+      alert.css("visibility", "hidden");
+      isValid = true;
+    }
+
+    return isValid;
+  }
+
+
+
+
+  document.getElementById("ProName").addEventListener("keyup", checkValidName);
+  document.getElementById("TinyDes").addEventListener("keyup", checkValidTinyDesc);
+  document.getElementById("Price").addEventListener("keyup", checkValidPrice);
+  document.getElementById("PriceToBuy").addEventListener("keyup", checkValidPriceToBuy);
+  document.getElementById("Step").addEventListener("keyup", checkValidStep);
+  document.getElementById("Quantity").addEventListener("keyup", checkValidQuantity);
+
+  function validateForm() {
+    var isValid = false;
+    var validImage = checkValidImage();
+    var validName = checkValidName();
+    var validTinyDesc = checkValidTinyDesc();
+    var validPrice = checkValidPrice();
+    var validPriceToBuy = checkValidPriceToBuy();
+    var validStep = checkValidStep();
+    var validQuantity = checkValidQuantity();
+    isValid = validName && validImage && validName && validTinyDesc &&
+      validPrice && validPriceToBuy && validStep && validQuantity;
+    return isValid;
+  }
+
+  function reset() {
+    $("#ProName").val("");
+    $("#TinyDes").val("");
+    $("#Price").val("");
+    $("#PriceToBuy").val("");
+    $("#Step").val("");
+    $("#Quantity").val("");
+    $(".inputAlert").css("visibility", "hidden");
+  }
+
+  document.getElementById("form").onsubmit = function () {
+    var canSubmit = validateForm();
+    if (canSubmit == false) {
+      swal({
+        title: 'Thông báo',
+        text: 'Bạn cần phải điền đầy đủ các thông tin bắt buộc!',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Đóng'
+      }).then((result) => {
+        if (result.value) {
+          reset();
+        } else {
+          // result.dismiss can be 'cancel', 'overlay', 'esc' or 'timer'
+        }
+      });
+    }
+
+
+    return canSubmit;
+  }
+
+
+</script>
+{{/section}}
+
+
+
+
+<form method="POST" id="form" enctype="multipart/form-data">
+  <div class=" shadow">
+    <h4 class="card-header">
+      Upload
+    </h4>
+    <div class="card-body">
+
+      <div class="form-group">
+        <label for="CatID"> Chọn danh mục</label>
+
+        <select name="CatID" class="form-control form-control-sm">
+          <option value="2">Điện thoại</option>
+          <option value="3">Máy tính bảng</option>
+          <option value="5">Tivi</option>
+          <option value="6">Guitar</option>
+          <option value="7">Thú cưng</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="Image">Tải ảnh lên</label>
+        <span class="required">*</span>
+        <input id="Image" name="Image" type="file" multiple>
+      </div>
+
+
+      <div class="form-group">
+        <label for="txtProName">Tên sản phẩm</label>
+        <span class="required">*</span>
+        <span class="inputAlert" id="productNameAlert">Không hợp lệ</span>
+        <input class="form-control" id="ProName" name="ProName" type="text" placeholder="TV Sony" value=""></input>
+      </div>
+      <div class="form-group">
+        <label for="txtTinyDes">Mô tả ngắn</label>
+        <span class="required">*</span>
+        <span class="inputAlert" id="tinyDesAlert">Không hợp lệ</span>
+        <input class="form-control" id="TinyDes" name="TinyDes" type="text" placeholder="43 inch" value=""></input>
+      </div>
+      <div class="form-group">
+        <label for="txtFullDes">Mô tả chi tiết</label>
+        <span class="required">*</span>
+        <span class="inputAlert" id="fullDesAlert">Không hợp lệ</span>
+        <textarea class="form-control" id="txtFullDes" name="FullDes" type="text" value="2"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="Price">Giá khởi điểm</label>
+        <span class="required">*</span>
+        <span class="inputAlert" id="priceAlert">Không hợp lệ</span>
+        <input class="form-control" id="Price" name="Price" type="number" placeholder="5290000" value=""></input>
+      </div>
+      <div class="form-group">
+        <label for="Step">Bước giá</label>
+        <span class="required">*</span>
+        <span class="inputAlert" id="stepAlert">Không hợp lệ</span>
+        <input class="form-control" id="Step" name="Step" type="number" placeholder="1000000" value=""></input>
+      </div>
+
+      <div class="form-group">
+        <label for="PriceToBuy">Giá mua ngay</label>
+        <span class="required">*</span>
+        <span class="inputAlert" id="priceToBuyAlert">Không hợp lệ</span>
+        <input class="form-control" id="PriceToBuy" type="number" name="PriceToBuy" placeholder="70000000"
+          value=""></input>
+      </div>
+      <div class="form-group">
+        <label for="isDelay"> Tự động gia hạn?</label>
+        <span class="required">*</span>
+        <select name="isDelay" class="form-control form-control-sm">
+          <option value="Y">Có</option>
+          <option value="N">Không</option>
+
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="Quantity">Số lượng</label>
+        <span class="required">*</span>
+        <span class="inputAlert" id="quantityAlert">Không hợp lệ</span>
+        <input class="form-control" id="Quantity" name="Quantity" type="number" placeholder="3" value=""></input>
+      </div>
+    </div>
+    <div class="text-right mb-5">
+      <button id="submitBtn" type="submit" onsubmit="return false;" class="btn btn-lg btn-success btn-block">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Submit
+      </button>
+    </div>
+  </div>
+</form>

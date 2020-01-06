@@ -1,0 +1,62 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+{{/section}}
+<div class=" shadow">
+  <h4 class="card-header">
+    Products
+  </h4>
+  {{#if empty}}
+  <div class="card-body">
+    <p class="card-test">
+      Không có dữ liệu
+    </p>
+  </div>
+  {{else}}
+
+  <div class="card-body">
+    <div class="row">
+      {{#each this.products}}
+      <div class="col-sm-4 mb-3">
+        <div class="card">
+          <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="{{ProName}}" title="{{ProName}}" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title mt-3">
+              {{ProName}}
+
+            </h5>
+            {{#if isOwn}}
+            <h5>dang giu gia </h5>
+            {{/if}}
+
+            <h5 class="card-title text-danger">{{format Price}}</h5>
+            <p class="card-text">
+              {{TinyDes}}
+            </p>
+
+          </div>
+          <div class="card-footer text-center">
+            <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{ProID}}" role="button">
+              <i class="fa fa-eye" aria-hidden="true"></i>
+              Details
+            </a>
+            <a class="btn btn-sm btn-outline-success" href="#" role="button">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              Add to cart
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+      {{/each}}
+    </div>
+
+  </div>
+
+  {{/if}}
+
+
+
+
+
+</div>

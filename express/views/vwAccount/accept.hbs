@@ -1,0 +1,42 @@
+<div class=" shadow">
+    <h4 class="card-header">
+        Danh sách yêu cầu
+    </h4>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Tài khoản</th>
+
+                {{!-- <th scope="col" class="text-right">
+                    <a class="btn btn-outline-success" href="/admin/categories/add" role="button">
+                        <i class="fa fa-plus" aria-hidden="true"> </i>
+                        Add Category
+                    </a>
+                </th> --}}
+                <th class="text-center"scope="col">Tin nhắn</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each request}}
+            <tr>
+               
+                <td class="text-center">{{UserID}}</td>
+                <td class="text-center">{{Mess}}</td>
+                <td class="text-right">
+                    <form method="POST" action="/admin/accept">
+                        <input type="hidden" name="UserID" value="{{UserID}}">
+                         <button type="submit" class="btn btn-sm btn-primary">Duyệt</button>
+                    </form>
+                    {{!-- <a name="" id="" class="btn btn-sm btn-danger" href="#" role="button">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a> --}}
+                </td>
+            </tr>
+            {{/each}}
+
+
+
+        </tbody>
+    </table>
+</div>

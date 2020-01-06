@@ -1,0 +1,149 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+{{/section}}
+
+<div class="noboder color">
+  <div class="slider-area color one">
+    <div><img class="img-fluid" src="../imgs/banner/banner-2.jpg" /></div>
+    <div><img class="img-fluid" src="../imgs/banner/banner-3.jpg" /></div>
+    <div><img class="img-fluid" src="../imgs/banner/banner-4.jpg" /></div>
+    <div><img class="img-fluid" src="../imgs/banner/banner-5.jpg" /></div>
+    <div><img class="img-fluid" src="../imgs/banner/banner-6.jpg" /></div>
+
+
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="top-product">
+    <div class=" title">
+      <h4>Top 5 sản phẩm gần kết thúc </h4>
+    </div>
+    <div>
+      <p class="view-detail-text">Xem chi tiết</p>
+    </div>
+
+    <div class="row row-product">
+      <div class="col-12">
+        <div class="responsive border">
+
+          {{#each top5endtime }}
+          <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
+            <a href="/products/detail/{{ProID}}">
+
+              <div class="card-container">
+                <div class="card">
+                  <div class="img-box">
+                    <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="" />
+                    {{!-- <img src="../imgs/sp/1/main_thumbs.jpg" alt="" /> --}}
+                  </div>
+                  <div class="content">
+                    <p class="img-title">{{ProName}}</p>
+
+                    <p class="imgTit cd"></p>
+                    <p class="imgTit price">
+                      <i class="fa fa-gavel" aria-hidden="true">
+                        {{Price}}₫</i>
+                    </p>
+                    <p class="buy-now">
+                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{/each}}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-product">
+    <div class="title">
+      <h4>Top 5 sản phẩm có nhiều lượt ra giá nhất</h4>
+    </div>
+    <div class="">
+      <p class="view-detail-text">Xem chi tiết</p>
+    </div>
+    <div class="row row-product">
+      <div class="col-12">
+        <div class="responsive">
+          {{#each topbidding }}
+          <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
+            <a href="/products/detail/{{ProID}}">
+
+              <div class="card-container">
+                <div class="card">
+                  <div class="img-box">
+                    <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="" />
+                  </div>
+                  <div class="content">
+                    <p class="img-title">{{ProName}}</p>
+                    {{a}}
+                    <p class="imgTit cd"></p>
+                    <p class="imgTit price">
+                      <i class="fa fa-gavel" aria-hidden="true">
+                        {{Price}}₫</i>
+                    </p>
+                    <p class="buy-now">
+                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{/each}}
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-product">
+    <div class="title">
+      <h4>Top 5 sản phẩm có giá cao nhất</h4>
+    </div>
+    <div class="">
+      <p class="view-detail-text">Xem chi tiết</p>
+    </div>
+    <div class="row row-product">
+      <div class="col-12">
+        <div class="responsive">
+          {{#each top5price }}
+          <div class="col-6 col-sm-4 col-md-3 col-lg-3 border  hvr-glow ">
+            <a href="/products/detail/{{ProID}}">
+
+              <div class="card-container">
+                <div class="card">
+                  <div class="img-box">
+                    <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="" />
+                  </div>
+                  <div class="content">
+                    <p class="img-title">{{ProName}}</p>
+                    {{a}}
+                    <p class="imgTit cd"></p>
+                    <p class="imgTit price">
+                      <i class="fa fa-gavel" aria-hidden="true">
+                       {{Price}}₫</i>
+                    </p>
+                    <p class="buy-now">
+                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{/each}}
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

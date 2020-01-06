@@ -1,0 +1,47 @@
+<div class=" shadow">
+    <h4 class="card-header">
+        Danh sách yêu cầu
+    </h4>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center">Tài khoản</th>
+
+                {{!-- <th scope="col" class="text-right">
+                    <a class="btn btn-outline-success" href="/admin/categories/add" role="button">
+                        <i class="fa fa-plus" aria-hidden="true"> </i>
+                        Add Category
+                    </a>
+                </th> --}}
+                <th scope="col">Tên</th>
+                <th scope="col">Ngày đăng ký</th>
+                <th scope="col">Loại</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this.users}}
+            <tr>
+                <th scope="row" class="text-center"><a href="/account/public_profile/{{f_ID}}">{{f_UserName}}</a></th>
+                <td>{{f_Name}}</td>
+                <td>{{f_CreatedTime}}</td>
+                <td>{{f_Type}}</td>
+                <td>
+                    <form method="POST" action="/account/deleteuser">
+                        <input name="id" type="hidden" value="{{f_ID}}">
+                        <button class="btn btn-primary">Xóa</button></form>
+                </td>
+                {{#if f_isSeller}}
+                <td><form method="POST" action="/admin/banseller">
+                    <input name="id" type="hidden" value="{{f_ID}}">
+                    <button class="btn btn-primary">Hạ cấp</button></form></td>
+                {{/if}}
+            </tr>
+            {{/each}}
+
+
+
+        </tbody>
+    </table>
+</div>
