@@ -1,7 +1,7 @@
 {{#section 'css'}}
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
   rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
 
 {{/section}}
 
@@ -32,7 +32,7 @@
 </script>
 {{/section}}
 
-<form method="POST" novalidate enctype="multipart/form-data"  >
+<form method="POST" novalidate enctype="multipart/form-data">
   <div class=" shadow">
     <h4 class="card-header">
       Upload
@@ -41,11 +41,9 @@
       <div class="form-group">
         <label for="CatID"> Chọn danh mục</label>
         <select name="CatID" class="form-control form-control-sm">
-          <option value="2">Điện thoại</option>
-          <option value="3">Máy tính bảng</option>
-          <option value="5">Tivi</option>
-          <option value="6">Guitar</option>
-          <option value="7">Thú cưng</option>
+          {{#each cats}}
+          <option value="{{CatID}}">{{CatName}}</option>
+          {{/each}}
         </select>
       </div>
 
@@ -83,7 +81,7 @@
         <select name="isDelay" class="form-control form-control-sm">
           <option value="Y">Có</option>
           <option value="N">Không</option>
-     
+
         </select>
       </div>
       <div class="form-group">

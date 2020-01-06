@@ -47,6 +47,8 @@
                     <p class="buy-now">
                       Giá mua ngay: <span>{{PriceToBuy}}₫</span>
                     </p>
+                
+          
                   </div>
                 </div>
               </div>
@@ -82,12 +84,15 @@
                     <p class="img-title">{{ProName}}</p>
                     {{a}}
                     <p class="imgTit cd"></p>
-                    <p class="imgTit price">
+                    <p class="imgTit price text-danger">
                       <i class="fa fa-gavel" aria-hidden="true">
-                        {{Price}}₫</i>
+                        {{format Price}}₫</i>
                     </p>
                     <p class="buy-now">
-                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
+                      Giá mua ngay: <span>{{format PriceToBuy}}₫</span>
+                    </p>
+                    <p class="imgTit">
+                       Số lượt ra giá: {{NumberBid}}
                     </p>
                   </div>
                 </div>
@@ -132,9 +137,8 @@
                        {{Price}}₫</i>
                     </p>
                     <p class="buy-now">
-                      Giá mua ngay: <span>{{PriceToBuy}}₫</span>
+                      Giá mua ngay: <span>{{PriceToBuy}}</span>
                     </p>
-                    <p class="text-dark">Người giữ giá</p>
                   </div>
                 </div>
               </div>

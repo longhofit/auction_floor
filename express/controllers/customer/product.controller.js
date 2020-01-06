@@ -2,6 +2,7 @@ const multer = require('multer');
 let fs = require('fs-extra');
 const request = require('request');
 const productModel = require('../../models/product.model');
+const cateModeel=require('../../models/category.model')
 const userModel = require('../../models/user.model');
 const hepler = require('../../helpers/helper');
 const countdown=require('countdown');
@@ -141,12 +142,15 @@ module.exports.productDetail = async (req, res) => {
 }
 module.exports.formUpload = async (req, res, next) => {
     req.session.ProID = await productModel.max(`ProID`) + 1;
+    cats= await cateModeel.all();
     console.log(req.session.ProID);
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
     }
     else {
-        res.render('vwDemo/upload');
+        res.render('vwDemo/upload',{
+            cats :cats
+        });
     }
 
 };
