@@ -12,36 +12,56 @@ module.exports.vwregister = async (req, res) => {
 };
 
 module.exports.register = async (req, res) => {
-
-    const [rows, rowsUserName] = await Promise.all([
-        userModel.checkEmail(req.body.f_Email),
-        userModel.checkUserName(req.body.f_UserName)
-    ])
-
-    req.session.isExistMail = false;
-    req.session.isExistUserName = false;
-    if (rowsUserName.length > 0)
-        req.session.isExistUserName = true;
-    else {
-        if (rows.length > 0) {
-            req.session.isExistMail = true;
-        }
-        else {
-            console.log("dang ki");
-            const N = 10;
-            const hash = bcrypt.hashSync(req.body.raw_password, N);
-            const dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
-            const entity = req.body;
-            entity.f_Password = hash;
-            entity.f_DOB = dob;
-            delete entity.raw_password;
-            delete entity.dob;
-            const result = await userModel.add(entity);
-        }
-
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.send("Please select captcha first");
     }
+    const secretKey = "6LcGvswUAAAAAFBGmULXcKknj7TK28J4UGUQx2AD";
 
-    res.redirect(req.headers.referer);
+    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+
+    request(verificationURL, async (error, response, body) => {
+        body = JSON.parse(body);
+
+        if (body.success !== undefined && !body.success) {
+            return res.send("Failed captcha verification");
+        }
+        delete req.body['g-recaptcha-response'];
+        const [rows, rowsUserName] = await Promise.all([
+            userModel.checkEmail(req.body.f_Email),
+            userModel.checkUserName(req.body.f_UserName)
+        ])
+
+        req.session.isExistMail = false;
+        req.session.isExistUserName = false;
+        if (rowsUserName.length > 0)
+            req.session.isExistUserName = true;
+        else {
+            if (rows.length > 0) {
+                req.session.isExistMail = true;
+            }
+            else {
+                console.log("dang ki");
+                const N = 10;
+                const hash = bcrypt.hashSync(req.body.raw_password, N);
+                const dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
+                const entity = req.body;
+                entity.f_Password = hash;
+                entity.f_DOB = dob;
+                delete entity.raw_password;
+                delete entity.dob;
+               
+                console.log(entity)
+
+                const result = await userModel.add(entity);
+            }
+
+        }
+
+        res.redirect(req.headers.referer);
+
+    });
+
+
 
 };
 module.exports.vwlogin = (req, res) => {
@@ -77,7 +97,6 @@ module.exports.login = (req, res) => {
         req.session.authUser = user;
         const url = req.query.retUrl || '/';
         res.redirect(url);
-
     });
 
 };
@@ -197,4 +216,7 @@ module.exports.deleteUser = async (req, res) => {
     await userModel.del(req.body.id);
     res.redirect(req.headers.referer);
 
+}
+module.exports.test = (req, res) => {
+    res.render('vwAccount/test', { layout: false });
 }

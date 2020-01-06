@@ -20,4 +20,5 @@ router.post('/changepass',controller.changepass);
 router.get('/feedbackpoint',controller.viewpoint);
 router.get('/feedback',controller.vwfeedback);
 router.post('/deleteuser',controller.deleteUser);
+router.get('/test',controller.test)
 module.exports = router;
