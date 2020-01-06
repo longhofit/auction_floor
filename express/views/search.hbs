@@ -1,0 +1,82 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
+{{/section}}
+
+{{#section 'js'}}
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script>
+    $('#txtDateFrom').datetimepicker({
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
+    });
+    $('#txtDateTo').datetimepicker({
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
+    });
+</script>
+{{/section}}
+<div class=" shadow mb-4">
+    <h4 class="card-header">
+        Search
+    </h4>    
+
+    <div class="card-body">
+        <form method="GET" id="frmRegister" name="frmRegister">
+            <h5 class="mb-3">Account</h5>
+            <div class="form-group">
+                <label for="textSearch">Search</label>
+                <input type="text" class="form-control" id="textSearch" name="ProName" placeholder="john"
+                    autofocus>
+            </div>
+            <div class="form-group">
+                <label for="txtDateFrom">Date of Birth</label>
+                <input type="text" class="form-control" id="txtDateFrom" name="dateFrom">
+            </div>
+            <div class="form-group">
+                <label for="txtDateTo">Date of Birth</label>
+                <input type="text" class="form-control" id="txtDateTo" name="dateTo">
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Search
+            </button>
+
+
+            <hr class="mb-4">
+
+            <h5>Result</h5>
+            
+            {{#if isSearch}}
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Price to buy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each searchResult}}
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>{{ProName}}</td>
+                            <td>{{Price}}</td>
+                            <td>{{PriceToBuy}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{/if}}
+
+        </form>
+    </div>
+    <div class="card-footer text-muted">
+        Footer
+    </div>
+</div>

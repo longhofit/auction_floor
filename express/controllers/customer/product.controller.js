@@ -550,3 +550,23 @@ module.exports.capcha = (req, res) => {
         res.send('123123');
     });
 }
+
+
+module.exports.search = (req,res) => {
+
+}
+
+module.exports.getSearchData = (req,res) => {
+    var data = [];
+
+    var dataPro = productModel.searchOnProName(req.params.ProName);
+    for(i = 0; i< dataPro.length; i++){
+        data.add(dataPro[i].ProName);
+    }
+    var dataCat = productModel.searchOnCatName(req.params.ProName);
+    for(i = 0; i< dataPro.length; i++){
+        data.add(dataCat[i].ProName);
+    }
+    
+    res.send(data);
+}

@@ -1,4 +1,7 @@
 var nodemailer = require('nodemailer');
+const productModel = require('../models/product.model');
+const categoryModel = require('../models/category.model');
+
 module.exports.datenow = () => {
     let ts = Date.now();
     let date_ob = new Date(ts);
@@ -74,4 +77,3 @@ module.exports.markString = (source, showLength, minLenth, maxLength, charMark, 
 
     return result;
 }
-

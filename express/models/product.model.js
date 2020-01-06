@@ -1,7 +1,7 @@
 const db = require('../utils/db');
 const config = require('../config/default.json');
 module.exports = {
-    all: () => db.load('select * from product'),
+    all: () => db.load('select * from products'),
     allByCat: catId => db.load(`select * from products where CatID=${catId}`),
 
     countByCat: async catId => {
@@ -121,8 +121,46 @@ module.exports = {
     isEnd: (proid) => db.load(`SELECT * FROM endtime where proid=${proid} and endtime< CURRENT_TIMESTAMP`),
     topBidding: (number) => db.load(`SELECT * FROM products order by NumberBid desc limit ${number}`),
     topPrice: (number) => db.load(`select * from products where (ProID in (SELECT proid FROM endtime where endtime>CURRENT_TIMESTAMP)) order by PRICE desc limit ${number}`),
-    topEndtime: (number) => db.load( `select * from products where proid in  (SELECT proid FROM endtime where endtime > current_timestamp order by endtime ) limit ${number}`)
+    topEndtime: (number) => db.load( `select * from products where proid in  (SELECT proid FROM endtime where endtime > current_timestamp order by endtime ) limit ${number}`),
+
+
+    //Precondition
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (ProName);
+    // ALTER TABLE online_aucdb.categories ADD FULLTEXT (CatName);
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (FUllDes);
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (TinyDes);
+    // ALTER TABLE online_aucdb.products ADD FULLTEXT (ProName,TinyDes,FullDes);
+    searchOnProName: (ProName) => db.load(`SELECT * FROM online_aucdb.products WHERE MATCH(ProName) against ("${ProName}" IN NATURAL LANGUAGE MODE) LIMIT 8
+    `),
+    searchOnCatName: (CatName) => db.load(`SELECT * FROM online_aucdb.categories WHERE MATCH(CatName) against ("${CatName}" IN NATURAL LANGUAGE MODE) LIMIT 8
+    `),
+    searchFull: (ProName, CatID, SellerID, WinerID, DateFrom, DateTo) => {
+        var query = ` SELECT * FROM online_aucdb.categories as cat, online_aucdb.products as pro WHERE cat.CatID = pro.CatID `;
+        if(CatID != ""){
+            query += ` AND cat.CatID = "${CatID}" `;
+        }
+        if(SellerID != ""){
+            query += ` AND pro.SellerID = "${SellerID}" `;
+        }
+        if(WinerID != ""){
+            query += ` AND pro.WinerID = "${WinerID}" `;
+        }
+        if(DateFrom != ""){
+            query += ` AND pro.CreatedDTime > "${DateFrom}" `;
+        }
+        if(DateTo != ""){
+            query += ` AND pro.CreatedDTime < "${DateTo}" `;
+        }
+        query += ` AND ( MATCH(ProName,TinyDes,FullDes) against ("${ProName}" IN NATURAL LANGUAGE MODE) 
+                    OR MATCH(CatName) against ("strong" IN NATURAL LANGUAGE MODE) ) `;
+        
+        return db.load(query);
+    },
+
+
 }
+
+
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {
 //     inlist += `${ProID[i]},`;
