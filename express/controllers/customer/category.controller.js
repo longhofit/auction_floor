@@ -28,6 +28,15 @@ module.exports.productByCat = async (req, res) => {
 
     }
     console.log(rows);
+    var list = [];
+    for (x of rows)
+        list.push(x.ProID);
+    console.log(list);
+    if (list.length != 0)
+        endtime = await productModel.allEndtime(list);
+
+
+
 
 
 
@@ -45,7 +54,6 @@ module.exports.productByCat = async (req, res) => {
         })
     }
 
-
     // const rows = await productModel.pageByCat(req.params.id,offset);
     res.render('vwProducts/allByCat', {
         products: rows,
@@ -53,6 +61,7 @@ module.exports.productByCat = async (req, res) => {
         page_numbers,
         prev_value: +page - 1,
         next_value: +page + 1,
+
 
     });
 

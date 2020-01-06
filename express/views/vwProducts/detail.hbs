@@ -3,7 +3,45 @@
 {{/section}}
 {{#section 'js'}}
 <script src="/js/slideshow.js"></script>
+
+{{#if endtime}}
+<script>
+
+  var user = "{{products.ProName}}";
+  console.log({{ products.ProName }});
+  var time = "{{endtime.endtime}}";
+
+  console.log(time)
+  var countDownDate = new Date(time).getTime();
+
+
+  var x = setInterval(function () {
+
+    var now = new Date().getTime();
+
+
+    var distance = countDownDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+    document.getElementById("cd").innerHTML = hours + "h "
+      + minutes + "m " + seconds + "s ";
+
+
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("cd").innerHTML = "Hết thời gian đấu giá";
+    }
+  }, 1000);
+</script>
+{{/if}}
+
 {{/section}}
+{{products.ProName}}
 <div class="mt-3 ml-5">
   <ul class="list-inline">
     <li class="list-inline-item"><a class="text-dark" href="/">Trang chủ</a></li>
@@ -11,6 +49,7 @@
     <li class="list-inline-item"><a class="text-dark" href="#"> Nhạc cụ</a></li>
     <li class="list-inline-item"> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
     <li class="list-inline-item "><a class="text-danger" href="#">{{products.ProName}}</a></li>
+    <li class="list-inline-item "> {{endtime.endtime}}</li>
   </ul>
 </div>
 <div class="container ">
@@ -44,7 +83,9 @@
     </div>
 
     <div class="col-12 col-md-6 border-right border-bottom border-left">
-      <div class="row    ">
+      <div class="row">
+
+
 
         <div class="col-12 mt-4">
           <span class="font-weight-bold ">
@@ -59,7 +100,7 @@
           {{/if}}
         </div>
         <div class="col-12  d-flex justify-content-center  ">
-          <span class="cd font-weight-bold imgTit text-danger border color"></span>
+          <span id="cd" class=" font-weight-bold imgTit text-danger border color"></span>
         </div>
 
         <div class="col-12  d-flex  mt-2  border-bottom">
@@ -511,7 +552,7 @@
               </span>
 
 
-              <span class="text-dark"><small>Giá mua ngay: <code>2.000.000.000₫</code></small></span>
+              <span class="text-dark"><small>Giá mua ngay: <code>{{cd}}</code></small></span>
 
 
 
@@ -541,8 +582,4 @@
 
     </div>
   </div>
-
-
-
-
 </div>

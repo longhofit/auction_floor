@@ -33,6 +33,17 @@ module.exports = {
     loadImgs: ProID => db.load(`select * from proimage where ProID=${ProID}`),
     allLogByProID: ProID => db.load(`select * from bidding_log where ProID=${ProID}`),
     endTime: ProID => db.load(`select * from endtime where ProID=${ProID}`),
+    allEndtime: ProID => {
+        var inlist = '';
+        for (var i = 0; i < ProID.length; i++) {
+            inlist += `${ProID[i]},`;
+        }
+        inlist = inlist.substring(0, inlist.length - 1);
+        // const sql = 'select ProID from endtime where (endtime>CURRENT_TIMESTAMP) and (ProID in (' + inlist + ') )';
+        const sql = `select * from endtime where ProID in (${inlist})`;
+        console.log(sql);
+        return db.load(sql);
+    },
     addwishlist: entity => db.add('wishlist', entity),
     // allByCat: UserID => db.load(`select * from products where CatID=${catId}`),
     //prosFromWish: UserID => db.load(`select DISTINCT  ProID from wishlist where UserID=${UserID}`),
@@ -121,7 +132,7 @@ module.exports = {
     isEnd: (proid) => db.load(`SELECT * FROM endtime where proid=${proid} and endtime< CURRENT_TIMESTAMP`),
     topBidding: (number) => db.load(`SELECT * FROM products order by NumberBid desc limit ${number}`),
     topPrice: (number) => db.load(`select * from products where (ProID in (SELECT proid FROM endtime where endtime>CURRENT_TIMESTAMP)) order by PRICE desc limit ${number}`),
-    topEndtime: (number) => db.load( `select * from products where proid in  (SELECT proid FROM endtime where endtime > current_timestamp order by endtime ) limit ${number}`)
+    topEndtime: (number) => db.load(`select * from products where proid in  (SELECT proid FROM endtime where endtime > current_timestamp order by endtime ) limit ${number}`)
 }
 // var inlist = '';
 // for (var i = 0; i < ProID.length; i++) {

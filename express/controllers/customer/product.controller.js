@@ -4,6 +4,7 @@ const request = require('request');
 const productModel = require('../../models/product.model');
 const userModel = require('../../models/user.model');
 const hepler = require('../../helpers/helper');
+const countdown=require('countdown');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
@@ -22,7 +23,7 @@ const upload = multer({ storage });
 
 
 module.exports.productDetail = async (req, res) => {
-
+    var cd =countdown( new Date(2020, 5, 5) ).toString();
     const proId = req.params.id;
     req.session.beforePost = req.originalUrl
     const [productinfo, loginfo, endtime,isEnd] = await Promise.all([
@@ -127,7 +128,8 @@ module.exports.productDetail = async (req, res) => {
         isSellerButNotMine: isSellerButNotMine,
         isEnd: req.session.isEnd,
         isNotEnd: req.session.isEnd===false,
-        isNotMyPro: isMyPro==false
+        isNotMyPro: isMyPro==false,
+        cd :cd
 
     });
     req.session.isNotValidPrice = false;

@@ -1,6 +1,7 @@
 {{#section 'css'}}
- <link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
 {{/section}}
+
 <div class=" shadow">
   <h4 class="card-header">
     Products
@@ -24,11 +25,11 @@
             </h5>
             <h5 class="card-title text-danger">Giá hiện tại: {{format Price}}đ</h5>
             <h5 class="card-title text-danger">Người giữ giá: {{WinerID}}</h5>
-            <p>Thời gian còn lại: *chưa làm*</p>
+            <p id="{{ProID}}"></p>
             <p>Số lượt ra giá: {{NumberBid}}</p>
-           {{#if MinutesAgo}}
-           moi tao trong 2 phut
-           {{/if}}
+            {{#if MinutesAgo}}
+            moi tao trong 2 phut
+            {{/if}}
             <p class="card-text">
               {{TinyDes}}
             </p>
