@@ -1,0 +1,12 @@
+.slide-container {
+  height: 50px;
+  width: 100%;
+}
+
+.slide-container img {
+  width: 100%;
+}
+
+.mySlides {
+  display: none;
+}

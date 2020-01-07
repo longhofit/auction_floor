@@ -1,8 +1,29 @@
 {{#section 'css'}}
 <link rel="stylesheet" href="/css/style-laptop.css" type="text/css">
+<link rel="stylesheet" href="/css/style-detail.css" type="text/css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 {{/section}}
 {{#section 'js'}}
 <script src="/js/slideshow.js"></script>
+<script>
+  var slideIndex = 1;
+  showDivs(slideIndex);
+
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = x.length }
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    x[slideIndex - 1].style.display = "block";
+  }
+</script>
 {{/section}}
 <div class="mt-3 ml-5">
   <ul class="list-inline">
@@ -15,32 +36,26 @@
 </div>
 <div class="container ">
 
-  <div class="row m-2  ">
+  <div class="row m-2">
     <div class="col-12 col-md-5 border-right border-bottom border-left">
-      <div class="row">
-        <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_0.jpg" alt="">
-        <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_1.jpg" alt="">
-        {{!-- <img class="slide" src="/imgs/sp/1/1_2.jpg" alt="">
-        <img class="slide" src="/imgs/sp/1/1_3.jpg" alt="">
-        <img class="slide" src="/imgs/sp/1/1_4.jpg" alt=""> --}}
+      <div class="row mt-5">
+        {{!-- <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_0.jpg" alt="">
+        <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_1.jpg" alt=""> --}}
+        {{!-- <img class="mySlides" src="/imgs/sp/2091/2091_0.jpg" alt="">
+        <img class="mySlides" src="/imgs/sp/2091/2091_1.jpg" alt="">
+        <img class="mySlides" src="/imgs/sp/2091/2091_2.jpg" alt=""> --}}
 
 
+        <div class="w3-content w3-display-container">
+
+          <img class="mySlides" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_0.jpg" style="width:100%">
+          <img class="mySlides" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_1.jpg" style="width:100%">
+          <img class="mySlides" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_2.jpg" style="width:100%">
+
+          <button class="w3-button w3-black w3-display-left w3-display-center" onclick="plusDivs(-1)">&#10094;</button>
+          <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+        </div>
       </div>
-      <div class="row d-flex justify-content-center">
-
-
-        {{!-- <img onclick="shows(1)" class="border itemcard" src="/imgs/sp/1/sm1.jpg" alt="">
-        <img onclick="shows(2)" class="border itemcard" src="/imgs/sp/1/sm2.jpg" alt="">
-        <img onclick="shows(3)" class="border itemcard" src="/imgs/sp/1/sm3.jpg" alt="">
-        <img onclick="shows(4)" class="border itemcard" src="/imgs/sp/1/sm4.jpg" alt="">
-        <img onclick="shows(5)" class="border itemcard" src="/imgs/sp/1/sm5.jpg" alt=""> --}}
-        <button onclick="show(1)">click</button>
-        <button onclick="show(2)">click</button>
-
-
-      </div>
-
-
     </div>
 
     <div class="col-12 col-md-6 border-right border-bottom border-left">

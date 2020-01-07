@@ -1,944 +1,940 @@
 * {
-    font-family: "Verdana", sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  font-family: 'Verdana', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+nav {
+  background: rgba(0, 0, 0, 0.651);
+}
+
+.navbar-nav {
+  margin: 0;
+}
+
+ul.navbar-nav {
+  justify-content: flex-end;
+  text-align: center;
+  margin-left: auto;
+}
+
+ul.navbar-nav li {
+  margin: 10px;
+  background: white;
+  border-radius: 10px;
+  padding: 0 0px;
+  box-shadow: 3px 3px 3px rgb(209, 209, 209);
+}
+
+ul.navbar-nav li a {
+  color: black;
+  margin: 0 7px;
+}
+
+ul.navbar-nav li:hover {
+  background: rgb(252, 252, 101);
+  box-shadow: none;
+}
+ul.navbar-nav li:hover a {
+  color: black;
+}
+
+.form-inline button {
+  background-color: rgb(139, 240, 139);
+  color: black;
+  margin-left: 20px;
+}
+
+.form-inline button:hover {
+  background-color: rgb(16, 119, 16);
+}
+
+/* Catalog */
+
+.cata {
+  display: block;
+  height: 70px;
+  margin: 20px 0;
+  background: #e9e9e9;
+}
+
+.cata .d-flex {
+  height: 100%;
+  vertical-align: center;
+
+  justify-content: space-between;
+}
+
+.d-flex div {
+  height: 70%;
+  width: 17%;
+
+  background-color: #b6b6b6;
+  text-align: center;
+
+  margin: 1% 1%;
+  border-radius: 5px;
+
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.26);
+}
+
+.d-flex div:hover {
+  cursor: pointer;
+}
+
+.cata a {
+  text-align: center;
+  line-height: 50px;
+  font-size: 1.1rem;
+  color: black;
+}
+
+.cata a i {
+  margin-right: 5px;
+
+  color: black;
+}
+
+.d-flex div:hover a {
+  text-decoration: none;
+}
+
+.d-flex div:hover a i {
+  color: white;
+  transition-delay: 1s;
+}
+
+/* Top product */
+
+.container-fluid {
+  margin-top: 40px;
+}
+
+.container-fluid {
+  display: block;
+}
+
+.container-fluid .top-product {
+  height: 100%;
+  margin-top: 50px;
+}
+
+.container-fluid .top-product .title {
+  position: relative;
+  transition: 1s ease-in-out;
+  margin-top: 0;
+  border-radius: 5px;
+}
+
+.container-fluid .top-product:nth-child(1) .title {
+  margin-left: 20px;
+  padding-bottom: 5px;
+}
+
+.container-fluid .top-product:nth-child(1) .title {
+  width: 35%;
+  background-image: linear-gradient(
+    to right,
+    rgba(216, 56, 56, 0.829),
+    rgba(238, 186, 186, 0.829)
+  );
+}
+
+.container-fluid .top-product:nth-child(2) .title {
+  width: 47%;
+  background-image: linear-gradient(
+    to right,
+    rgba(72, 194, 41, 0.829),
+    rgba(194, 229, 185, 0.829)
+  );
+  margin-bottom: 15px;
+}
+
+.container-fluid .top-product:nth-child(3) .title {
+  width: 38%;
+  background-image: linear-gradient(
+    to right,
+    rgba(30, 219, 204, 0.829),
+    rgba(178, 228, 224, 0.829)
+  );
+  margin-bottom: 15px;
+}
+
+.container-fluid .title h4 {
+  padding-top: 20px;
+  padding-left: 10px;
+  color: white;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+
+.top-product {
+  overflow: hidden;
+}
+.top-product .view-detail-text {
+  font-size: 1rem;
+  margin-left: 50px;
+  transition: 2s ease-in-out;
+}
+
+.top-product .row {
+  margin-top: 10px;
+  background-color: white;
+  transform: translate(0, 0);
+  transition: 1s;
+}
+
+.top-product .row > div {
+  margin-top: 0;
+  background-color: #cccccc;
+}
+
+/* Card */
+
+.card-container {
+  position: relative;
+  width: 100%;
+  margin: 0px auto;
+  height: 400px;
+  display: block;
+}
+
+.card-container .card {
+  width: 100%;
+  height: 85%;
+  display: block;
+  position: relative;
+  background-color: #ccc;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: 0.5s;
+  margin-top: 15%;
+  cursor: pointer;
+}
+
+.img-box img {
+  height: 100%;
+  width: 100%;
+}
+
+.card .img-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transition: 0.5s;
+}
+
+.card:hover .img-box {
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+.card .content {
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  bottom: -100%;
+  padding: 5%;
+  transition: 0.5s;
+  color: white;
+}
+
+.card .content p {
+  margin: 0;
+}
+
+.card {
+  background: linear-gradient(0deg, rgb(16, 45, 78), transparent);
+}
+
+.card:hover {
+  transform: translateY(-20px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
+}
+.card:hover .content {
+  bottom: 0;
+}
+
+.content {
+  text-align: center;
+}
+
+.card .content .img-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.card .content .price {
+  color: rgb(26, 133, 141);
+  font-size: 2rem;
+}
+
+.card .content .cd {
+  color: rgb(255, 50, 50);
+  font-size: 1.4rem;
+}
+
+.card .content .buy-now {
+  color: rgb(241, 239, 121);
+}
+
+#item-1-card {
+  background: linear-gradient(0deg, rgb(135, 184, 137), transparent);
+}
+
+#item-3-card {
+  background: linear-gradient(0deg, #e0c89d, transparent);
+}
+
+#item-4-card {
+  background: linear-gradient(0deg, #4c4c4d, transparent);
+}
+
+#item-5-card {
+  background: linear-gradient(0deg, rgb(207, 157, 64), transparent);
+}
+
+/* Neon button effect */
+
+.neon-btn {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 22px;
+  overflow: hidden;
+  transition: 0.2s;
+  margin-top: 0;
+}
+
+.neon-btn:hover {
+  color: #255784;
+  transition-delay: 1s;
+  color: white;
+}
+
+.d-flex div:nth-child(1) .neon-btn:hover {
+  background-color: rgb(238, 227, 70);
+  box-shadow: 0 0 10px rgb(235, 227, 116), 0 0 40px rgb(235, 227, 116),
+    0 0 80px rgb(235, 227, 116);
+}
+
+.d-flex div:nth-child(2) .neon-btn:hover {
+  background-color: rgb(248, 156, 252);
+  box-shadow: 0 0 10px rgb(243, 174, 247), 0 0 40px rgb(243, 174, 247),
+    0 0 80px rgb(243, 174, 247);
+}
+
+.d-flex div:nth-child(3) .neon-btn:hover {
+  background-color: rgb(101, 247, 252);
+  box-shadow: 0 0 10px rgb(132, 244, 248), 0 0 40px rgb(132, 244, 248),
+    0 0 80px rgb(132, 244, 248);
+}
+
+.d-flex div:nth-child(4) .neon-btn:hover {
+  background-color: rgb(185, 114, 252);
+  box-shadow: 0 0 10px rgb(163, 68, 252), 0 0 40px rgb(163, 68, 252),
+    0 0 80px rgb(163, 68, 252);
+}
+
+.d-flex div:nth-child(5) .neon-btn:hover {
+  background-color: rgb(247, 39, 153);
+  box-shadow: 0 0 10px rgb(252, 75, 172), 0 0 40px rgb(252, 75, 172),
+    0 0 80px rgb(252, 75, 172);
+}
+
+.neon-btn span {
+  position: absolute;
+  display: block;
+}
+
+.neon-btn span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, white);
+}
+
+.neon-btn:hover span:nth-child(1) {
+  left: 100%;
+  transition: 1s;
+}
+
+.neon-btn span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, white);
+}
+.neon-btn:hover span:nth-child(2) {
+  top: 100%;
+  transition: 1s;
+  transition-delay: 0.25s;
+}
+.neon-btn span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, white);
+}
+.neon-btn:hover span:nth-child(3) {
+  right: 100%;
+  transition: 1s;
+  transition-delay: 0.5s;
+}
+
+.neon-btn span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, white);
+}
+.neon-btn:hover span:nth-child(4) {
+  bottom: 100%;
+  transition: 1s;
+  transition-delay: 0.75s;
+}
+
+.slick-dots {
+  background-color: white;
+}
+.slick-dots li button::before {
+  font-size: 0.9rem;
+  color: #888888;
+  transition: 0.3s;
+}
+
+.slick-dots li.slick-active button::before {
+  font-size: 1.2rem;
+}
+
+.slick-list .slick-track > div:hover {
+  background-image: linear-gradient(
+    to right,
+    rgb(168, 168, 168),
+    rgb(129, 129, 129)
+  );
+}
+
+.all-product {
+  background-color: #e9e9e9;
+  margin: 10px 10px;
+  padding: 3px;
+}
+
+.all-product > div {
+  background-color: white;
+}
+
+/* Card Hover Effect */
+
+.card-container-2 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-container-2 img {
+  width: 100%;
+  filter: grayscale(50%);
+  transition: 2s;
+}
+
+.card-container-2:hover img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+}
+
+.card-container-2 .content {
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  text-align: center;
+  padding: 5% 0;
+  width: 100%;
+  height: 55%;
+  background-color: rgb(230, 230, 230);
+  transform-origin: bottom;
+  transition: 0.5s;
+  transform: perspective(500px) rotateX(90deg);
+}
+
+.card-container-2:hover .content {
+  transition-delay: 1.1s;
+  transform: perspective(500px) rotateX(0deg);
+}
+
+.card-container-2 .content h2 {
+  font-size: 1.1rem;
+  text-align: center;
+  color: black;
+  margin: 0;
+  margin-bottom: 5%;
+}
+
+.card-container-2 .content .cd {
+  color: rgb(216, 27, 27);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.card-container-2 .content .price {
+  color: rgb(47, 149, 231);
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.card-container-2 .content .buy-now {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.card-container-2:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 170%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+  transform: skewX(45deg);
+  transition: 0.8s;
+}
+
+.card-container-2:hover:before {
+  transition-delay: 0.5s;
+  left: -170%;
+}
+
+.text-view-all {
+  margin-top: 5%;
+}
+
+.all-product {
+  transition: 2s;
+}
+
+/* Login Form */
+.form-popup {
+  background-color: rgb(190, 132, 190);
+  display: none;
+  position: fixed;
+  justify-content: center;
+  text-align: center;
+  height: 65%;
+  width: 53%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 2%;
+}
+
+.form-container {
+  display: block;
+  width: 95%;
+  height: 95%;
+  background-color: white;
+  margin: 0 auto;
+  align-self: center;
+  position: relative;
+  border-radius: 2%;
+}
+
+.form-container p {
+  font-size: 1rem;
+}
+
+.form-container h1 {
+  text-align: center;
+  color: rgb(85, 85, 243);
+  font-weight: bold;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+.email,
+.password,
+.forgot-password,
+.login {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 2%;
+}
+
+.email p,
+.password p {
+  width: 25%;
+  margin-bottom: 0;
+}
+
+.form-container input {
+  margin-right: auto;
+  width: 65%;
+  padding-left: 5%;
+  font-size: 0.9rem;
+}
+
+.forgot-password a {
+  width: 75%;
+  margin-left: auto;
+  color: rgb(106, 106, 235);
+}
+
+.login {
+  width: 70%;
+  display: flex;
+  margin: 10px auto;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: rgb(253, 253, 8);
+  color: black;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.login p {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.login i {
+  margin-left: 2%;
+}
+
+.login:hover {
+  background-color: rgb(255, 255, 100);
+}
+
+.login-facebook {
+  background-color: rgb(59, 89, 152);
+  color: white;
+}
+
+.login-facebook:hover {
+  background-color: rgb(102, 129, 189);
+}
+
+.login-google {
+  background-color: rgb(223, 74, 50);
+  color: white;
+}
+
+.login-google:hover {
+  background-color: rgb(223, 116, 100);
+}
+
+.close-icon {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+  z-index: 3;
+  color: red;
+  cursor: pointer;
+}
+
+/* Sign up form */
+
+.form-sign-up {
+  background-color: rgb(190, 132, 190);
+  display: none;
+  position: fixed;
+  justify-content: center;
+  height: 65%;
+  width: 50%;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3%;
+}
+
+.form-sign-up .form-container {
+  display: block;
+  width: 95%;
+  height: 95%;
+  background-color: white;
+  margin: 0 auto;
+  align-self: center;
+  position: relative;
+}
+
+.form-sign-up .form-container p {
+  font-size: 0.9rem;
+}
+
+.form-sign-up .form-container h1 {
+  text-align: center;
+  color: rgb(85, 85, 243);
+}
+
+.email,
+.password,
+.forgot-password,
+.login,
+.name,
+.phone,
+.dob {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.gender {
+  display: flex;
+  width: 90%;
+
+  margin: 1% auto;
+
+  justify-content: left;
+}
+
+.gender p {
+  margin: 0;
+  width: 20%;
+}
+
+.gender .form {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  text-align: left;
+  align-items: center;
+  margin-right: auto;
+}
+
+.email p,
+.password p,
+.phone p,
+.name p,
+.dob p {
+  width: 20%;
+  margin: 0;
+}
+
+.form-sign-up .form-container input[type='text'] {
+  margin-left: 1%;
+  width: 70%;
+  padding-left: 2%;
+  font-size: 0.9rem;
+}
+
+.sign-up-btn {
+  width: 70%;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 5%;
+  padding: 2%;
+  background-color: rgb(253, 253, 8);
+  color: black;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.sign-up-btn p {
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.sign-up-btn i {
+  margin-left: 10px;
+}
+
+.sign-up-btn:hover {
+  background-color: rgb(255, 255, 100);
+}
+
+.navbar-toggler-icon {
+  border: 1px solid white;
+  border-radius: 7px;
+}
+
+ul.social-pet {
+  display: flex;
+  list-style-type: none;
+}
+
+ul.social-pet li {
+  width: 20%;
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .navbar-nav li {
+    background-color: black;
   }
-  
-  nav {
-    background: rgba(0, 0, 0, 0.651);
+}
+
+@media (max-width: 833px) {
+  .cata .d-flex .d-inline {
+    transform: scale(0.8);
   }
-  
-  .navbar-nav {
-    margin: 0;
-  }
-  
-  ul.navbar-nav {
-    justify-content: flex-end;
-    text-align: center;
-    margin-left: auto;
-  }
-  
-  ul.navbar-nav li {
-    margin: 10px;
-    background: white;
-    border-radius: 10px;
-    padding: 0 0px;
-    box-shadow: 3px 3px 3px rgb(209, 209, 209);
-  }
-  
-  ul.navbar-nav li a {
-    color: black;
-    margin: 0 7px;
-  }
-  
-  ul.navbar-nav li:hover {
-    background: rgb(252, 252, 101);
-    box-shadow: none;
-  }
-  ul.navbar-nav li:hover a {
-    color: black;
-  }
-  
-  .form-inline button {
-    background-color: rgb(139, 240, 139);
-    color: black;
-    margin-left: 20px;
-  }
-  
-  .form-inline button:hover {
-    background-color: rgb(16, 119, 16);
-  }
-  
-  /* Catalog */
-  
-  .cata {
-    display: block;
-    height: 70px;
-    margin: 20px 0;
-    background: #e9e9e9;
-  }
-  
-  .cata .d-flex {
-    height: 100%;
-    vertical-align: center;
-  
-    justify-content: space-between;
-  }
-  
-  .d-flex div {
-    height: 70%;
-    width: 17%;
-  
-    background-color: #b6b6b6;
-    text-align: center;
-  
-    margin: 1% 1%;
-    border-radius: 5px;
-  
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.26);
-  }
-  
-  .d-flex div:hover {
-    cursor: pointer;
-  }
-  
-  .cata a {
-    text-align: center;
-    line-height: 50px;
-    font-size: 1.1rem;
-    color: black;
-  }
-  
-  .cata a i {
-    margin-right: 5px;
-  
-    color: black;
-  }
-  
-  .d-flex div:hover a {
-    text-decoration: none;
-  }
-  
-  .d-flex div:hover a i {
-    color: white;
-    transition-delay: 1s;
-  }
-  
-  /* Top product */
-  
-  .container-fluid {
-    margin-top: 40px;
-  }
-  
-  .container-fluid {
-    display: block;
-  }
-  
-  .container-fluid .top-product {
-    height: 100%;
-    margin-top: 50px;
-  }
-  
-  .container-fluid .top-product .title {
-    position: relative;
-    transition: 1s ease-in-out;
-    margin-top: 0;
-    border-radius: 5px;
-  }
-  
-  .container-fluid .top-product:nth-child(1) .title {
-    margin-left: 20px;
-    padding-bottom: 5px;
-  }
-  
-  .container-fluid .top-product:nth-child(1) .title {
-    width: 35%;
-    background-image: linear-gradient(
-      to right,
-      rgba(216, 56, 56, 0.829),
-      rgba(238, 186, 186, 0.829)
-    );
-  }
-  
-  .container-fluid .top-product:nth-child(2) .title {
-    width: 47%;
-    background-image: linear-gradient(
-      to right,
-      rgba(72, 194, 41, 0.829),
-      rgba(194, 229, 185, 0.829)
-    );
-    margin-bottom: 15px;
-  }
-  
-  .container-fluid .top-product:nth-child(3) .title {
-    width: 38%;
-    background-image: linear-gradient(
-      to right,
-      rgba(30, 219, 204, 0.829),
-      rgba(178, 228, 224, 0.829)
-    );
-    margin-bottom: 15px;
-  }
-  
-  .container-fluid .title h4 {
-    padding-top: 20px;
-    padding-left: 10px;
-    color: white;
-    font-weight: 700;
-    padding-bottom: 10px;
-  }
-  
-  .top-product {
-    overflow: hidden;
-  }
-  .top-product .view-detail-text {
+}
+
+@media (max-width: 714px) {
+  .top-product .title h4 {
     font-size: 1rem;
-    margin-left: 50px;
-    transition: 2s ease-in-out;
   }
-  
-  .top-product .row {
-    margin-top: 10px;
-    background-color: white;
-    transform: translate(0, 0);
-    transition: 1s;
-  }
-  
-  .top-product .row > div {
-    margin-top: 0;
-    background-color: #cccccc;
-  }
-  
-  /* Card */
-  
+}
+
+@media (max-width: 1000px) {
   .card-container {
-    position: relative;
-    width: 100%;
-    margin: 0px auto;
-    height: 400px;
-    display: block;
+    height: 350px;
   }
-  
-  .card-container .card {
-    width: 100%;
-    height: 85%;
-    display: block;
-    position: relative;
-    background-color: #ccc;
-    overflow: hidden;
-    border-radius: 10px;
-    transition: 0.5s;
-    margin-top: 15%;
-    cursor: pointer;
+}
+
+@media (max-width: 750px) {
+  .card-container {
+    height: 270px;
   }
-  
-  .img-box img {
-    height: 100%;
-    width: 100%;
-  }
-  
-  .card .img-box {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    transition: 0.5s;
-  }
-  
-  .card:hover .img-box {
-    opacity: 0.3;
-    cursor: pointer;
-  }
-  
-  .card .content {
-    position: absolute;
-    width: 100%;
-    height: 70%;
-    bottom: -100%;
-    padding: 5%;
-    transition: 0.5s;
-    color: white;
-  }
-  
-  .card .content p {
-    margin: 0;
-  }
-  
-  .card {
-    background: linear-gradient(0deg, rgb(16, 45, 78), transparent);
-  }
-  
-  .card:hover {
-    transform: translateY(-20px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 1);
-  }
-  .card:hover .content {
-    bottom: 0;
-  }
-  
-  .content {
-    text-align: center;
-  }
-  
+}
+
+@media (max-width: 900px) {
   .card .content .img-title {
-    font-weight: bold;
-    font-size: 1.3rem;
+    font-size: 1rem;
   }
-  
+
   .card .content .price {
-    color: rgb(26, 133, 141);
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
-  
+
   .card .content .cd {
-    color: rgb(255, 50, 50);
-    font-size: 1.4rem;
-  }
-  
-  .card .content .buy-now {
-    color: rgb(241, 239, 121);
-  }
-  
-  #item-1-card {
-    background: linear-gradient(0deg, rgb(135, 184, 137), transparent);
-  }
-  
-  #item-3-card {
-    background: linear-gradient(0deg, #e0c89d, transparent);
-  }
-  
-  #item-4-card {
-    background: linear-gradient(0deg, #4c4c4d, transparent);
-  }
-  
-  #item-5-card {
-    background: linear-gradient(0deg, rgb(207, 157, 64), transparent);
-  }
-  
-  /* Neon button effect */
-  
-  .neon-btn {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 22px;
-    overflow: hidden;
-    transition: 0.2s;
-    margin-top: 0;
-  }
-  
-  .neon-btn:hover {
-    color: #255784;
-    transition-delay: 1s;
-    color: white;
-  }
-  
-  .d-flex div:nth-child(1) .neon-btn:hover {
-    background-color: rgb(238, 227, 70);
-    box-shadow: 0 0 10px rgb(235, 227, 116), 0 0 40px rgb(235, 227, 116),
-      0 0 80px rgb(235, 227, 116);
-  }
-  
-  .d-flex div:nth-child(2) .neon-btn:hover {
-    background-color: rgb(248, 156, 252);
-    box-shadow: 0 0 10px rgb(243, 174, 247), 0 0 40px rgb(243, 174, 247),
-      0 0 80px rgb(243, 174, 247);
-  }
-  
-  .d-flex div:nth-child(3) .neon-btn:hover {
-    background-color: rgb(101, 247, 252);
-    box-shadow: 0 0 10px rgb(132, 244, 248), 0 0 40px rgb(132, 244, 248),
-      0 0 80px rgb(132, 244, 248);
-  }
-  
-  .d-flex div:nth-child(4) .neon-btn:hover {
-    background-color: rgb(185, 114, 252);
-    box-shadow: 0 0 10px rgb(163, 68, 252), 0 0 40px rgb(163, 68, 252),
-      0 0 80px rgb(163, 68, 252);
-  }
-  
-  .d-flex div:nth-child(5) .neon-btn:hover {
-    background-color: rgb(247, 39, 153);
-    box-shadow: 0 0 10px rgb(252, 75, 172), 0 0 40px rgb(252, 75, 172),
-      0 0 80px rgb(252, 75, 172);
-  }
-  
-  .neon-btn span {
-    position: absolute;
-    display: block;
-  }
-  
-  .neon-btn span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, white);
-  }
-  
-  .neon-btn:hover span:nth-child(1) {
-    left: 100%;
-    transition: 1s;
-  }
-  
-  .neon-btn span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, white);
-  }
-  .neon-btn:hover span:nth-child(2) {
-    top: 100%;
-    transition: 1s;
-    transition-delay: 0.25s;
-  }
-  .neon-btn span:nth-child(3) {
-    bottom: 0;
-    right: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(270deg, transparent, white);
-  }
-  .neon-btn:hover span:nth-child(3) {
-    right: 100%;
-    transition: 1s;
-    transition-delay: 0.5s;
-  }
-  
-  .neon-btn span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    background: linear-gradient(360deg, transparent, white);
-  }
-  .neon-btn:hover span:nth-child(4) {
-    bottom: 100%;
-    transition: 1s;
-    transition-delay: 0.75s;
-  }
-  
-  .slick-dots {
-    background-color: white;
-  }
-  .slick-dots li button::before {
-    font-size: 0.9rem;
-    color: #888888;
-    transition: 0.3s;
-  }
-  
-  .slick-dots li.slick-active button::before {
-    font-size: 1.2rem;
-  }
-  
-  .slick-list .slick-track > div:hover {
-    background-image: linear-gradient(
-      to right,
-      rgb(168, 168, 168),
-      rgb(129, 129, 129)
-    );
-  }
-  
-  .all-product {
-    background-color: #e9e9e9;
-    margin: 10px 10px;
-    padding: 3px;
-  }
-  
-  .all-product > div {
-    background-color: white;
-  }
-  
-  /* Card Hover Effect */
-  
-  .card-container-2 {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    overflow: hidden;
-    cursor: pointer;
-  }
-  
-  .card-container-2 img {
-    width: 100%;
-    filter: grayscale(50%);
-    transition: 2s;
-  }
-  
-  .card-container-2:hover img {
-    transform: scale(1.1);
-    filter: grayscale(0%);
-  }
-  
-  .card-container-2 .content {
-    position: absolute;
-    bottom: 0;
-    margin: 0;
-    text-align: center;
-    padding: 5% 0;
-    width: 100%;
-    height: 55%;
-    background-color: rgb(230, 230, 230);
-    transform-origin: bottom;
-    transition: 0.5s;
-    transform: perspective(500px) rotateX(90deg);
-  }
-  
-  .card-container-2:hover .content {
-    transition-delay: 1.1s;
-    transform: perspective(500px) rotateX(0deg);
-  }
-  
-  .card-container-2 .content h2 {
     font-size: 1.1rem;
-    text-align: center;
-    color: black;
-    margin: 0;
-    margin-bottom: 5%;
   }
-  
-  .card-container-2 .content .cd {
-    color: rgb(216, 27, 27);
-    font-size: 1rem;
-    margin: 0;
-  }
-  
-  .card-container-2 .content .price {
-    color: rgb(47, 149, 231);
-    font-size: 1.4rem;
-    margin: 0;
-  }
-  
-  .card-container-2 .content .buy-now {
-    font-size: 0.9rem;
-    margin: 0;
-  }
-  
-  .card-container-2:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 170%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    z-index: 1;
-    transform: skewX(45deg);
-    transition: 0.8s;
-  }
-  
-  .card-container-2:hover:before {
-    transition-delay: 0.5s;
-    left: -170%;
-  }
-  
-  .text-view-all {
-    margin-top: 5%;
-  }
-  
-  .all-product {
-    transition: 2s;
-  }
-  
-  /* Login Form */
-  .form-popup {
-    background-color: rgb(190, 132, 190);
-    display: none;
-    position: fixed;
-    justify-content: center;
-    text-align: center;
-    height: 65%;
-    width: 53%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    border-radius: 2%;
-  }
-  
-  .form-container {
-    display: block;
-    width: 95%;
-    height: 95%;
-    background-color: white;
-    margin: 0 auto;
-    align-self: center;
-    position: relative;
-    border-radius: 2%;
-  }
-  
-  .form-container p {
+}
+
+@media (max-width: 714px) {
+  .top-product .title h4 {
     font-size: 1rem;
   }
-  
-  .form-container h1 {
-    text-align: center;
-    color: rgb(85, 85, 243);
-    font-weight: bold;
-    margin-top: 2%;
-    margin-bottom: 3%;
+
+  .card .content .img-title {
+    font-size: 0.5rem;
   }
-  
-  .email,
-  .password,
-  .forgot-password,
-  .login {
-    display: flex;
-    margin: 0 auto;
-    align-items: center;
-    width: 90%;
-    margin-bottom: 2%;
-  }
-  
-  .email p,
-  .password p {
-    width: 25%;
-    margin-bottom: 0;
-  }
-  
-  .form-container input {
-    margin-right: auto;
-    width: 65%;
-    padding-left: 5%;
-    font-size: 0.9rem;
-  }
-  
-  .forgot-password a {
-    width: 75%;
-    margin-left: auto;
-    color: rgb(106, 106, 235);
-  }
-  
-  .login {
-    width: 70%;
-    display: flex;
-    margin: 10px auto;
-    margin-top: 20px;
-    padding: 10px;
-    background-color: rgb(253, 253, 8);
-    color: black;
-    border-radius: 15px;
-    cursor: pointer;
-  }
-  
-  .login p {
+
+  .card .content .price {
     font-size: 1.2rem;
-    text-align: center;
-    margin: 0 auto;
-    width: 90%;
   }
-  
-  .login i {
-    margin-left: 2%;
+
+  .card .content .cd {
+    font-size: 0.6rem;
   }
-  
-  .login:hover {
-    background-color: rgb(255, 255, 100);
-  }
-  
-  .login-facebook {
-    background-color: rgb(59, 89, 152);
-    color: white;
-  }
-  
-  .login-facebook:hover {
-    background-color: rgb(102, 129, 189);
-  }
-  
-  .login-google {
-    background-color: rgb(223, 74, 50);
-    color: white;
-  }
-  
-  .login-google:hover {
-    background-color: rgb(223, 116, 100);
-  }
-  
-  .close-icon {
-    position: absolute;
-    top: 1%;
-    right: 1%;
-    z-index: 3;
-    color: red;
-    cursor: pointer;
-  }
-  
-  /* Sign up form */
-  
-  .form-sign-up {
-    background-color: rgb(190, 132, 190);
-    display: none;
-    position: fixed;
-    justify-content: center;
+}
+
+@media (max-width: 1125px) {
+  .card-container-2 .content {
     height: 65%;
+  }
+
+  .card-container-2 .content h2 {
+    font-size: 1rem;
+  }
+
+  .card-container-2 .content .cd {
+    font-size: 0.7rem;
+  }
+
+  .card-container-2 .content .price {
+    font-size: 1rem;
+  }
+
+  .card-container-2 .content .buy-now {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .card-container-2 .content {
+    height: 75%;
+  }
+}
+
+@media (max-width: 1125px) {
+  .form-container p,
+  .form-container a {
+    font-size: 0.9rem;
+  }
+
+  .form-container h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 936px) {
+  .form-popup {
+    width: 63%;
+    height: 55%;
+  }
+}
+
+@media (max-width: 750px) {
+  .form-popup {
+    width: 85%;
+    height: 55%;
+  }
+}
+
+footer .row {
+  background: #222;
+}
+
+/* Sign up form */
+@media (max-width: 1000px) {
+  .form-sign-up .gender .form {
     width: 50%;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 3%;
+    font-size: 0.8rem;
   }
-  
-  .form-sign-up .form-container {
-    display: block;
-    width: 95%;
-    height: 95%;
-    background-color: white;
-    margin: 0 auto;
-    align-self: center;
-    position: relative;
+
+  .form-sign-up .form-container input[type='text'] {
+    width: 80%;
+    font-size: 0.8rem;
   }
-  
+
+  .form-sign-up h1 {
+    font-size: 1.6rem;
+  }
+
   .form-sign-up .form-container p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
-  
-  .form-sign-up .form-container h1 {
-    text-align: center;
-    color: rgb(85, 85, 243);
+}
+
+@media (max-width: 850px) {
+  .form-sign-up {
+    width: 60%;
+    height: 50%;
   }
-  
-  .email,
-  .password,
-  .forgot-password,
-  .login,
-  .name,
-  .phone,
-  .dob {
-    display: flex;
-    margin: 0 auto;
-    align-items: center;
-    width: 90%;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2%;
+}
+
+@media (max-width: 650px) {
+  .form-sign-up {
+    width: 80%;
+    height: 50%;
   }
-  
-  .gender {
-    display: flex;
-    width: 90%;
-  
-    margin: 1% auto;
-  
-    justify-content: left;
-  }
-  
-  .gender p {
-    margin: 0;
-    width: 20%;
-  }
-  
-  .gender .form {
-    width: 30%;
-    height: 100%;
-    display: flex;
-    text-align: left;
-    align-items: center;
-    margin-right: auto;
-  }
-  
-  .email p,
-  .password p,
-  .phone p,
-  .name p,
-  .dob p {
-    width: 20%;
-    margin: 0;
-  }
-  
-  .form-sign-up .form-container input[type="text"] {
-    margin-left: 1%;
-    width: 70%;
-    padding-left: 2%;
-    font-size: 0.9rem;
-  }
-  
-  .sign-up-btn {
-    width: 70%;
-    display: flex;
-    margin: 0 auto;
-    margin-top: 5%;
-    padding: 2%;
-    background-color: rgb(253, 253, 8);
-    color: black;
-    border-radius: 15px;
-    cursor: pointer;
-  }
-  
-  .sign-up-btn p {
-    text-align: center;
-    margin: 0 auto;
-    width: 90%;
-  }
-  
-  .sign-up-btn i {
-    margin-left: 10px;
-  }
-  
-  .sign-up-btn:hover {
-    background-color: rgb(255, 255, 100);
-  }
-  
-  .navbar-toggler-icon {
-    border: 1px solid white;
-    border-radius: 7px;
-  }
-  
-  ul.social-pet {
-    display: flex;
-    list-style-type: none;
-  }
-  
-  ul.social-pet li {
-    width: 20%;
-    text-align: center;
-  }
-  
-  @media (max-width: 1000px) {
-    .navbar-nav li {
-      background-color: black;
-    }
-  }
-  
-  @media (max-width: 833px) {
-    .cata .d-flex .d-inline {
-      transform: scale(0.8);
-    }
-  }
-  
-  @media (max-width: 714px) {
-    .top-product .title h4 {
-      font-size: 1rem;
-    }
-  }
-  
-  @media (max-width: 1000px) {
-    .card-container {
-      height: 350px;
-    }
-  }
-  
-  @media (max-width: 750px) {
-    .card-container {
-      height: 270px;
-    }
-  }
-  
-  @media (max-width: 900px) {
-    .card .content .img-title {
-      font-size: 1rem;
-    }
-  
-    .card .content .price {
-      font-size: 1.7rem;
-    }
-  
-    .card .content .cd {
-      font-size: 1.1rem;
-    }
-  }
-  
-  @media (max-width: 714px) {
-    .top-product .title h4 {
-      font-size: 1rem;
-    }
-  
-    .card .content .img-title {
-      font-size: 0.5rem;
-    }
-  
-    .card .content .price {
-      font-size: 1.2rem;
-    }
-  
-    .card .content .cd {
-      font-size: 0.6rem;
-    }
-  }
-  
-  @media (max-width: 1125px) {
-    .card-container-2 .content {
-      height: 65%;
-    }
-  
-    .card-container-2 .content h2 {
-      font-size: 1rem;
-    }
-  
-    .card-container-2 .content .cd {
-      font-size: 0.7rem;
-    }
-  
-    .card-container-2 .content .price {
-      font-size: 1rem;
-    }
-  
-    .card-container-2 .content .buy-now {
-      font-size: 0.7rem;
-    }
-  }
-  
-  @media (max-width: 900px) {
-    .card-container-2 .content {
-      height: 75%;
-    }
-  }
-  
-  @media (max-width: 1125px) {
-    .form-container p,
-    .form-container a {
-      font-size: 0.9rem;
-    }
-  
-    .form-container h1 {
-      font-size: 2.2rem;
-    }
-  
-    .form-popup {
-    }
-  }
-  
-  @media (max-width: 936px) {
-    .form-popup {
-      width: 63%;
-      height: 55%;
-    }
-  }
-  
-  @media (max-width: 750px) {
-    .form-popup {
-      width: 85%;
-      height: 55%;
-    }
-  }
-  
-  footer .row {
-    background: #222;
-  }
-  
-  /* Sign up form */
-  @media (max-width: 1000px) {
-    .form-sign-up .gender .form {
-      width: 50%;
-      font-size: 0.8rem;
-    }
-  
-    .form-sign-up .form-container input[type="text"] {
-      width: 80%;
-      font-size: 0.8rem;
-    }
-  
-    .form-sign-up h1 {
-      font-size: 1.6rem;
-    }
-  
-    .form-sign-up .form-container p {
-      font-size: 0.8rem;
-    }
-  }
-  
-  @media (max-width: 850px) {
-    .form-sign-up {
-      width: 60%;
-      height: 50%;
-    }
-  }
-  
-  @media (max-width: 650px) {
-    .form-sign-up {
-      width: 80%;
-      height: 50%;
-    }
-  }
-  
+}

@@ -33,14 +33,14 @@
                         <button class="btn btn-primary">Xóa</button></form>
                 </td>
                 {{#if f_isSeller}}
-                <td><form method="POST" action="/admin/banseller">
-                    <input name="id" type="hidden" value="{{f_ID}}">
-                    <button class="btn btn-primary">Hạ cấp</button></form></td>
+                <td>
+                    <form method="POST" action="/admin/banseller">
+                        <input name="id" type="hidden" value="{{f_ID}}">
+                        <button class="btn btn-primary">Hạ cấp</button></form>
+                </td>
                 {{/if}}
             </tr>
             {{/each}}
-
-
 
         </tbody>
     </table>

@@ -1,9 +1,14 @@
 {{#section 'css'}}
- <link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/style.css" type="text/css" />
+<link rel="stylesheet" href="/css/style-allByCat.css" type="text/css">
 {{/section}}
+
+
+
+
 <div class=" shadow">
   <h4 class="card-header">
-    Products
+    Sản phẩm
   </h4>
   {{#if this.empty}}
   <div class="card-body">
@@ -15,34 +20,36 @@
   <div class="card-body">
     <div class="row">
       {{#each this.products}}
-      <div class="col-sm-4 mb-3">
-        <div class="card">
-          <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="{{ProName}}" title="{{ProName}}" class="card-img-top">
-          <div class="card-body">
-            <h5 class="card-title mt-3">
+      <div class="col-sm-4 mb-5 card-content" onclick="window.open('/products/detail/{{ProID}}', '_self');">
+        <div class="card card-container-2">
+          <div class="img-container">
+            <img src="/imgs/sp/{{ProID}}/{{ProID}}_0.jpg" alt="{{ProName}}" title="{{ProName}}">
+          </div>
+          <div class="card-body main-content">
+            <h5 class="title">
               {{ProName}}
             </h5>
-            <h5 class="card-title text-danger">Giá hiện tại: {{format Price}}đ</h5>
-            <h5 class="card-title text-danger">Người giữ giá: {{WinerID}}</h5>
-            <p>Thời gian còn lại: *chưa làm*</p>
-            <p>Số lượt ra giá: {{NumberBid}}</p>
-           {{#if MinutesAgo}}
-           moi tao trong 2 phut
-           {{/if}}
-            <p class="card-text">
+            <h5 class="card-title current-price">Giá hiện tại: {{format Price}}đ</h5>
+            <p class="card-title price-holder">Người giữ giá: {{WinerID}}</p>
+            <p class="number-bid">Số lượt ra giá: {{NumberBid}}</p>
+            {{#if MinutesAgo}}
+            moi tao trong 2 phut
+            {{/if}}
+            <p class="card-text desc">
               {{TinyDes}}
             </p>
 
-          </div>
-          <div class="card-footer text-center">
-            <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{ProID}}" role="button">
-              <i class="fa fa-eye" aria-hidden="true"></i>
-              Details
-            </a>
-            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              Add to cart
-            </a>
+            <div class="buttons">
+              <a class="btn btn-sm btn-outline-primary" href="/products/detail/{{ProID}}" role="button">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                Detail
+              </a>
+              <a class="btn btn-sm btn-outline-success"
+                onclick="window.open('https://www.w3schools.com', '_self'); event.stopPropagation(); " role="button">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Add to cart
+              </a>
+            </div>
           </div>
 
         </div>
@@ -88,9 +95,5 @@
   </div>
 
   {{/if}}
-
-
-
-
 
 </div>
