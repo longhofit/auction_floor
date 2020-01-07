@@ -3,11 +3,12 @@
 {{/section}}
 <div class=" shadow">
     <h4 class="card-header d-flex flex-column text-center">
-        <span>Danh sách đánh giá</span> 
-        <span class="text-danger mt-2"> {{points.LikePoint}} Like, {{points.DislikePoint}} Dislike, Phần trăm điểm: {{totals}}</span>
+        <span>Danh sách đánh giá</span>
+        <span class="text-danger mt-2"> {{points.LikePoint}} Like, {{points.DislikePoint}} Dislike, Phần trăm điểm:
+            {{totals}}</span>
     </h4>
-   
-    
+
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -20,18 +21,23 @@
                     </a>
                 </th> --}}
                 <th scope="col" class="text-center">Tin nhắn</th>
-                 <th scope="col" class="text-center">Sản phẩm</th>
+                <th scope="col" class="text-center">Sản phẩm</th>
 
             </tr>
         </thead>
         <tbody>
             {{#each feedbacks}}
-            <tr>
-                <td scope="row" class="text-center">{{FBerID}}</td>
-                <td scope="row" class="text-center">{{content}}</td>
-                <td scope="row" class="text-center">{{ProID}}</td>
+            <a href="products/detail/{{ProID}}">
+                <tr>
 
-            </tr>
+                    <td scope="row" class="text-center">{{FBerID}}</td>
+                    <td scope="row" class="text-center">{{content}}</td>
+                    <td scope="row" class="text-center">{{ProID}}</td>
+
+                </tr>
+            </a>
+
+
             {{/each}}
 
 

@@ -2,10 +2,10 @@ const multer = require('multer');
 let fs = require('fs-extra');
 const request = require('request');
 const productModel = require('../../models/product.model');
-const cateModeel=require('../../models/category.model')
+const cateModeel = require('../../models/category.model')
 const userModel = require('../../models/user.model');
 const hepler = require('../../helpers/helper');
-const countdown=require('countdown');
+const countdown = require('countdown');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
 
@@ -24,19 +24,19 @@ const upload = multer({ storage });
 
 
 module.exports.productDetail = async (req, res) => {
-    var cd =countdown( new Date(2020, 5, 5) ).toString();
+    var cd = countdown(new Date(2020, 5, 5)).toString();
     const proId = req.params.id;
     req.session.beforePost = req.originalUrl
-    const [productinfo, loginfo, endtime,isEnd] = await Promise.all([
+    const [productinfo, loginfo, endtime, isEnd] = await Promise.all([
         productModel.single(proId),
         productModel.allLogByProID(proId),
         productModel.endTime(proId),
         productModel.isEnd(proId)
 
     ]);
-    req.session.isEnd=false;
-    if(isEnd.length==1)
-        req.session.isEnd=true;
+    req.session.isEnd = false;
+    if (isEnd.length == 1)
+        req.session.isEnd = true;
     const [winnerinfo, sellerinfo] = await Promise.all([
         userModel.single(productinfo[0].WinerID),
         userModel.single(productinfo[0].SellerID)
@@ -57,7 +57,7 @@ module.exports.productDetail = async (req, res) => {
         }
 
     }
-    console.log(isSellerButNotMine);
+
     var ishavewiner = true;
     if (winnerinfo.length == 0)
         ishavewiner = false;
@@ -85,7 +85,7 @@ module.exports.productDetail = async (req, res) => {
         //  if (req.session.authUser.f_ID == winnerinfo[0].f_ID)
         //     req.session.isOwn=true;
     }
-    console.log(req.session.isOwn);
+
 
     const imgFolder = `./public/imgs/sp/${proId}/`;
     const fs = require('fs');
@@ -108,7 +108,7 @@ module.exports.productDetail = async (req, res) => {
     }
 
 
-    console.log(isMyPro);
+
     res.render('vwProducts/detail', {
         products: productinfo[0],
         proImgs: proimg,
@@ -120,7 +120,7 @@ module.exports.productDetail = async (req, res) => {
         isnot: req.session.isNotBanBid,
         isCantBid: req.session.isCantBid,
         isNotValidPrice: req.session.isNotValidPrice,
-        havewiner: ishavewiner, 
+        havewiner: ishavewiner,
         points: point[0],
         points2: point2[0],
         totals: total,
@@ -128,9 +128,9 @@ module.exports.productDetail = async (req, res) => {
         isMyPro: isMyPro,
         isSellerButNotMine: isSellerButNotMine,
         isEnd: req.session.isEnd,
-        isNotEnd: req.session.isEnd===false,
-        isNotMyPro: isMyPro==false,
-        cd :cd
+        isNotEnd: req.session.isEnd === false,
+        isNotMyPro: isMyPro == false,
+        cd: cd
 
     });
     req.session.isNotValidPrice = false;
@@ -142,14 +142,14 @@ module.exports.productDetail = async (req, res) => {
 }
 module.exports.formUpload = async (req, res, next) => {
     req.session.ProID = await productModel.max(`ProID`) + 1;
-    cats= await cateModeel.all();
+    cats = await cateModeel.all();
     console.log(req.session.ProID);
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
     }
     else {
-        res.render('vwDemo/upload',{
-            cats :cats
+        res.render('vwDemo/upload', {
+            cats: cats
         });
     }
 
@@ -181,7 +181,7 @@ module.exports.addProduct = async (req, res) => {
         entity.SellerID = req.session.authUser.f_ID;
 
         entity.FullDes = `${hepler.datenow()}\n\n${req.body.FullDes}`;
-        console.log(entity.FullDes);
+
         const result1 = await productModel.add(entity);
         res.redirect('/products/upload');
     });
@@ -210,7 +210,7 @@ module.exports.bidding = async (req, res) => {
     // console.log(req.body.Price);
     // console.log(req.session.ProID);
     // console.log(req.session.authUser.f_ID);
-    console.log("dau gia");
+
     if (req.session.isAuthenticated === false) {
         return res.redirect(`/account/login?retUrl=${req.session.beforePost}`);
     }
@@ -234,21 +234,24 @@ module.exports.bidding = async (req, res) => {
 
         const [result, autoBid] = await Promise.all([
             productModel.addBidLog(entity),
-            // hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`),
-            // hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`),
+
             productModel.loadAutobid(entity.ProID),
         ])
+        hepler.sendmail(req.session.authUser.f_Email, `ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`, `Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`);
+        hepler.sendmail(req.session.SellerEmail, `ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`, `Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
         if (autoBid.length != 0) {
             if (entity.Price < autoBid[0].MaxPrice) {
                 console.log(entity.Price);
                 console.log(req.session.StepPrice);
                 entity.Price = parseInt(entity.Price, 10) + req.session.StepPrice;
                 entity.UserID = autoBid[0].UserID;
+                entity.UserName = autoBid[0].UserName;
                 await productModel.addBidLog(entity);
-                //   hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
-                //   hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`,`Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`);
+                hepler.sendmail(req.session.SellerEmail, `ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`, `Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
+                hepler.sendmail(req.session.authUser.f_Email, `ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa ra giá thành công sản phẩm`, `Bạn đã ra giá ${entity.Price} đồng cho sản phẩm ${req.session.ProName}. Xem chi tiết tại abcxyz.com.`);
             }
         }
+
 
 
 
@@ -265,11 +268,27 @@ module.exports.addWishList = async (req, res) => {
     else {
         entity = { UserID: req.session.authUser.f_ID, ProID: req.session.ProID };
         await productModel.addwishlist(entity);
-        console.log(entity);
         // const rs2 = await productModel.allByWishList([2091, 2092]);
         // console.log(rs2);
         res.redirect(req.headers.referer);
 
+    }
+
+}
+module.exports.addWishListOut = async (req, res) => {
+    if (req.session.isAuthenticated === false) {
+        return res.redirect(`/account/login?retUrl=/`);
+    }
+    else {
+        entity = {
+            UserID: req.session.authUser.f_ID,
+            ProID: req.body.ProID
+        }
+        await productModel.addwishlist(entity);
+
+        // const rs2 = await productModel.allByWishList([2091, 2092]);
+        // console.log(rs2);
+        res.redirect(req.headers.referer);
     }
 
 }
@@ -289,7 +308,7 @@ module.exports.allByWishList = async (req, res) => {
             for (var i = 0; i < rs1.length; i++)
                 ids.push(rs1[i].ProID);
             const rs2 = await productModel.allByArrID(ids);
-            console.log(rs2);
+
             res.render('vwProducts/allByWishList', { products: rs2, empty: 0 });
         }
 
@@ -309,7 +328,7 @@ module.exports.allByBiddingList = async (req, res) => {
         if (endTimeIDs.length < 1)
             res.send('khong san pham trong list');
         else {
-            console.log(endTimeIDs);
+
             ids2 = [];
             for (var x = 0; x < endTimeIDs.length; x++)
                 ids2.push(endTimeIDs[x].ProID);
@@ -321,7 +340,7 @@ module.exports.allByBiddingList = async (req, res) => {
                     pro.isOwn = true;
                 else pro.isOwn = false
             }
-            console.log(result);
+
 
             res.render('vwProducts/allByBiddinglist', {
                 products: result,
@@ -344,13 +363,13 @@ module.exports.allByWonList = async (req, res) => {
         if (continueIDs.length < 1)
             res.send('khong san pham trong list');
         else {
-            console.log(continueIDs);
+
             ids2 = [];
             for (var x = 0; x < continueIDs.length; x++)
                 ids2.push(continueIDs[x].ProID);
             //console.log(`ids2${ids2}`);
             const result = await productModel.allByArrIDWon(ids2, req.session.authUser.f_ID);
-            console.log(result);
+
             res.render('vwProducts/allByBiddinglist', {
                 products: result, empty: 0
             });
@@ -366,7 +385,7 @@ module.exports.allBySellingList = async (req, res) => {
         for (var i = 0; i < arrId.length; i++)
             ids.push(arrId[i].ProID);
         const result = await productModel.allByArrIDBidding(ids, req.session.authUser.f_ID);
-        console.log(result);
+
         res.render('vwProducts/allByBiddinglist', {
             products: result, empty: 0
         });
@@ -439,21 +458,31 @@ module.exports.autobidding = async (req, res) => {
             UserID: req.session.authUser.f_ID,
             ProID: req.session.ProID,
             //   UserName: req.session.authUser.f_Name,
-            MaxPrice: req.body.maxprice
+            MaxPrice: req.body.maxprice,
+            UserName: req.session.authUser.f_UserName
+        }
+        beforPrice = await productModel.loadAutobid(req.session.ProID);
+        if (beforPrice.length != 0) {
+            if (req.body.maxprice <= beforPrice[0].MaxPrice) {
+                req.session.isNotValidPrice = true;
+                return res.redirect(req.headers.referer);
+            }
         }
         entity2 = {
             Price: req.session.CurrPrice + req.session.StepPrice,
             ProID: req.session.ProID,
             UserID: req.session.authUser.f_ID,
+            UserName: req.session.authUser.f_UserName
             // UserName: req.session.authUser.f_Name
         };
         await Promise.all([
             productModel.addAutoBid(entity),
             productModel.addBidLog(entity2)
         ])
-        //  hepler.sendmail(req.session.authUser.f_Email,`ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa chọn ra  giá tự động `,`Bạn đã ra giá max ${entity.MaxPrice} đồng cho sản phẩm ${req.session.ProName}.Hệ thống sẽ tự đấu giá tự động. Xem chi tiết tại abcxyz.com.`);
-        // hepler.sendmail(req.session.SellerEmail,`ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`,`Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity2.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
-
+        console.log("tu dong dau giaaaaa22222222 entity 2");
+        console.log(entity2);
+        hepler.sendmail(req.session.authUser.f_Email, `ONLINE AUCTION THÔNG BÁO!!!: Bạn vừa chọn ra  giá tự động `, `Bạn đã ra giá max ${entity.MaxPrice} đồng cho sản phẩm ${req.session.ProName}.Hệ thống sẽ tự đấu giá tự động. Xem chi tiết tại abcxyz.com.`);
+        hepler.sendmail(req.session.SellerEmail, `ONLINE AUCTION THÔNG BÁO!!!: Sản phẩm của bạn đã có người ra giá`, `Tài khoản ${req.session.authUser.f_UserName} đã ra giá ${entity2.Price} đồng cho sản phẩm ${req.session.ProName} của bạn. Xem chi tiết tại abcxyz.com.`);
         res.redirect(req.headers.referer);
     }
 
@@ -463,7 +492,8 @@ module.exports.vwappen = (req, res) => {
 }
 module.exports.append = async (req, res) => {
 
-    console.log(req.body);
+
+
     entity = { ProID: req.session.ProID, FullDes: `${req.session.FullDes}\n\nThời gian bổ sung:\n\n${hepler.datenow()}${req.body.FullDes}` };
     console.log(entity);
     await productModel.patch(entity);

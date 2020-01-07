@@ -33,6 +33,9 @@ module.exports = {
     loadImgs: ProID => db.load(`select * from proimage where ProID=${ProID}`),
     allLogByProID: ProID => db.load(`select * from bidding_log where ProID=${ProID}`),
     endTime: ProID => db.load(`select * from endtime where ProID=${ProID}`),
+    allEnd : () => {
+        db.load(`select ProID from endtime where (endtime<CURRENT_TIMESTAMP)`)
+    },
     allEndtime: ProID => {
         var inlist = '';
         for (var i = 0; i < ProID.length; i++) {
@@ -116,7 +119,7 @@ module.exports = {
 
     },
     addAutoBid: entity => db.add('autobid', entity),
-    loadAutobid: ProID => db.load(`select * from autobid where ProID=${ProID}`),
+    loadAutobid: ProID => db.load(`select * from autobid where ProID=${ProID} order by maxprice desc` ),
     addBannedList: entity => {
         console.log(`   ${entity}    addBannedList `);
         db.add(`bannedlist`, entity)

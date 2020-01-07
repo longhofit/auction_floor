@@ -49,7 +49,7 @@ module.exports.register = async (req, res) => {
                 entity.f_DOB = dob;
                 delete entity.raw_password;
                 delete entity.dob;
-               
+
                 console.log(entity)
 
                 const result = await userModel.add(entity);
@@ -68,36 +68,28 @@ module.exports.vwlogin = (req, res) => {
     res.render('vwAccount/login', { layout: false })
 };
 
-module.exports.login = (req, res) => {
-    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-        return res.send("Please select captcha first");
-    }
-    const secretKey = "6LcdpssUAAAAALt-am7HkpUvbcW6nJryfK5D5vlF";
+module.exports.login = async (req, res) => {
 
-    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-
-    request(verificationURL, async (error, response, body) => {
-        body = JSON.parse(body);
-
-        if (body.success !== undefined && !body.success) {
-            return res.send("Failed captcha verification");
-        }
-        req.session.flag = 2;
-        const user = await userModel.singleByUsername(req.body.username);
-        if (user === null) throw new Error('Invalid username or password.');
-        const rs = bcrypt.compareSync(req.body.password, user.f_Password);
-        if (rs === false)
-            return res.render('vwAccount/login', {
-                layout: false,
-                showError: true,
-                err_message: 'Login failed'
-            });
-        delete user.f_Password;
-        req.session.isAuthenticated = true;
-        req.session.authUser = user;
-        const url = req.query.retUrl || '/';
-        res.redirect(url);
+    req.session.flag = 2;
+    const user = await userModel.singleByUsername(req.body.username);
+    if (user === null) return res.render('vwAccount/login', {
+        layout: false,
+        showError: true,
+        err_message: 'Login failed'
     });
+    const rs = bcrypt.compareSync(req.body.password, user.f_Password);
+    if (rs === false)
+        return res.render('vwAccount/login', {
+            layout: false,
+            showError: true,
+            err_message: 'Login failed'
+        });
+    delete user.f_Password;
+    req.session.isAuthenticated = true;
+    req.session.authUser = user;
+    const url = req.query.retUrl || '/';
+    res.redirect(url);
+
 
 };
 
@@ -155,8 +147,9 @@ module.exports.sendrequest = async (req, res) => {
 module.exports.public_profile = async (req, res) => {
     const UserID = req.params.id;
     const user = await userModel.single(UserID);
+    const point = await userModel.loadPoint(UserID);
 
-    res.render('vwAccount/public_profile', { users: user[0] });
+    res.render('vwAccount/public_profile', { users: user[0], points: point[0] });
 
 }
 module.exports.vwchangepass = (req, res) => {

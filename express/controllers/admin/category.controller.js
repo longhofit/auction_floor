@@ -18,7 +18,7 @@ module.exports.vwadd = (req, res) => {
 
 module.exports.add = async (req, res) => {
     const result = await categoryModel.add(req.body);
-    res.render('vwCategories/add');
+    res.redirect(req.headers.referer);
 
 };
 

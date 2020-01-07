@@ -13,14 +13,14 @@
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="/css/responsive.css" />
-  <link rel="stylesheet" href="/css/footer.css"/>
+  <link rel="stylesheet" href="/css/footer.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" />
   <link rel="stylesheet" href="/css/style-laptop.css" type="text/css" />
   <link rel="shortcut icon" href="#">
   {{{_sections.css}}}
   {{{_sections.js}}}
 
-  <title>Aution Floor Sit</title>
+  <title>Profile</title>
 </head>
 
 <body>
@@ -40,9 +40,12 @@
         <button class="btn btn-outline-success " type="submit">Search</button>
       </form>
       <ul class="navbar-nav">
+        {{#if isSeller}}
         <li class="nav-item">
           <a class="nav-link glowing-btn" href="/products/upload">Đăng sản phẩm</a>
         </li>
+        {{/if}}
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle glowing-btn dropleft" href="#" id="navbarDropdown" role="button"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,12 +53,12 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-             <a class="dropdown-item" href="javascript: $('#frmWishlist').submit();">Sản phẩm yêu thích</a>
+            <a class="dropdown-item" href="javascript: $('#frmWishlist').submit();">Sản phẩm yêu thích</a>
             <a class="dropdown-item" href="/products/biddinglist">Sản phẩm đang đấu giá</a>
             <a class="dropdown-item" href="/products/wonlist">Sản phẩm đã thắng</a>
             <a class="dropdown-item" href="/products/sellinglist">Sản phẩm đang bán</a>
             <a class="dropdown-item" href="/products/biddedlist">Sản phẩm đã có người mua</a>
-          
+
           </div>
         </li>
 
@@ -84,7 +87,7 @@
     </div>
   </nav>
 
-  
+
 
   <div class="cata">
     <div class="d-flex justify-content-center">
@@ -96,46 +99,46 @@
           <span></span>
           <span></span>
           <span></span>
-          <i class="fa fa-camera-retro" aria-hidden="true"></i>  {{CatName}}</a>
+          <i class="fa fa-camera-retro" aria-hidden="true"></i> {{CatName}}</a>
       </div>
-       {{/each}}
+      {{/each}}
 
-    
 
-     
+
+
     </div>
   </div>
 
-<div class="container mb-5">
-  <div class="row">
-    <div class="col-12 col-md-3 border-right">
-      <div class="row">
-        <span class="m-3 ">Tài khoản của <code>{{authUser.f_Name}}</code></span>
-      </div>
-      <ul class="list-group list-group-flush mt-3">
-        <li class="list-group-item">
-          <a class="text-danger " href="/account/profile">Thông tin tài khoản</a>
-        </li>
-        <li class="list-group-item">
-          <a class="text-danger " href="/account/changepass">Đổi mật khẩu</a>
-        </li>
-        <li class="list-group-item">
-          <a class="text-dark" href="/account/feedbackpoint">Đánh giá dành cho bạn</a>
-        </li>
-    
-        <li class="list-group-item">
-          <a class="text-dark" href="/account/request">Yêu cầu trở thành seller
-          </a>
-        </li>
+  <div class="container mb-5">
+    <div class="row">
+      <div class="col-12 col-md-3 border-right">
+        <div class="row">
+          <span class="m-3 ">Tài khoản của <code>{{authUser.f_Name}}</code></span>
+        </div>
+        <ul class="list-group list-group-flush mt-3">
+          <li class="list-group-item">
+            <a class="text-danger " href="/account/profile">Thông tin tài khoản</a>
+          </li>
+          <li class="list-group-item">
+            <a class="text-danger " href="/account/changepass">Đổi mật khẩu</a>
+          </li>
+          <li class="list-group-item">
+            <a class="text-dark" href="/account/feedbackpoint">Đánh giá dành cho bạn</a>
+          </li>
 
-      </ul>
-    </div>
-    <div class="col-12 col-md-9 mt-3">
-      {{{body}}}
+          <li class="list-group-item">
+            <a class="text-dark" href="/account/request">Yêu cầu trở thành seller
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-12 col-md-9 mt-3">
+        {{{body}}}
+      </div>
     </div>
   </div>
-</div>
-    
+
 
   <!-- Footer -->
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet" />
@@ -296,7 +299,7 @@
       });
     });
   </script>
-  
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
   <script src="/js/script.js"></script>
   {{{_sections.js}}}

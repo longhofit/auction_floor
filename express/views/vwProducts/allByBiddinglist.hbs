@@ -25,7 +25,7 @@
 
             </h5>
             {{#if isOwn}}
-            <h5>dang giu gia </h5>
+            <h5>Sản phẩm bạn đang giữ giá </h5>
             {{/if}}
 
             <h5 class="card-title text-danger">{{format Price}}</h5>
@@ -39,10 +39,11 @@
               <i class="fa fa-eye" aria-hidden="true"></i>
               Details
             </a>
-            <a class="btn btn-sm btn-outline-success" href="#" role="button">
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              Add to cart
-            </a>
+            <form method="POST" action="/products/addWishListOut">
+              <input type="hidden" name="ProID" value="{{ProID}}">
+              <button type="submit" class="btn btn-primary mt-2"> <i class="fas fa-heart"></i> Add wish list</button>
+
+            </form>
           </div>
 
         </div>

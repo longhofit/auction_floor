@@ -32,68 +32,60 @@
 </script>
 {{/section}}
 
-<form method="POST" novalidate enctype="multipart/form-data">
-  <div class=" shadow">
-    <h4 class="card-header">
-      Upload
-    </h4>
-    <div class="card-body">
-      <div class="form-group">
-        <label for="CatID"> Chọn danh mục</label>
-        <select name="CatID" class="form-control form-control-sm">
-          {{#each cats}}
-          <option value="{{CatID}}">{{CatName}}</option>
-          {{/each}}
-        </select>
-      </div>
+<div class="container">
+  <form method="POST" novalidate enctype="multipart/form-data">
+    <div class=" shadow">
+      <h4 class="card-header">
+        Upload
+      </h4>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="CatID"> Chọn danh mục</label>
+          <select name="CatID" class="form-control form-control-sm">
+            {{#each cats}}
+            <option value="{{CatID}}">{{CatName}}</option>
+            {{/each}}
+          </select>
+        </div>
 
-      <div class="form-group">
-        <label for="Image">Upload ảnh</label>
-        <input id="Image" name="Image" type="file" multiple>
-      </div>
-      <div class="form-group">
-        <label for="txtProName">Tên sản phẩm</label>
-        <input class="form-control" id="ProName" name="ProName" value="2"></input>
-      </div>
-      <div class="form-group">
-        <label for="txtTinyDes">Mô tả ngắn</label>
-        <input class="form-control" id="TinyDes" name="TinyDes" value="2"></input>
-      </div>
-      <div class="form-group">
-        <label for="txtFullDes">Mô tả chi tiết</label>
-        <textarea class="form-control" id="txtFullDes" name="FullDes" value="2"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="Price">Giá khởi điểm</label>
-        <input class="form-control" id="Price" name="Price" value=2></input>
-      </div>
-      <div class="form-group">
-        <label for="Step">Bước giá</label>
-        <input class="form-control" id="Step" name="Step" value=2></input>
-      </div>
+        <div class="form-group">
+          <label for="Image">Upload ảnh</label>
+          <input id="Image" name="Image" type="file" multiple>
+        </div>
+        <div class="form-group">
+          <label for="txtProName">Tên sản phẩm</label>
+          <input class="form-control" id="ProName" name="ProName" value="2"></input>
+        </div>
+        <div class="form-group">
+          <label for="txtTinyDes">Mô tả ngắn</label>
+          <input class="form-control" id="TinyDes" name="TinyDes" value="2"></input>
+        </div>
+        <div class="form-group">
+          <label for="txtFullDes">Mô tả chi tiết</label>
+          <textarea class="form-control" id="txtFullDes" name="FullDes" value="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="Price">Giá khởi điểm</label>
+          <input class="form-control" id="Price" name="Price" value=2></input>
+        </div>
+        <div class="form-group">
+          <label for="Step">Bước giá</label>
+          <input class="form-control" id="Step" name="Step" value=2></input>
+        </div>
 
-      <div class="form-group">
-        <label for="PriceToBuy">Giá Mua Ngay</label>
-        <input class="form-control" id="PriceToBuy" name="PriceToBuy" value=2></input>
-      </div>
-      <div class="form-group">
-        <label for="isDelay"> Tự động gia hạn?</label>
-        <select name="isDelay" class="form-control form-control-sm">
-          <option value="Y">Có</option>
-          <option value="N">Không</option>
+        <div class="form-group">
+          <label for="PriceToBuy">Giá Mua Ngay</label>
+          <input class="form-control" id="PriceToBuy" name="PriceToBuy" value=2></input>
+        </div>
 
-        </select>
+
       </div>
-      <div class="form-group">
-        <label for="Quantity">Quantity</label>
-        <input class="form-control" id="Quantity" name="Quantity" value=2></input>
+      <div class="card-footer text-right">
+        <button type="submit" class="btn btn-lg btn-success btn-block">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Submit
+        </button>
       </div>
     </div>
-    <div class="card-footer text-right">
-      <button type="submit" class="btn btn-lg btn-success btn-block">
-        <i class="fa fa-check" aria-hidden="true"></i>
-        Submit
-      </button>
-    </div>
-  </div>
-</form>
+  </form>
+</div>

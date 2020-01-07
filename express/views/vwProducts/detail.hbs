@@ -3,12 +3,20 @@
 {{/section}}
 {{#section 'js'}}
 <script src="/js/slideshow.js"></script>
+<script>
+  $(function () {
+    $('.bxslider2').bxSlider({
+      mode: 'fade',
+      captions: true,
+      slideWidth: 600
+    });
+  });
+</script>
 
 {{#if endtime}}
 <script>
 
   var user = "{{products.ProName}}";
-  console.log({{ products.ProName }});
   var time = "{{endtime.endtime}}";
 
   console.log(time)
@@ -28,7 +36,7 @@
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 
-    document.getElementById("cd").innerHTML = hours + "h "
+    document.getElementById("cd").innerHTML =days+"d "+  hours + "h "
       + minutes + "m " + seconds + "s ";
 
 
@@ -45,38 +53,47 @@
   <ul class="list-inline">
     <li class="list-inline-item"><a class="text-dark" href="/">Trang chủ</a></li>
     <li class="list-inline-item"> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
-    <li class="list-inline-item"><a class="text-dark" href="#"> Nhạc cụ</a></li>
+    <li class="list-inline-item"><a class="text-dark" href="#"> Điện thoại</a></li>
     <li class="list-inline-item"> <i class="fa fa-angle-right" aria-hidden="true"></i></li>
     <li class="list-inline-item "><a class="text-danger" href="#">{{products.ProName}}</a></li>
-    <li class="list-inline-item "> {{endtime.endtime}}</li>
+
   </ul>
 </div>
 <div class="container ">
 
   <div class="row m-2  ">
     <div class="col-12 col-md-5 border-right border-bottom border-left">
+      <div class="row bxslider2">
+        {{#each proImgs}}
+        <div><img src="{{ImageLink}}" alt=""></div>
+        {{/each}}
+
+
+
+      </div>
       <div class="row">
-        <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_0.jpg" alt="">
-        <img class="slide" src="/imgs/sp/{{products.ProID}}/{{products.ProID}}_1.jpg" alt="">
-        {{!-- <img class="slide" src="/imgs/sp/1/1_2.jpg" alt="">
-        <img class="slide" src="/imgs/sp/1/1_3.jpg" alt="">
-        <img class="slide" src="/imgs/sp/1/1_4.jpg" alt=""> --}}
+        <ul>
+          <li class="list-group-item"> <span><small>Người bán:</small></span>
+            {{#if isAnony}}
+            <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
+                class=" font-weight-bold imgTit ">{{mask seller.f_Name}}</span> <br>
+            </a>
+            {{else}}
+            <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
+                class=" font-weight-bold imgTit ">{{seller.f_Name}}</span> <br>
+            </a>
+            {{/if}}
 
-
+            <span><code>{{totals2}}</code> điểm <code class="mr-2"></code>
+              <code>{{points2.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+              <code>{{points2.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </span></li>
+          <li class="list-group-item"> <span> <small>Đăng lúc: <code>{{products.CreatedDTime}}</code>
+              </small>
+              <span class="font-weight-bold"> </span> </span> <br></li>
+        </ul>
       </div>
-      <div class="row d-flex justify-content-center">
 
-
-        {{!-- <img onclick="shows(1)" class="border itemcard" src="/imgs/sp/1/sm1.jpg" alt="">
-        <img onclick="shows(2)" class="border itemcard" src="/imgs/sp/1/sm2.jpg" alt="">
-        <img onclick="shows(3)" class="border itemcard" src="/imgs/sp/1/sm3.jpg" alt="">
-        <img onclick="shows(4)" class="border itemcard" src="/imgs/sp/1/sm4.jpg" alt="">
-        <img onclick="shows(5)" class="border itemcard" src="/imgs/sp/1/sm5.jpg" alt=""> --}}
-        <button onclick="show(1)">click</button>
-        <button onclick="show(2)">click</button>
-
-
-      </div>
 
 
     </div>
@@ -90,7 +107,7 @@
           <span class="font-weight-bold ">
             {{products.ProName}} <br>
           </span>
-          <span> <small>Thương hiệu :</small> <span class="text-danger">Cherub</span> </span> <br>Yêu
+         
           {{#if isCantBid}}
           <span class="text-danger">Không thể đấu giá vì điểm đánh giá của bạn bé hơn 80% </span>
           {{/if}}
@@ -151,14 +168,9 @@
         </div>
         <div class="col-12  border-bottom  ">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Mặt
-                dưới trang bị lớp cao su chống trơn trượt</small></li>
-            <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Tích
-                hợp nút chuyển chế độ để dùng cho từng loại nhạc cụ</small></li>
-            <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Thiết
-                kế đơn giản, kích thước phù hợp với chân bạn</small></li>
-            <li class="list-group-item"><small> <i class="fa fa-check mr-2" aria-hidden="true"></i>Bền và vững chắc
-                với mặt dưới được trang bị lớp cao su có tác dụng chống trượt </small></li>
+            <li class="list-group-item"><small> <i class="fa fa-check mr-2"
+                  aria-hidden="true"></i>{{products.TinyDes}}</small></li>
+
 
 
           </ul>
@@ -179,10 +191,16 @@
               {{#if isNotEnd}}
               <label for="cusbid">Ra giá của bạn :</label> <br>
               <input style="" id="Price" name="Price" value="{{validPrice}}"> <br>
-              <button onclick="return myConfirm();" type="submit" class="btn btn-danger mt-2"> <i
-                  class="fa fa-gavel mr-2" aria-hidden="true">
+              <button onclick="return confirm('Bạn có chắc chắn ra giá không?');" type="submit"
+                class="btn btn-danger mt-2"> <i class="fa fa-gavel mr-2" aria-hidden="true">
                 </i>Đấu
                 giá</button> <br>
+
+              {{else}}
+              <span class="text-danger">Sản phẩm đã kết thúc</span>
+              {{/if}}
+
+              {{#if isNotEnd}}
               <form method="POST" action="/products/autobidding">
                 <label for="cusbid">Giá cao nhất (Tự động đấu giá)</label> <br>
                 <input style="" id="Price" name="maxprice" placeholder=""> <br>
@@ -192,12 +210,9 @@
                   giá tự động</button>
 
               </form>
-              {{else}}
-              <span class="text-danger">Sản phẩm đã kết thúc</span>
               {{/if}}
-
-
             </form>
+
 
 
             {{else}}
@@ -234,26 +249,8 @@
           <form id="dislike" method="get" action="/products/dislike"></form>
 
           <ul class="list-group list-group-flush">
-            <li class="list-group-item"> <span><small>Người bán:</small></span>
-              {{#if isAnony}}
-              <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
-                  class=" font-weight-bold imgTit ">{{mask seller.f_Name}}</span> <br>
-              </a>
-              {{else}}
-              <a class="text-dark" href="/account/public_profile/{{winner.f_ID}}"> <span
-                  class=" font-weight-bold imgTit ">{{seller.f_Name}}</span> <br>
-              </a>
-              {{/if}}
 
-              <span><code>{{totals2}}</code> điểm <code class="mr-2"></code>
-                <code>{{points2.DislikePoint}}</code> <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-                <code>{{points2.LikePoint}}</code> <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-              </span></li>
-            <li class="list-group-item"> <span> <small>Đăng lúc: <code>{{products.CreatedDTime}}</code>
-                </small>
-                <span class="font-weight-bold"> </span> </span> <br></li>
-            <li class="list-group-item"> <span> <small>Kết thúc vào: <code>{{endtime.endtime}}</code></small>
-                <span class="font-weight-bold"> </span> </span></li>
+
             {{#if isNotMyPro}}
             <li class="list-group-item">
 
@@ -339,13 +336,7 @@
             </td>
             <td>{{Price}}</td>
             <td>{{BidTime}}</td>
-            <td>
-              <form method="POST" action="/products/banbid">
-                <input type="hidden" name="UserID" value="{{UserID}}">
-                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
 
-              </form>
-            </td>
           </tr>
 
           {{/each}}
@@ -358,13 +349,7 @@
             </td>
             <td>{{Price}}</td>
             <td>{{BidTime}}</td>
-            <td>
-              <form method="POST" action="/products/banbid">
-                <input type="hidden" name="UserID" value="{{UserID}}">
-                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
 
-              </form>
-            </td>
           </tr>
 
           {{/each}}
@@ -396,13 +381,8 @@
             </td>
             <td>{{Price}}</td>
             <td>{{BidTime}}</td>
-            <td>
-              <form method="POST" action="/products/banbid">
-                <input type="hidden" name="UserID" value="{{UserID}}">
-                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
 
-              </form>
-            </td>
+
           </tr>
 
           {{/each}}
@@ -415,13 +395,7 @@
             </td>
             <td>{{Price}}</td>
             <td>{{BidTime}}</td>
-            <td>
-              <form method="POST" action="/products/banbid">
-                <input type="hidden" name="UserID" value="{{UserID}}">
-                <button type="submit" class="btn btn-danger mt-2"> Từ chối đấu giá</button>
 
-              </form>
-            </td>
           </tr>
 
           {{/each}}
@@ -433,40 +407,7 @@
       </table>
     </div>
   </div>
-  <div class="row m-2 mt-4  ">
-    <span class="text-uppercase mb-2">CHI TIẾT SẢN PHẨM
-      {{#if isAdmin}}
-      asdasd
-      {{/if}}
-    </span>
-    <div class="col-12">
-      <table class="table table-bordered text-center">
 
-
-
-        <tbody>
-          <tr>
-            <th class="color" scope="row">Thương hiệu</th>
-            <td> Cherub </td>
-
-          </tr>
-          <tr>
-            <th class="color" scope="row">Xuất xứ</th>
-            <td> Trung Quốc</td>
-          </tr>
-          <tr>
-            <th class="color" scope="row">Chất liệu</th>
-            <td> Kim loại, nhựa, cao su</td>
-
-          </tr>
-          <tr>
-            <th class="color" scope="row">SKU</th>
-            <td> WTB-005</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
   <div class="row m-2 mt-4  ">
     <span class="text-uppercase mb-2">MÔ TẢ SẢN PHẨM </span>
     <form class="ml-2" method="GET" action="/products/vwappenddes"> <button type="submit" class="btn btn-danger mt-2">
@@ -476,108 +417,7 @@
 
 
       {{{products.FullDes}}}
-      {{#each proImgs}}
-      <img src="{{ImageLink}}" alt="">
-      {{/each}}
 
-    </div>
-  </div>
-
-  <div class="ml-2 mt-1">
-    <span class="text-uppercase mb-3 ">CÁC SẢN PHẨM LIÊN QUAN </span>
-    <div class="row">
-
-      <div class="col-12">
-        <div class="responsive">
-          <div class="col-6 card card-body w-20">
-            <a class="" href="product_detail.html"
-              style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-              <img class="img-fluid" src="../image/2.jpg" alt="">
-              <span class="text-dark ">Chuột Không Dây Logitech M330</span>
-              <span class="imgTit cd text-danger"></span>
-              <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
-                  2.000.000₫</i>
-              </span>
-
-
-              <span class="text-dark"><small>Giá mua ngay: <code>{{format products.Price}}</code></small></span>
-
-
-
-            </a>
-          </div>
-          <div class="col-6 card card-body w-20">
-            <a class="" href="product_detail.html"
-              style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-              <img class="img-fluid" src="../image/1.jpg" alt="">
-              <span class="text-dark ">Chuột Không Dây Logitech M330</span>
-              <span class="imgTit cd text-danger"></span>
-              <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
-                  2.000.000₫</i>
-              </span>
-
-
-              <span class="text-dark"><small>Giá mua ngay: <code>2.000.000.000₫</code></small></span>
-
-
-
-            </a>
-          </div>
-          <div class="col-6 card card-body w-20">
-            <a class="" href="product_detail.html"
-              style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-              <img class="img-fluid" src="../image/3.jpg" alt="">
-              <span class="text-dark ">Chuột Không Dây Logitech M330</span>
-              <span class="imgTit cd text-danger"></span>
-              <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
-                  2.000.000₫</i>
-              </span>
-
-
-              <span class="text-dark"><small>Giá mua ngay: <code>2.000.000.000₫</code></small></span>
-
-
-
-            </a>
-          </div>
-          <div class="col-6 card card-body w-20">
-            <a class="" href="product_detail.html"
-              style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-              <img class="img-fluid" src="../image/4.jpg" alt="">
-              <span class="text-dark ">Chuột Không Dây Logitech M330</span>
-              <span class="imgTit cd text-danger"></span>
-              <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
-                  2.000.000₫</i>
-              </span>
-
-
-              <span class="text-dark"><small>Giá mua ngay: <code>{{cd}}</code></small></span>
-
-
-
-            </a>
-          </div>
-          <div class="col-6 card card-body w-20">
-            <a class="" href="product_detail.html"
-              style="display: flex; justify-content: center;flex-direction: column;align-items: center;">
-              <img class="img-fluid" src="../image/6.jpg" alt="">
-              <span class="text-dark ">Chuột Không Dây Logitech M330</span>
-              <span class="imgTit cd text-danger"></span>
-              <span class="text-dark imgTit"> <i class="fa fa-gavel" aria-hidden="true">
-                  2.000.000₫</i>
-              </span>
-
-
-              <span class="text-dark"><small>Giá mua ngay: <code>2.000.000.000₫</code></small></span>
-
-
-
-            </a>
-          </div>
-
-
-        </div>
-      </div>
 
     </div>
   </div>

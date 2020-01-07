@@ -21,4 +21,5 @@ router.post('/vwappenddes',controller.append);
 router.post('/banbid',controller.banbid);
 router.get('/test2',controller.test);
 router.post('/captcha',controller.capcha);
+router.post('/addWishListOut',controller.addWishListOut);
 module.exports = router;
