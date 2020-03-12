@@ -64,13 +64,9 @@ module.exports.patch = async (req, res) => {
 
 
 module.exports.del = async (req, res) => {
-
-
     const result = await categoryModel.del(req.body.CatID);
     //  console.log(result);
     // res.render('vwCategories/add');
     res.redirect('/admin/categories');
-
-
 };
 

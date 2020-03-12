@@ -218,7 +218,7 @@ module.exports.bidding = async (req, res) => {
         entity = { Price: req.body.Price, ProID: req.session.ProID, UserID: req.session.authUser.f_ID, UserName: req.session.authUser.f_UserName };
         const [point, curPrice] = await Promise.all([
             userModel.loadPoint(entity.UserID),
-            productModel.single(entity.ProID)
+            productModel.single(entity.ProID) 
 
         ])
         req.session.isCantBid = false;
@@ -508,12 +508,11 @@ module.exports.banbid = async (req, res) => {
     }
     console.log(entity);
     console.log(`winer: ${req.session.winnerid}`);
-    const [rs1, rs2] = await Promise.all([
-        productModel.addBannedList(entity),
+    const [rs1, rs2] = await Promise.all([        productModel.addBannedList(entity),
         userModel.single(entity.UserID)
     ]);
 
-    // hepler.sendmail(rs2[0].f_Email,`ONLINE AUCTION  THÔNG BÁO!!:Bạn vừa bị kick ra khỏi sản phẩm`,`Bạn vừa bị người bán từ chối ra giá sản phẩm ${req.session.ProName}, chi tiết xem tại abcxyz.com`);
+     hepler.sendmail(rs2[0].f_Email,`ONLINE AUCTION  THÔNG BÁO!!:Bạn vừa bị kick ra khỏi sản phẩm`,`Bạn vừa bị người bán từ chối ra giá sản phẩm ${req.session.ProName}, chi tiết xem tại abcxyz.com`);
 
     // if (req.session.winnerid == entity.UserID) {
 

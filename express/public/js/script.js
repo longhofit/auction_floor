@@ -10,6 +10,7 @@
 
 $(".card").tilt({
   maxTilt: 10,
+  perspective: 1000,
   glare: true
 });
 

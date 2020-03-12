@@ -6,7 +6,7 @@ module.exports.showhome = async (req, res) => {
         productsModel.topPrice(5),
         productsModel.topEndtime(5)
     ])
-   
+
     res.render('home',
         {
             topbidding: topbidding,

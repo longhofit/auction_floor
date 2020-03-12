@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('View error on console.@');
 });
 
-const PORT = 3000;
+const PORT = 5000;
 app.listen(PORT , () => {
   console.log(`Server running at http://localhost:${PORT}`);
 })
